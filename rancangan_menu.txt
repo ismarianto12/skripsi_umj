@@ -1,0 +1,5 @@
+rancangan menu aplikasi 
+  
+ tatausaha_menyusun jadwal -> kemudian set data siswa 
+
+ guru -> mendapatkan jadwal -> kemdudian akses jadwal-> muncul data pertemuan sekolah di aplikasi -> munculkan qr code abasensis sekolah 

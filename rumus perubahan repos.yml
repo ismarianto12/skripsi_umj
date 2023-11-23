@@ -1,0 +1,22 @@
+1. Penambahan variabel di penarikan report
+  - region
+  - revenue category
+  - average revenue
+  - total harga sewa baru
+  - keterangan harga patokan
+2. Perhitungan angka saving cost dan efficiency
+
+   - Cost saving  = harga patokan - harga sewa baru
+      % cost saving = cost saving / harga patokan x 100%
+   -  efficiency  = penawaran pertama - harga sewa baru
+   -  %efficiency = efficiency/penawaran pertama x 100%
+
+3. Field status di bagian report saving cost dihilangkan
+4. Untuk angka saving dan efficieny cost yang diambil hanya status Closed BAK,PAID,PKS
+
+
+noted  : quartal sama dengna triwulan 
+noted : rata untuk percentage const saving 
+
+masing persantge sudah didapatkan dibagi 
+# penjumlahan dari semua hasil dari persentase / jumlah bannyak data pernstase 
