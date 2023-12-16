@@ -19,12 +19,14 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::get('profile', [UserController::class, 'profile']);
     });
     Route::prefix('master')->name('master.')->group(function () {
-        Route::resource('surat', SuratController::class);
-        Route::resource('tmsurat_master', Tmsurat_masterController::class);
-        Route::resource('tmpsurat', TmpSuratController::class);
-        Route::resource('jenis_surat', JenisSuratController::class);
-        Route::resource('export_import_data', ExportImportController::class);
-        Route::resource('repairdata', RepairDataController::class);
+        Route::resource('guru', SuratController::class);
+        Route::resource('siswa', SiswaController::class);
+        // Route::resource('tmsurat_master', Tmsurat_masterController::class);
+        // Route::resource('tmpsurat', TmpSuratController::class);
+        // Route::resource('jenis_surat', JenisSuratController::class);
+        // Route::resource('export_import_data', ExportImportController::class);
+        // Route::resource('repairdata', RepairDataController::class);
+
         Route::get('log', [SuratController::class, 'log'])->name('log');
 
         Route::get('surat_notif/{jenis}', [Tmsurat_masterController::class, 'surat_notif'])->name('surat_notif');

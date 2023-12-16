@@ -46,16 +46,15 @@
             @csrf
             <div class="container container-login container-transparent animated fadeIn" style="margin-top:-210px">
 
-                <cetnter>
+                <div style="text-align:center">
                     <br /> <br /><br />
-
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj-ZpScg-HCtZYyF-bTMmFhlRVR0yhRR_JnEa3l54TsIhhOD-19xiyom5OVPWtMw4fukU&usqp=CAU"
-                        class="img-responsive" style="width:50%" />
+                    <img src="http://localhost/skripsi_fatim/public/assets/img/logo_telkom.png"
+                        class="img-responsive" style="width:30%" />
 
                     <h4 className="text-center" style="text-align: center;">
                         SISTEM INFORMASI PRESENSI MATA PELAJARAN
                     </h4>
-                </cetnter>
+                </div>
 
                 <form method="POST" action="{{ route('login') }}" id="loginacti" class="form-hocrizontal">
 
