@@ -46,7 +46,6 @@
                 DI KELAS VIII SMP
                 MUHAMMADIYAH
                 17 CIPUTAT
-
             </h4>
             <div class="col-md-12 row">
                 <div class="col-md-6">

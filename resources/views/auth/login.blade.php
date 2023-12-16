@@ -48,11 +48,11 @@
 
                 <div style="text-align:center">
                     <br /> <br /><br />
-                    <img src="http://localhost/skripsi_fatim/public/assets/img/logo_telkom.png"
+                    <img src="/public/assets/img/logo_telkom.png"
                         class="img-responsive" style="width:30%" />
 
                     <h4 className="text-center" style="text-align: center;">
-                        SISTEM INFORMASI PRESENSI MATA PELAJARAN
+                        SISTEM INFORMASI SMP MUHAMMADIYAH 17 CIPUTAT
                     </h4>
                 </div>
 
