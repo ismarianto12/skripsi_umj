@@ -45,7 +45,7 @@
         <div class="login-aside w-50 d-flex align-items-center justify-content-center bg-white">
             @csrf
             <div class="container container-login container-transparent animated fadeIn" style="margin-top:-210px">
-
+                <br /> <br /><br />
                 <div style="text-align:center">
                     <br /> <br /><br />
                     <img src="/public/assets/img/logo_telkom.png"
@@ -56,6 +56,7 @@
                     </h4>
                 </div>
 
+                <br /> <br /><br />
                 <form method="POST" action="{{ route('login') }}" id="loginacti" class="form-hocrizontal">
 
                     <div class="login-form">
