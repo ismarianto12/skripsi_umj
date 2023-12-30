@@ -48,7 +48,7 @@
                 <br /> <br /><br />
                 <div style="text-align:center">
                     <br /> <br /><br />
-                    <img src="/public/assets/img/logo_telkom.png"
+                    <img src="assets/img/logo_telkom.png"
                         class="img-responsive" style="width:30%" />
 
                     <h4 className="text-center" style="text-align: center;">
@@ -56,7 +56,7 @@
                     </h4>
                 </div>
 
-                <br /> <br /><br />
+                <br /> <br /><br />`
                 <form method="POST" action="{{ route('login') }}" id="loginacti" class="form-hocrizontal">
 
                     <div class="login-form">

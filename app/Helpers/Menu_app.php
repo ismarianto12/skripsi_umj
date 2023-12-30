@@ -84,10 +84,10 @@ class Menu_app
                     </a>
                     <div class="collapse" id="retribusi">
                         <ul class="nav nav-collapse">';
-                    $menu .= self::set_menu('esptpd', 'Guru');
-                    $menu .= self::set_menu('esptpd', 'Siswa');
-                    $menu .= self::set_menu('esptpd', 'Pegawai');
-                    $menu .= self::set_menu('esptpd', 'Mata Pelajaran');
+                    $menu .= self::set_menu(Url('master/guru'), 'Guru');
+                    $menu .= self::set_menu(Url('master/siswa'), 'Siswa');
+                    $menu .= self::set_menu(Url('master/pegawai'), 'Pegawai');
+                    $menu .= self::set_menu(Url('master/mapel'), 'Mata Pelajaran');
                     $menu .= '
                       </ul>
                     </div>
@@ -102,7 +102,7 @@ class Menu_app
                         <ul class="nav nav-collapse">';
                     $menu .= self::set_menu('rekap_presensi', 'Rekap Presensi');
                     $menu .= self::set_menu('siswa', 'Siswa');
-                    $menu .= self::set_menu('pegawait', 'Pegawai');
+                    $menu .= self::set_menu('pegawai', 'Pegawai');
                     $menu .= self::set_menu('mapel', 'Mata Pelajaran');
                     $menu .= '
                       </ul>
