@@ -33,9 +33,7 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         // Route::resource('jenis_surat', JenisGuruController::class);
         // Route::resource('export_import_data', ExportImportController::class);
         // Route::resource('repairdata', RepairDataController::class);
-
-        Route::get('log', [GuruController::class, 'log'])->name('log');
-
+        Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporanPresensi'])->name('laporan_presensi');
         Route::get('surat_notif/{jenis}', [Tmsurat_masterController::class, 'surat_notif'])->name('surat_notif');
         Route::get('report_surat', [GuruController::class, 'report_surat'])->name('report_surat');
         Route::get('download', [Tmsurat_masterController::class, 'download'])->name('download');

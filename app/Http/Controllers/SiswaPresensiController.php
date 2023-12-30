@@ -130,6 +130,14 @@ class SiswaPresensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function laporanPresensi()
+    {
+
+        $title = 'Laporan Presensi Siswa';
+        return view($this->view . 'laporan_persensi', compact('title'));
+
+    }
+
     public function show($id)
     {
         //
