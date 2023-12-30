@@ -1,15 +1,14 @@
 <?php
 
-use App\Http\Controllers\ExportImportController;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisGuruController;
-use App\Http\Controllers\RepairDataController;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TmpGuruController;
-use App\Http\Controllers\Tmsurat_masterController;
+use App\Http\Controllers\SiswaPresensiController;
+
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +25,8 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('siswa', SiswaController::class);
         Route::resource('pegawai', PegawaiController::class);
         Route::resource('mapel', MapelController::class);
+
+        Route::resource('rekap_presensi', SiswaPresensiController::class);
 
         // Route::resource('tmsurat_master', Tmsurat_masterController::class);
         // Route::resource('tmpsurat', TmpGuruController::class);
@@ -54,7 +55,9 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::get('tmsurat_master', [Tmsurat_masterController::class, 'api'])->name('tmsurat_master');
         Route::get('tmpsurat', [TmpGuruController::class, 'api'])->name('tmpsurat');
         Route::get('log', [GuruController::class, 'log'])->name('log');
-
+        Route::post('mapel', [MapelController::class, 'api'])->name('mapel');
+        Route::post('siswa', [SiswaController::class, 'api'])->name('siswa');
+        Route::post('guru', [GuruController::class, 'api'])->name('guru');
         Route::get('laporan_surat', [GuruController::class, 'laporan_surat'])->name('laporan_surat');
         Route::post('table_data', [HomeController::class, 'table_data'])->name('table_data');
     });

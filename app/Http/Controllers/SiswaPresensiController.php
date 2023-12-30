@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pegawai;
+use App\Models\Guru;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class MapelController extends Controller
+class SiswaPresensiController extends Controller
 {
     protected $request;
     protected $route;
@@ -16,21 +16,15 @@ class MapelController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->view = '.mapel.';
-        $this->route = 'master.mapel.';
+        $this->view = '.siswa.';
+        $this->route = 'master.siswa.';
     }
 
     public function index()
     {
-        $title = 'Master Data Pelajaran';
+        $title = 'Master Data Siswa';
         return view($this->view . 'index', compact('title'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         if (!$this->request->ajax()) {
@@ -49,11 +43,47 @@ class MapelController extends Controller
 
     public function api()
     {
-        $data = DB::table('mapel')
-            ->select('mapel.id', 'mapel.unit_id', 'mapel.kelas_id', 'mapel.kode', 'users.name', 'mapel.nama_mapel', 'mapel.created_at', 'mapel.updated_at', 'mapel.user_id')
-            ->join('divisi', 'mapel.unit_id', '=', 'divisi.id', 'left')
-            ->join('kelas', 'mapel.kelas_id', '=', 'kelas.id', 'left')
-            ->join('users', 'mapel.user_id', '=', 'users.id', 'left')
+        $data = DB::table('siswa')
+            ->select(
+                'siswa.id',
+                'siswa.point',
+                'siswa.nik',
+                'siswa.nis',
+                'siswa.nama',
+                'siswa.email',
+                'siswa.no_hp',
+                'siswa.password',
+                'siswa.jk',
+                'siswa.ttl',
+                'siswa.prov',
+                'siswa.kab',
+                'siswa.alamat',
+                'siswa.nama_ayah',
+                'siswa.nama_ibu',
+                'siswa.pek_ayah',
+                'siswa.pek_ibu',
+                'siswa.nama_wali',
+                'siswa.pek_wali',
+                'siswa.peng_ortu',
+                'siswa.no_telp',
+                'siswa.thn_msk',
+                'siswa.sekolah_asal',
+                'siswa.kelas',
+                'siswa.img_siswa',
+                'siswa.img_kk',
+                'siswa.img_ijazah',
+                'siswa.img_ktp',
+                'siswa.id_pend',
+                'siswa.id_majors',
+                'siswa.id_kelas',
+                'siswa.status',
+                'siswa.date_created',
+                'siswa.role_id',
+                'siswa.kelas_id',
+                'siswa.tingkat_id',
+                'siswa.ppdb_id',
+
+            )
             ->get();
 
         return DataTables::of($data)
@@ -66,18 +96,18 @@ class MapelController extends Controller
             }, true)
 
             ->addIndexColumn()
-            ->rawColumns(['usercreate', 'action', 'id'])
+            ->rawColumns(['action', 'id'])
             ->toJson();
     }
 
     public function store()
     {
         $this->request->validate([
-            'kode_rap' => 'unique:Pegawai,kode_rap|required',
-            'nama_rap' => 'unique:Pegawai,nama_rap|required',
+            'kode_rap' => 'unique:Guru,kode_rap|required',
+            'nama_rap' => 'unique:Guru,nama_rap|required',
         ]);
         try {
-            $data = new Pegawai();
+            $data = new Guru();
             $data->kode_rap = $this->request->kode_rap;
             $data->nama_rap = $this->request->nama_rap;
             $data->user_id = Auth::user()->id;
@@ -86,7 +116,7 @@ class MapelController extends Controller
                 'status' => 1,
                 'msg' => 'data jenis Rap berhasil ditambah',
             ]);
-        } catch (\Pegawai $t) {
+        } catch (\Guru $t) {
             return response()->json([
                 'status' => 2,
                 'msg' => $t,
@@ -120,7 +150,7 @@ class MapelController extends Controller
                 'aspx' => 'response aspx fail ',
             ]);
         }
-        $data = Pegawai::findOrfail($id);
+        $data = Guru::findOrfail($id);
         return view($this->view . 'form_edit', [
             'kode_rap' => $data->kode_rap,
             'nama_rap' => $data->nama_rap,
@@ -142,14 +172,14 @@ class MapelController extends Controller
             'nama_rap' => 'required',
         ]);
         try {
-            $data = new Pegawai();
+            $data = new Guru();
             $data->find($id)->update($this->request->all());
 
             return response()->json([
                 'status' => 1,
                 'msg' => 'data jenis Rap berhasil ditambah',
             ]);
-        } catch (\Pegawai $t) {
+        } catch (\Guru $t) {
             return response()->json([
                 'status' => 2,
                 'msg' => $t,
@@ -167,16 +197,16 @@ class MapelController extends Controller
     {
         try {
             if (is_array($this->request->id)) {
-                Pegawai::whereIn('id', $this->request->id)->delete();
+                Guru::whereIn('id', $this->request->id)->delete();
             } else {
-                Pegawai::whereid($this->request->id)->delete();
+                Guru::whereid($this->request->id)->delete();
             }
 
             return response()->json([
                 'status' => 1,
                 'msg' => 'Data berhasil di hapus',
             ]);
-        } catch (Pegawai $t) {
+        } catch (Guru $t) {
             return response()->json([
                 'status' => 2,
                 'msg' => $t,

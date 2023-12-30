@@ -78,7 +78,7 @@ class Menu_app
                 case 1:
                     $menu .= '<li class="nav-item">
                     <a data-toggle="collapse" href="#retribusi">
-                        <i class="fa fa-cubes"></i>
+                        <i class="fa fa-users"></i>
                         <p>Master Data </p>
                         <span class="caret"></span>
                     </a>
@@ -101,9 +101,9 @@ class Menu_app
                     <div class="collapse" id="presensi">
                         <ul class="nav nav-collapse">';
                     $menu .= self::set_menu('rekap_presensi', 'Rekap Presensi');
-                    $menu .= self::set_menu('siswa', 'Siswa');
-                    $menu .= self::set_menu('pegawai', 'Pegawai');
-                    $menu .= self::set_menu('mapel', 'Mata Pelajaran');
+                    // $menu .= self::set_menu('siswa', 'Siswa');
+                    // $menu .= self::set_menu('pegawai', 'Pegawai');
+                    // $menu .= self::set_menu('mapel', 'Mata Pelajaran');
                     $menu .= '
                       </ul>
                     </div>

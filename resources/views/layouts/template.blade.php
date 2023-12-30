@@ -83,7 +83,9 @@
                     </span>
                 </button>
                 <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
-                <div class="nav-toggle">
+                <div class="nav-toggle" style="
+                margin-top: 20px;
+            ">
                     <button class="btn btn-toggle toggle-sidebar">
                         <i class="icon-menu"></i>
                     </button>
@@ -128,8 +130,9 @@
                                 <span style="font-weight: bold;">
                                     <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive"
                                         style="width: 70%" />
-
-                                    {{ Auth::user()->name }}
+                                    <center>
+                                       Akses: {{ Auth::user()->name }}
+                                    </center>
                                     <span class="user-level">{{ Auth::user()->level }}</span>
                                     <span class="caret"></span>
                                 </span>
@@ -175,20 +178,7 @@
         <!-- End Sidebar -->
         <div class="main-panel" id="pjax-container">
             <div class="container" style="background:#ddd">
-                <div class="header__" style="margin-top:1px">
-                    <div class="row">
-                        <div class="col-md-12">
 
-                            <div class="alert alert-info">
-                                <h4>
-                                    SISTEM INFORMASI PRESENSI
-                                </h4>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
                 <div class="clearfix"></div>
                 @yield('content')
 

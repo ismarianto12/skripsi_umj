@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Pegawai;
 use DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PegawaiController extends Controller
 {
     protected $request;
     protected $route;
     protected $view;
-    function __construct(Request $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->view    = '.pegawai.';
-        $this->route   = 'master.pegawai.';
+        $this->view = '.pegawai.';
+        $this->route = 'master.pegawai.';
     }
-
 
     public function index()
     {
@@ -55,7 +54,7 @@ class PegawaiController extends Controller
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
             })
             ->editColumn('action', function ($p) {
-                return  '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
 
             }, true)
             ->editColumn('nama', function ($p) {
@@ -73,26 +72,70 @@ class PegawaiController extends Controller
      */
     public function store()
     {
-        $this->request->validate([
-            'kode_rap' => 'unique:Pegawai,kode_rap|required',
-            'nama_rap' => 'unique:Pegawai,nama_rap|required'
-        ]);
         try {
-            $data = new Pegawai();
-            $data->kode_rap = $this->request->kode_rap;
-            $data->nama_rap = $this->request->nama_rap;
-            $data->user_id = Auth::user()->id;
-            $data->save();
-            return response()->json([
-                'status' => 1,
-                'msg' => 'data jenis Rap berhasil ditambah'
+            $request->validate([
+                'id_fingerprint' => 'required|string|max:250',
+                'nik' => 'required|integer',
+                'nama' => 'nullable|string|max:255',
+                'jk' => 'required|in:L,P',
+                'ttl' => 'required|date',
+                'email' => 'nullable|email|max:255',
+                'password' => 'nullable|string|max:255',
+                'alamat' => 'required|string|max:255',
+                'telp' => 'required|string|max:13',
+                'id_divisi' => 'required|integer',
+                'dept' => 'required|string|max:250',
+                'intensif' => 'required|integer',
+                'jam_mengajar' => 'required|integer',
+                'nominal_jam' => 'required|integer',
+                'bpjs' => 'required|integer',
+                'koperasi' => 'required|integer',
+                'simpanan' => 'required|integer',
+                'tabungan' => 'required|integer',
+                'id_pend' => 'required|integer',
+                'kode_reff' => 'nullable|string|max:255',
+                'jumlah_reff' => 'required|integer',
+                'role_id' => 'nullable|integer',
+                'status' => 'nullable|integer',
+                'date_created' => 'nullable|date',
+                'updated_at' => 'nullable|date',
+                'created_at' => 'nullable|date',
+                'user_id' => 'nullable|date',
             ]);
-        } catch (\Pegawai $t) {
-            return response()->json([
-                'status' => 2,
-                'msg' =>  $t,
-            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()], 422);
         }
+        DB::table('karyawan')->insert([
+            'id_fingerprint' => $request->input('id_fingerprint'),
+            'nik' => $request->input('nik'),
+            'nama' => $request->input('nama'),
+            'jk' => $request->input('jk'),
+            'ttl' => $request->input('ttl'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'alamat' => $request->input('alamat'),
+            'telp' => $request->input('telp'),
+            'id_divisi' => $request->input('id_divisi'),
+            'dept' => $request->input('dept'),
+            'intensif' => $request->input('intensif'),
+            'jam_mengajar' => $request->input('jam_mengajar'),
+            'nominal_jam' => $request->input('nominal_jam'),
+            'bpjs' => $request->input('bpjs'),
+            'koperasi' => $request->input('koperasi'),
+            'simpanan' => $request->input('simpanan'),
+            'tabungan' => $request->input('tabungan'),
+            'id_pend' => $request->input('id_pend'),
+            'kode_reff' => $request->input('kode_reff'),
+            'jumlah_reff' => $request->input('jumlah_reff'),
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
+            'date_created' => $request->input('date_created'),
+            'updated_at' => $request->input('updated_at'),
+            'created_at' => $request->input('created_at'),
+            'user_id' => $request->input('user_id'),
+        ]);
+        return response()->json(['message' => 'Record inserted successfully'], 200);
+
     }
 
     /**
@@ -113,19 +156,19 @@ class PegawaiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-{
+    {
 
-if (!$this->request->ajax()) {
- return response()->json([
-     'data'=>'data null',
-     'aspx'=>'response aspx fail '
- ]);
-}
+        if (!$this->request->ajax()) {
+            return response()->json([
+                'data' => 'data null',
+                'aspx' => 'response aspx fail ',
+            ]);
+        }
         $data = Pegawai::findOrfail($id);
         return view($this->view . 'form_edit', [
             'kode_rap' => $data->kode_rap,
             'nama_rap' => $data->nama_rap,
-            'id' => $data->id
+            'id' => $data->id,
         ]);
     }
 
@@ -138,9 +181,9 @@ if (!$this->request->ajax()) {
      */
     public function update($id)
     {
-        $data =  $this->request->validate([
+        $data = $this->request->validate([
             'kode_rap' => 'required',
-            'nama_rap' => 'required'
+            'nama_rap' => 'required',
         ]);
         try {
             $data = new Pegawai();
@@ -148,12 +191,12 @@ if (!$this->request->ajax()) {
 
             return response()->json([
                 'status' => 1,
-                'msg' => 'data jenis Rap berhasil ditambah'
+                'msg' => 'data jenis Rap berhasil ditambah',
             ]);
         } catch (\Pegawai $t) {
             return response()->json([
                 'status' => 2,
-                'msg' =>  $t,
+                'msg' => $t,
             ]);
         }
     }
@@ -167,18 +210,20 @@ if (!$this->request->ajax()) {
     public function destroy($id)
     {
         try {
-            if (is_array($this->request->id))
+            if (is_array($this->request->id)) {
                 Pegawai::whereIn('id', $this->request->id)->delete();
-            else
+            } else {
                 Pegawai::whereid($this->request->id)->delete();
+            }
+
             return response()->json([
                 'status' => 1,
-                'msg' => 'Data berhasil di hapus'
+                'msg' => 'Data berhasil di hapus',
             ]);
         } catch (Pegawai $t) {
             return response()->json([
                 'status' => 2,
-                'msg' => $t
+                'msg' => $t,
             ]);
         }
     }

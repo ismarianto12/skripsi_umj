@@ -6,7 +6,6 @@
     td {
         font-size: 10px;
     }
-
 </style>
 
 
@@ -53,18 +52,23 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Kode</th>
+                                <th>Nik</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Divisi</th>
                                 <th>Nama</th>
-                                <th>Created By</th>
+                                <th>Jam Mengajar</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Kode</th>
+                                <th>Nik</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Divisi</th>
                                 <th>Nama</th>
-                                <th>Created By</th>
+                                <th>Jam Mengajar</th>
+
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </tfoot>
@@ -86,7 +90,7 @@
             order: [1, 'asc'],
             pageLength: 10,
             ajax: {
-                url: "{{ Url('api.guru') }}",
+                url: "{{ route('api.guru') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
             },
@@ -99,16 +103,42 @@
                     className: 'text-center'
                 },
                 {
-                    data: 'kode_rap',
-                    name: 'kode_rap'
+                    data: 'nik',
+                    name: 'nik'
                 },
                 {
-                    data: 'nama_rap',
-                    name: 'nama_rap'
+                    data: 'jk',
+                    name: 'jk',
+                    render: function(data, type, row) {
+                        // Assuming 'data' is the value in the 'jk' column
+                        if (data === 'L') {
+                            return 'Laki-Laki';
+                        } else if (data === 'P') {
+                            return 'Perempuan';
+                        } else {
+                            return 'Unknown';
+                        }
+                    }
                 },
                 {
-                    data: 'user.name',
-                    name: 'user.name'
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'namadivisi',
+                    name: 'namadivisi',
+                    render: function(data, type, row) {
+                        if (!data) {
+                            return 'Kosong';
+                          } else {
+                            return data;
+                        }
+                    }
+                },
+
+                {
+                    data: 'jam_mengajar',
+                    name: 'jam_mengajar'
                 },
                 {
                     data: 'action',
@@ -126,7 +156,7 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ Url('master.tmjenisrap.destroy', ':id') }}", {
+                $.post("{{ route('master.guru.destroy', ':id') }}", {
                     '_method': 'DELETE',
                     'id': c
                 }, function(data) {
@@ -168,7 +198,7 @@
         $(function() {
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
-                addUrl = '{{ Url('master.tmjenisrap.create') }}';
+                addUrl = '{{ route('master.guru.create') }}';
                 $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addUrl);
             });
 
@@ -177,11 +207,10 @@
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addUrl = '{{ Url('master.tmjenisrap.edit', ':id') }}'.replace(':id', id);
+                addUrl = '{{ route('master.guru.edit', ':id') }}'.replace(':id', id);
                 $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addUrl);
 
             })
         });
-
     </script>
 @endsection

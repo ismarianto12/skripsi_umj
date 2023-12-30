@@ -6,6 +6,7 @@
     td {
         font-size: 10px;
     }
+
 </style>
 
 
@@ -52,26 +53,20 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>NIK</th>
-                                <th>NIS</th>
+                                <th>Kode</th>
                                 <th>Nama</th>
-                                <th>TTL</th>
-                                <th>KELAS</th>
-                                <th>JK</th>
-                                <th>Nama Ayah /Wali</th>
+                                <th>Kelas</th>
+                                <th>Created By</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>NIK</th>
-                                <th>NIS</th>
+                                <th>Kode</th>
                                 <th>Nama</th>
-                                <th>TTL</th>
-                                <th>KELAS</th>
-                                <th>JK</th>
-                                <th>Nama Ayah /Wali</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </tfoot>
@@ -93,7 +88,7 @@
             order: [1, 'asc'],
             pageLength: 10,
             ajax: {
-                url: "{{ route('api.siswa') }}",
+                url: "{{ route('api.mapel') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
             },
@@ -106,43 +101,20 @@
                     className: 'text-center'
                 },
                 {
-                    data: 'nik',
-                    name: 'nik'
+                    data: 'kode',
+                    name: 'kode'
                 },
                 {
-                    data: 'nis',
-                    name: 'nis'
+                    data: 'nama_mapel',
+                    name: 'nama_mapel'
                 },
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'ttl',
-                    name: 'ttl'
-                },
-                {
-                    data: 'kelas',
-                    name: 'kelas'
-                },
-
-                {
-                    data: 'nama_ayah',
-                    name: 'nama_ayah'
-                },
-                {
-                    data: 'jk',
-                    name: 'jk',
-                    render: function(data, type, row) {
-                        // Assuming 'data' is the value in the 'jk' column
-                        if (data === 'L') {
-                            return 'Laki-Laki';
-                        } else if (data === 'P') {
-                            return 'Perempuan';
-                        } else {
-                            return 'Unknown';
-                        }
-                    }
+                    data: 'kelas_id',
+                    name: 'kelas_id'
                 },
                 {
                     data: 'action',
@@ -160,7 +132,7 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ route('master.siswa.destroy', ':id') }}", {
+                $.post("{{ route('master.mapel.destroy', ':id') }}", {
                     '_method': 'DELETE',
                     'id': c
                 }, function(data) {
@@ -202,8 +174,8 @@
         $(function() {
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
-                addroute = '{{ route('master.siswa.create') }}';
-                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addroute);
+                addUrl = '{{ route('master.mapel.create') }}';
+                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addUrl);
             });
 
             // edit
@@ -211,10 +183,11 @@
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addroute = '{{ route('master.siswa.edit', ':id') }}'.replace(':id', id);
-                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addroute);
+                addUrl = '{{ route('master.mapel.edit', ':id') }}'.replace(':id', id);
+                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addUrl);
 
             })
         });
+
     </script>
 @endsection
