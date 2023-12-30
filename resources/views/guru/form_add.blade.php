@@ -13,21 +13,21 @@
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">nik</label>
+            <label class="col-md-4">Nik</label>
             <div class="col-md-4">
                 <input type="number" class="form-control" id="nik" name="nik">
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">nama</label>
+            <label class="col-md-4">Nama</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="nama" name="nama">
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">jk</label>
+            <label class="col-md-4">Jenis Kelamin</label>
             <div class="col-md-4">
                 <select class="form-control" id="jk" name="jk">
                     <option value="L">Laki-laki</option>
@@ -37,42 +37,42 @@
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">ttl</label>
+            <label class="col-md-4">Tempat Tanggal Lahir</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">email</label>
+            <label class="col-md-4">Email</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">password</label>
+            <label class="col-md-4">Password</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">alamat</label>
+            <label class="col-md-4">Alamat Lengkap</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">telp</label>
+            <label class="col-md-4">Telp</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" name="" />
+                <input type="number" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">id_divisi</label>
+            <label class="col-md-4">Divisi</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
@@ -86,54 +86,42 @@
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">intensif</label>
+            <label class="col-md-4">Intensif</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">jam_mengajar</label>
+            <label class="col-md-4">Jam mengajar</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="jam_mengajar" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">nominal_jam</label>
+            <label class="col-md-4">Nominal jam</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="nominal_jam" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">bpjs</label>
+            <label class="col-md-4">Bpjs</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="" />
             </div>
 
         </div>
         <div class="form-group row">
-            <label class="col-md-4">koperasi</label>
+            <label class="col-md-4">Koperasi</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" name="koperasi" />
             </div>
 
         </div>
-        <div class="form-group row">
-            <label class="col-md-4">simpanan</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="simpanan" />
-            </div>
 
-        </div>
-        <div class="form-group row">
-            <label class="col-md-4">tabungan</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="tabungan" />
-            </div>
 
-        </div>
         <div class="form-group row">
             <label class="col-md-4">id_pend</label>
             <div class="col-md-4">
