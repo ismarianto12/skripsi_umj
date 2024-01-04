@@ -15,17 +15,40 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
+                <div class="d-flex align-items-left">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label for="fromDate" class="form-label">From Date:</label>
+                                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label for="toDate" class="form-label">To Date:</label>
+                                    <input type="date" class="form-control" id="toDate" name="toDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-sm">Cari Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="d-flex align-items-right">
                     <button class="btn btn-primary btn-round ml-auto btn-sm" id="add_data">
                         <i class="fa fa-plus"></i>
                         Add Row
                     </button>
-                    <button class="btn btn-danger btn-round btn-sm" id="add_data" onclick="javascript:confirm_del()">
+                    <button class="btn btn-danger btn-round btn-sm" id="delete_data" onclick="javascript:confirm_del()">
                         <i class="fa fa-minus"></i>
                         Delete selected
                     </button>
                 </div>
             </div>
+
             <div class="card-body">
                 <!-- Modal -->
                 <div class="modal fade" id="formmodal" role="dialog" aria-hidden="true">
@@ -52,23 +75,26 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Nik</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Divisi</th>
+                                <th>NIK</th>
+                                <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Jam Mengajar</th>
+                                <th>TTL</th>
+                                <th>KELAS</th>
+                                <th>JK</th>
+                                <th>Nama Ayah /Wali</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Nik</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Divisi</th>
+                                <th>NIK</th>
+                                <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Jam Mengajar</th>
-
+                                <th>TTL</th>
+                                <th>KELAS</th>
+                                <th>JK</th>
+                                <th>Nama Ayah /Wali</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </tfoot>
@@ -90,7 +116,7 @@
             order: [1, 'asc'],
             pageLength: 10,
             ajax: {
-                url: "{{ route('api.guru') }}",
+                url: "{{ route('api.siswa') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
             },
@@ -107,9 +133,31 @@
                     name: 'nik'
                 },
                 {
+                    data: 'nis',
+                    name: 'nis'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'ttl',
+                    name: 'ttl'
+                },
+                {
+                    data: 'kelas',
+                    name: 'kelas'
+                },
+
+                {
+                    data: 'nama_ayah',
+                    name: 'nama_ayah'
+                },
+                {
                     data: 'jk',
                     name: 'jk',
                     render: function(data, type, row) {
+                        // Assuming 'data' is the value in the 'jk' column
                         if (data === 'L') {
                             return 'Laki-Laki';
                         } else if (data === 'P') {
@@ -118,26 +166,6 @@
                             return 'Unknown';
                         }
                     }
-                },
-                {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'namadivisi',
-                    name: 'namadivisi',
-                    render: function(data, type, row) {
-                        if (!data) {
-                            return 'Kosong';
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-
-                {
-                    data: 'jam_mengajar',
-                    name: 'jam_mengajar'
                 },
                 {
                     data: 'action',
@@ -155,7 +183,7 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ route('master.guru.destroy', ':id') }}", {
+                $.post("{{ route('master.siswa.destroy', ':id') }}", {
                     '_method': 'DELETE',
                     'id': c
                 }, function(data) {
@@ -195,12 +223,10 @@
 
         // addd
         $(function() {
-            // call another function
-
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
-                addUrl = '{{ route('master.guru.create') }}';
-                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addUrl);
+                addroute = '{{ route('master.siswa.create') }}';
+                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addroute);
             });
 
             // edit
@@ -208,8 +234,8 @@
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addUrl = '{{ route('master.guru.edit', ':id') }}'.replace(':id', id);
-                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addUrl);
+                addroute = '{{ route('master.siswa.edit', ':id') }}'.replace(':id', id);
+                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addroute);
 
             })
         });

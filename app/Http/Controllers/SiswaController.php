@@ -257,4 +257,5 @@ class SiswaController extends Controller
         $siswa->delete();
         return response()->json(null, 204);
     }
+
 }

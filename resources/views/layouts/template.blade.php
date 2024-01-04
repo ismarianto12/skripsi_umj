@@ -71,7 +71,7 @@
     @php
         // $foto = Properti_app::propuser('photo');
     @endphp
-    <div class="wrapper">
+    <div class="wrapper sidebar_minimize">
         <div class="main-header">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="white">

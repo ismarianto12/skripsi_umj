@@ -16,14 +16,18 @@ class SiswaPresensiController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->view = '.siswa.';
-        $this->route = 'master.siswa.';
+        $this->view = '.absensiswa.';
+        $this->route = 'master.absensiswa.';
     }
 
     public function index()
     {
-        $title = 'Master Data Siswa';
-        return view($this->view . 'index', compact('title'));
+        $kelas = DB::table('kelas')->get();
+        $title = 'Master Absensi Siswa';
+        return view($this->view . 'index', [
+            'kelas' => $kelas,
+            'title' => $title,
+        ]);
     }
     public function create()
     {
@@ -91,7 +95,7 @@ class SiswaPresensiController extends Controller
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
             })
             ->editColumn('action', function ($p) {
-                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="qris" data-id="' . $p->id . '"><i class="fa fa-qris"></i>Qris </a> ';
 
             }, true)
 
@@ -158,12 +162,15 @@ class SiswaPresensiController extends Controller
                 'aspx' => 'response aspx fail ',
             ]);
         }
-        $data = Guru::findOrfail($id);
-        return view($this->view . 'form_edit', [
-            'kode_rap' => $data->kode_rap,
-            'nama_rap' => $data->nama_rap,
-            'id' => $data->id,
-        ]);
+        // $data = Guru::findOrfail($id);
+
+        return 'QRI';
+
+        // return view($this->view . 'form_edit', [
+        //     'kode_rap' => $data->kode_rap,
+        //     'nama_rap' => $data->nama_rap,
+        //     'id' => $data->id,
+        // ]);
     }
 
     /**
@@ -220,5 +227,11 @@ class SiswaPresensiController extends Controller
                 'msg' => $t,
             ]);
         }
+    }
+    public function mapeldata(Request $request)
+    {
+        $kelas_id = $request->kelas_id;
+        $data = DB::table("mapel")->where('kelas_id', $kelas_id)->get();
+        return response()->json($data);
     }
 }

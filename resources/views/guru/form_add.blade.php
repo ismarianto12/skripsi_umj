@@ -174,7 +174,6 @@
     $(function() {
         $('.simpan').on('submit', function(e) {
             e.preventDefault();
-            // alert('asa');
             $.ajax({
                 url: "{{ route('master.guru.store') }}",
                 method: "POST",

@@ -47,28 +47,80 @@
                     </div>
                 </div>
 
+
+
                 <div class="table-responsive">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kelas" class="col-form-label">Pilih Kelas :</label>
+                                    <select class="form-control" id="datakelas" name="datakelas">
+                                        <option value="">- Semua data -</option>
+                                        @foreach ($kelas as $kelasdata)
+                                            <option value="{{ $kelasdata->id }}">{{ $kelasdata->kelas }} -
+                                                [{{ $kelasdata->tingkat }}]</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="render_mapel" class="col-form-label">Pilih Mata Pelajaran :</label>
+                                    <select class="form-control" id="render_mapel" name="render_mapel">
+                                        <option value="">- Semua data -</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="pertemuan" class="col-form-label">Pertemuan Ke :</label>
+                                    <select class="form-control" id="pertemuan" name="pertemuan">
+                                        <option value="">- Semua data -</option>
+                                        @php
+                                            $i = 16;
+                                        @endphp
+
+                                        @foreach (range(1, $i) as $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                            @php
+                                                $i++;
+                                            @endphp
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>Untuk jadwal disusun oleh bagian akademik sekolah / tata usaha</p>
+                    </div>
+
                     <table id="datatable" class="display table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Nik</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Divisi</th>
+                                <th>NIK</th>
+                                <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Jam Mengajar</th>
+                                <th>TTL</th>
+                                <th>KELAS</th>
+                                <th>JK</th>
+                                <th>Nama Ayah /Wali</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Nik</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Divisi</th>
+                                <th>NIK</th>
+                                <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Jam Mengajar</th>
-
+                                <th>TTL</th>
+                                <th>KELAS</th>
+                                <th>JK</th>
+                                <th>Nama Ayah /Wali</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </tfoot>
@@ -90,7 +142,7 @@
             order: [1, 'asc'],
             pageLength: 10,
             ajax: {
-                url: "{{ route('api.guru') }}",
+                url: "{{ route('api.laporan_presensi') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
             },
@@ -107,9 +159,31 @@
                     name: 'nik'
                 },
                 {
+                    data: 'nis',
+                    name: 'nis'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'ttl',
+                    name: 'ttl'
+                },
+                {
+                    data: 'kelas',
+                    name: 'kelas'
+                },
+
+                {
+                    data: 'nama_ayah',
+                    name: 'nama_ayah'
+                },
+                {
                     data: 'jk',
                     name: 'jk',
                     render: function(data, type, row) {
+                        // Assuming 'data' is the value in the 'jk' column
                         if (data === 'L') {
                             return 'Laki-Laki';
                         } else if (data === 'P') {
@@ -118,26 +192,6 @@
                             return 'Unknown';
                         }
                     }
-                },
-                {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'namadivisi',
-                    name: 'namadivisi',
-                    render: function(data, type, row) {
-                        if (!data) {
-                            return 'Kosong';
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-
-                {
-                    data: 'jam_mengajar',
-                    name: 'jam_mengajar'
                 },
                 {
                     data: 'action',
@@ -155,7 +209,7 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ route('master.guru.destroy', ':id') }}", {
+                $.post("{{ route('master.siswa.destroy', ':id') }}", {
                     '_method': 'DELETE',
                     'id': c
                 }, function(data) {
@@ -195,21 +249,41 @@
 
         // addd
         $(function() {
-            // call another function
-
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
-                addUrl = '{{ route('master.guru.create') }}';
-                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addUrl);
+                addroute = '{{ route('master.siswa.create') }}';
+                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addroute);
             });
 
-            // edit
-            $('#datatable').on('click', '#edit', function(e) {
+            $('select[name="datakelas"]').on('change', function() {
+                var kelas_id = $(this).val();
+                if (kelas_id != '') {
+                    $.post('{{ Url('master/mapeldata') }}', {
+                                kelas_id: kelas_id
+                            },
+                            function(data) {
+                                option = '<option value="">Pilih Mapta Pelajaran.</option>';
+                                $.each(data, function(index, value) {
+                                    option += "<option value='" + value.id + "'>" +
+                                        value
+                                        .nama_mapel + " %</option>";
+                                });
+                                $('#percentage_id').html(option);
+                            }, 'JSON')
+                        .fail(function() {
+                            swal.fire('cannot', 'can\'er  getd get data mapel', 'error');
+                        });
+                }
+            });
+
+
+            $('#datatable').on('click', '#qris', function(e) {
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addUrl = '{{ route('master.guru.edit', ':id') }}'.replace(':id', id);
-                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addUrl);
+                addroute = '{{ route('master.rekap_presensi.edit', ':id') }}'.replace(':id', id);
+                $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(
+                    addroute);
 
             })
         });
