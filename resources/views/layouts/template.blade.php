@@ -41,10 +41,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/css/tooltipster.bundle.css"
         integrity="sha512-3zyscitq6+9V1nGiptsXHLVaJaAMCUQeDW34fygk9LdcM+yjYIG19gViDKuDGCbRGXmI/wiY9XjdIHdU55G97g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src="{{ asset('assets') }}/js/aplikasi.js"></script>
-
-
+    <script src="{{ asset('asset') }}/js/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirm.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -131,7 +128,7 @@
                                     <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive"
                                         style="width: 70%" />
                                     <center>
-                                       Akses: {{ Auth::user()->name }}
+                                        Akses: {{ Auth::user()->name }}
                                     </center>
                                     <span class="user-level">{{ Auth::user()->level }}</span>
                                     <span class="caret"></span>
@@ -185,15 +182,18 @@
             </div>
 
 
-            <div id="container-floating">
-
-                <div id="floating-button" data-toggle="tooltip" data-placement="left">
-                    <a href="" title="Hard Reload">
-                        <i id="legend" class="fa fa-share fa-share-1x fa-inverse fa-2x fa-spin"
-                            style="margin-top: 11px;margin-left: 11px;" role="button" tabindex="0"></i>
-                    </a>
-                </div>
+            <div id="container-floating" style="
+            position: fixed;
+            top: 100px; /* Ubah nilai ini sesuai dengan kebutuhan posisi di bagian atas */
+            bottom: 0;
+        ">
+            <div id="floating-button" data-toggle="tooltip" data-placement="left" style="background: orange;pading:10px 0px 10px;border-radius:10px 10px 10px">
+                <a href="" title="Hard Reload">
+                    <i id="legend" class="fa fa-share fa-share-1x fa-inverse fa-2x fa-spin" style="margin-top: 11px;margin-left: 11px;" role="button" tabindex="0"></i>
+                </a>
             </div>
+        </div>
+        
 
             <footer class="footer" style="background: #eee" style="padding:6px">
                 <div class="container-fluid">

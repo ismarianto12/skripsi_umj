@@ -8,23 +8,12 @@
     }
 </style>
 
-
 @extends('layouts.template')
 @section('content')
     @include('layouts.breadcum')
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div class="d-flex align-items-right">
-                    <button class="btn btn-primary btn-round ml-auto btn-sm" id="add_data">
-                        <i class="fa fa-plus"></i>
-                        Add Row
-                    </button>
-                    <button class="btn btn-danger btn-round btn-sm" id="add_data" onclick="javascript:confirm_del()">
-                        <i class="fa fa-minus"></i>
-                        Delete selected
-                    </button>
-                </div>
             </div>
             <div class="card-body">
                 <!-- Modal -->
@@ -47,8 +36,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="table-responsive">
                     <div class="container">
                         <div class="row">
@@ -58,43 +45,37 @@
                                     <select class="form-control" id="datakelas" name="datakelas">
                                         <option value="">- Semua data -</option>
                                         @foreach ($kelas as $kelasdata)
-                                            <option value="{{ $kelasdata->id }}">{{ $kelasdata->kelas }} -
+                                            <option value="{{ $kelasdata->kelas }}">{{ $kelasdata->kelas }} -
                                                 [{{ $kelasdata->tingkat }}]</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
+
+
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="render_mapel" class="col-form-label">Pilih Mata Pelajaran :</label>
-                                    <select class="form-control" id="render_mapel" name="render_mapel">
-                                        <option value="">- Semua data -</option>
-                                    </select>
+                                    <br /><br />
+                                    <button class="btn btn-danger setPresensi"><i class="fa fa-print"></i> Cetak Kartu
+                                        Presensi</button>
                                 </div>
                             </div>
-
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="pertemuan" class="col-form-label">Pertemuan Ke :</label>
-                                    <select class="form-control" id="pertemuan" name="pertemuan">
-                                        <option value="">- Semua data -</option>
-                                        @php
-                                            $i = 16;
-                                        @endphp
+                                    <br /><br />
+                                    <div class="render_page"></div><br />
 
-                                        @foreach (range(1, $i) as $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
-                                            @php
-                                                $i++;
-                                            @endphp
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                         </div>
+                        <br />
+
 
                         <p>Untuk jadwal disusun oleh bagian akademik sekolah / tata usaha</p>
+                        <br />
+                        <br />
+
                     </div>
 
                     <table id="datatable" class="display table table-striped table-hover">
@@ -145,6 +126,10 @@
                 url: "{{ route('api.laporan_presensi') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
+                data: function(data) {
+                    var fkelas_id = $('#datakelas option:selected').val();
+                    data.kelas_id = fkelas_id;
+                },
             },
             columns: [{
                     data: 'id',
@@ -156,11 +141,25 @@
                 },
                 {
                     data: 'nik',
-                    name: 'nik'
+                    name: 'nik',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
                 {
                     data: 'nis',
-                    name: 'nis'
+                    name: 'nis',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
                 {
                     data: 'nama',
@@ -168,7 +167,14 @@
                 },
                 {
                     data: 'ttl',
-                    name: 'ttl'
+                    name: 'ttl',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
                 {
                     data: 'kelas',
@@ -177,7 +183,14 @@
 
                 {
                     data: 'nama_ayah',
-                    name: 'nama_ayah'
+                    name: 'nama_ayah',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
                 {
                     data: 'jk',
@@ -256,6 +269,8 @@
             });
 
             $('select[name="datakelas"]').on('change', function() {
+                $('#datatable').DataTable().ajax.reload();
+
                 var kelas_id = $(this).val();
                 if (kelas_id != '') {
                     $.post('{{ Url('master/mapeldata') }}', {
@@ -266,16 +281,28 @@
                                 $.each(data, function(index, value) {
                                     option += "<option value='" + value.id + "'>" +
                                         value
-                                        .nama_mapel + " %</option>";
+                                        .nama_mapel + "</option>";
                                 });
-                                $('#percentage_id').html(option);
+                                $('#render_mapel').html(option);
                             }, 'JSON')
                         .fail(function() {
                             swal.fire('cannot', 'can\'er  getd get data mapel', 'error');
                         });
                 }
             });
+            $('.setPresensi').on('click', function(e) {
 
+                var kelas_id = $('#datakelas option:selected').val();
+                var render_mapel = $('#render_mapel option:selected').val();
+                var pertemuan = $('#pertemuan option:selected').val();
+                var cetakUrl = "{{ Url('master/cetakpresensi/') }}?kelas_id=" + kelas_id +
+                    '&render_mapel=' +
+                    render_mapel + '&pertemuan=' + pertemuan;
+
+                $('.render_page').html(`
+                        <a href="${cetakUrl}" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-print"></i>Cetak Kartu Absen </a>
+                `);
+            })
 
             $('#datatable').on('click', '#qris', function(e) {
                 e.preventDefault();

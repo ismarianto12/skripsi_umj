@@ -100,7 +100,8 @@ class Menu_app
                     </a>
                     <div class="collapse" id="presensi">
                         <ul class="nav nav-collapse">';
-                    $menu .= self::set_menu('rekap_presensi', 'Rekap Presensi');
+                    $menu .= self::set_menu(Url('master/rekap_presensi'), 'Rekap Presensi');
+                    $menu .= self::set_menu(Url('master/scan'), 'Presensi');
                     // $menu .= self::set_menu('siswa', 'Siswa');
                     // $menu .= self::set_menu('pegawai', 'Pegawai');
                     // $menu .= self::set_menu('mapel', 'Mata Pelajaran');

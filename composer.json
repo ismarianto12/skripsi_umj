@@ -20,6 +20,7 @@
         "maatwebsite/excel": "^3.1",
         "mpdf/mpdf": "^8.0",
         "phpoffice/phpword": "^0.18.2",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-pjax": "^2.1",
         "yajra/laravel-datatables-oracle": "^9.15"
     },

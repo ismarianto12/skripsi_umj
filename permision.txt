@@ -1,0 +1,2 @@
+sudo chown -R itdevmncsekuritas /Applications/XAMPP/xamppfiles/htdocs/skripsi_umj
+

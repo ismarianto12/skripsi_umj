@@ -37,45 +37,171 @@
         }
     </style>
     <br /><br />
-    <div class="page-inner mt--5" style="margin: 20px;">
 
-
-        <div class="container">
-            <h4>
-                SELAMAT DATANG DI
-                DI KELAS VIII SMP
-                MUHAMMADIYAH
-                17 CIPUTAT
-            </h4>
-            <div class="col-md-12 row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.7308909059384!2d106.76057277400888!3d-6.299049693690081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f029a2ec252b%3A0x9558b1cf7c31429a!2sMuhammadiyah%20Junior%20High%20School%2017%20Ciputat!5e0!3m2!1sen!2sid!4v1700749597242!5m2!1sen!2sid"
-                                width="300" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+    <div class="page-inner">
+        <h4 class="page-title">Dashboard Panel</h4> 
+        <div class="row"> 
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="flaticon-chart-pie text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-stats">
+                                <div class="numbers">
+                                    <p class="card-category">Number</p>
+                                    <h4 class="card-title">150GB</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="https://sekolah.link/wp-content/uploads/2022/06/AF1QipPdjVA5aHjz9qCMfXZRlqtLM7G12qlseOIcNN0vw800-h500-k-no.jpeg"
-                                class="img-responsive" style="width:100%" />
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="flaticon-coins text-success"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-stats">
+                                <div class="numbers">
+                                    <p class="card-category">Revenue</p>
+                                    <h4 class="card-title">$ 1,345</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="flaticon-error text-danger"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-stats">
+                                <div class="numbers">
+                                    <p class="card-category">Errors</p>
+                                    <h4 class="card-title">23</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="flaticon-twitter text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-stats">
+                                <div class="numbers">
+                                    <p class="card-category">Followers</p>
+                                    <h4 class="card-title">+45K</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/series-label.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <div class="col-md-12 row">
 
-        <script src="{{ asset('assets') }}/js/plugin/chart-circle/circles.min.js"></script>
-    @endsection
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="barg"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+        Highcharts.chart('barg', {
+            title: {
+                text: 'Grafik Kemajuan Belajar Siswa', // Judul grafik
+                style: {
+                    fontSize: '18px' // Ukuran teks judul
+                }
+            },
+            subtitle: {
+                text: 'Data Penjualan dalam Satuan Juta', // Subjudul grafik
+                style: {
+                    fontSize: '14px' // Ukuran teks subjudul
+                }
+            },
+            chart: {
+                type: 'column' // Menggunakan grafik tipe kolom/bar
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            plotOptions: {
+                column: {
+                    depth: 25 // Menambahkan kedalaman (depth) pada grafik kolom
+                }
+            },
+            series: [{
+                data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            }]
+        });
+
+        Highcharts.chart('container', {
+            title: {
+                text: 'Grafik Penjualan Tahunan', // Judul grafik
+                style: {
+                    fontSize: '18px' // Ukuran teks judul
+                }
+            },
+            subtitle: {
+                text: 'Data Penjualan dalam Satuan Juta', // Subjudul grafik
+                style: {
+                    fontSize: '14px' // Ukuran teks subjudul
+                }
+            },
+            chart: {
+                type: 'area'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            plotOptions: {
+                series: {
+                    fillOpacity: 0.1
+                }
+            },
+            series: [{
+                data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            }]
+        });
+    </script>
+    <script src="{{ asset('assets') }}/js/plugin/chart-circle/circles.min.js"></script>
+@endsection

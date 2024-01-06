@@ -27,20 +27,16 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('mapel', MapelController::class);
 
         Route::resource('rekap_presensi', SiswaPresensiController::class);
-        Route::post('mapeldata', [SiswaPresensiController::class,'mapeldata'])->name('mapedata');
+        Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan'); 
 
-        // Route::resource('tmsurat_master', Tmsurat_masterController::class);
-        // Route::resource('tmpsurat', TmpGuruController::class);
-        // Route::resource('jenis_surat', JenisGuruController::class);
-        // Route::resource('export_import_data', ExportImportController::class);
-        // Route::resource('repairdata', RepairDataController::class);
+        Route::post('mapeldata', [SiswaPresensiController::class,'mapeldata'])->name('mapedata');
+        Route::get('cetakpresensi', [SiswaPresensiController::class, 'cetakpresensi'])->name('cetakpresensi'); 
         Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporanPresensi'])->name('laporan_presensi');
         Route::get('surat_notif/{jenis}', [Tmsurat_masterController::class, 'surat_notif'])->name('surat_notif');
         Route::get('report_surat', [GuruController::class, 'report_surat'])->name('report_surat');
         Route::get('download', [Tmsurat_masterController::class, 'download'])->name('download');
         Route::get('download_suratmaster', [Tmsurat_masterController::class, 'excel'])->name('download_suratmaster');
 
-        // Route::get('download', [Tmsurat_masterController::class, 'download'])->name('download');
         Route::get('download_report', [GuruController::class, 'xls_report'])->name('download_report');
         Route::post('update_surat', [Tmsurat_masterController::class, 'update_surat'])->name('update_surat');
     });
@@ -61,10 +57,8 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::get('laporan_surat', [GuruController::class, 'laporan_surat'])->name('laporan_surat');
         Route::post('table_data', [HomeController::class, 'table_data'])->name('table_data');
     });
-
     Route::post('jenis_show/{id}', [GuruController::class, 'carijenis'])->name('jenis_show');
     Route::prefix('dashboard_api')->name('dashboard_api.')->group(function () {
-        // prefix_dashboard
         Route::get('site_jabodetabek', [HomeController::class, 'site_jabodetabek'])->name('site_jabodetabek');
         Route::get('pr_western_jabo', [HomeController::class, 'pr_western_jabo'])->name('pr_western_jabo');
         Route::get('pr_centeral_jabo', [HomeController::class, 'pr_centeral_jabo'])->name('pr_centeral_jabo');

@@ -7,6 +7,9 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+use PDF;
 
 class SiswaPresensiController extends Controller
 {
@@ -47,7 +50,8 @@ class SiswaPresensiController extends Controller
 
     public function api()
     {
-        $data = DB::table('siswa')
+        $kelas_id = $this->request->kelas_id;
+        $sql = DB::table('siswa')
             ->select(
                 'siswa.id',
                 'siswa.point',
@@ -87,9 +91,12 @@ class SiswaPresensiController extends Controller
                 'siswa.tingkat_id',
                 'siswa.ppdb_id',
 
-            )
-            ->get();
+            );
 
+        if (!empty($kelas_id)) {
+            $sql->where('siswa.kelas', $kelas_id);
+        }
+        $data = $sql->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
@@ -231,7 +238,26 @@ class SiswaPresensiController extends Controller
     public function mapeldata(Request $request)
     {
         $kelas_id = $request->kelas_id;
-        $data = DB::table("mapel")->where('kelas_id', $kelas_id)->get();
+        $data = DB::table("mapel")->get();
         return response()->json($data);
     }
+
+
+    function cetakpresensi()
+    {
+        $kelas_id = $this->request->kelas_id;
+        $siswa = DB::table('siswa')->where('kelas', $kelas_id)->get();
+        return view('absensiswa.cetak_presensi', [
+            'url' => Url('/master/setAbsen'),
+            'siswa' => $siswa,
+        ]);
+
+    }
+    function scan()
+    {
+        $kelas = DB::table('kelas')->get();
+
+        return view('absensiswa.scan', ['title' => '', 'kelas' => $kelas]);
+    }
+
 }
