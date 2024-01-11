@@ -22,7 +22,8 @@ class SiswaController extends Controller
     public function index()
     {
         $title = 'Master Data Siswa';
-        return view($this->view . 'index', compact('title'));
+        $kelas = DB::table('kelas')->get();
+        return view($this->view . 'index', compact('title', 'kelas'));
     }
 
     function laporan_siswa()
@@ -52,6 +53,7 @@ class SiswaController extends Controller
 
     public function api()
     {
+        $kelas = $this->request->kelas_id;
         $data = DB::table('siswa')
             ->select(
                 'siswa.id',
@@ -92,9 +94,13 @@ class SiswaController extends Controller
                 'siswa.tingkat_id',
                 'siswa.ppdb_id',
 
-            )
-            ->get();
+            );
 
+        if ($kelas) {
+            $data->where('siswa.kelas', $kelas);
+        } else {
+            $data->get();
+        }
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";

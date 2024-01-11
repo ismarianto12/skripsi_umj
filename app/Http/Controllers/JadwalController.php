@@ -26,7 +26,8 @@ class JadwalController extends Controller
     {
         $title = "Master Data Jadwal";
         $guru = DB::table("karyawan")->where('status', 1)->get();
-        $kelas = DB::table("siswa")->get();
+        $kelas = DB::table("kelas")->get();
+
         return view($this->view . "index", compact("title", "guru", 'kelas'));
 
     }
@@ -142,7 +143,6 @@ class JadwalController extends Controller
                 'jadwal.updated_at',
                 'jadwal.user_id',
                 'jadwal.created_at',
-                'jadwal.user_id',
                 'kelas.kelas',
                 'kelas.tingkat',
                 'karyawan.nama as guru_pengampu',
@@ -153,8 +153,8 @@ class JadwalController extends Controller
             ->join('kelas', 'jadwal.kelas_id', '=', 'kelas.id', 'left')
             ->join('karyawan', 'jadwal.guru_id', '=', 'karyawan.id', 'left')
             ->join('mapel', 'mapel.id', '=', 'jadwal.mapel_id', 'left')
-            ->join('users', 'jadwal.user_id', '=', 'users.id', 'left');
-
+            ->join('users', 'jadwal.user_id', '=', 'users.id', 'left')
+            ->groupBy('jadwal.id');
         if ($kelas) {
             $data->where('kelas.id', '=', $kelas);
         }

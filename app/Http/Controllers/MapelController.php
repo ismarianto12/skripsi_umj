@@ -7,6 +7,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Mapel;
 
 class MapelController extends Controller
 {
@@ -137,7 +138,7 @@ class MapelController extends Controller
                 'aspx' => 'response aspx fail ',
             ]);
         }
-        $data = Pegawai::findOrfail($id);
+        $data = Mapel::findOrfail($id);
         return view($this->view . 'form_edit', [
             'kode_rap' => $data->kode_rap,
             'nama_rap' => $data->nama_rap,

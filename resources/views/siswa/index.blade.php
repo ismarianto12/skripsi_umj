@@ -13,6 +13,7 @@
 @section('content')
     @include('layouts.breadcum')
     <div class="col-md-12">
+
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-right">
@@ -48,6 +49,21 @@
                 </div>
 
                 <div class="table-responsive">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="kelas" class="col-form-label">Pilih Kelas:</label>
+                            <select class="form-control" id="datakelas" name="datakelas">
+                                <option value="">- Semua data -</option>
+                                @foreach ($kelas as $kelasdata)
+                                    <option value="{{ $kelasdata->kelas }}">
+                                        {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+
                     <table id="datatable" class="display table table-striped table-hover">
                         <thead>
                             <tr>
@@ -84,9 +100,34 @@
     </div>
 
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+
     <script>
-        // table data
         var table = $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    className: 'btn btn-info btn-xs'
+                },
+                {
+                    extend: 'excelHtml5',
+                    className: 'btn btn-success btn-xs'
+                },
+                {
+                    extend: 'csvHtml5',
+                    className: 'btn btn-warning btn-xs'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+                    className: 'btn btn-prirmay btn-xs'
+                }
+            ],
             processing: true,
             serverSide: true,
             responsive: true,
@@ -96,6 +137,10 @@
                 url: "{{ route('api.siswa') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
+                data: function(data) {
+                    var fkelas_id = $('#datakelas option:selected').val();
+                    data.kelas_id = fkelas_id;
+                },
             },
             columns: [{
                     data: 'id',
@@ -200,6 +245,11 @@
 
         // addd
         $(function() {
+
+            $('select[name="datakelas"]').on('change', function() {
+                $('#datatable').DataTable().ajax.reload();
+
+            })
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
                 addroute = '{{ route('master.siswa.create') }}';

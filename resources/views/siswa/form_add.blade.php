@@ -214,10 +214,12 @@
                 </div>
             </div>
         </div><br><br>
-        <div class="_stepbackgroundalkdmsaldkma exssubmitform pt-3 form-group row">
-            <div class="col-md-12 text-center"><button type="submit" class="btn-block btn btn-success"
-                    style="width: 40%; margin-right: 15px;">Daftar</button><button type="reset"
-                    class="btn-block btn btn-danger" style="width: 40%;">Batal</button></div>
+        <div class="pt-3 form-group row">
+            <div class="col-md-12 text-center"><button type="submit" class="btn-block btn btn-success btn-sm"
+                    style="width: 100%; margin-right: 15px;"><i class="fa fa-save"></i>Save</button>
+                <button type="reset" class="btn-block btn btn-danger btn-sm" style="width: 100%;"><i
+                        class="fa fa-refresh"></i>Batal</button>
+            </div>
         </div>
 
     </form>

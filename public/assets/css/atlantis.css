@@ -118,22 +118,48 @@ button.close {
   font-family: Arial;
 }
 
-#datatable {
-  border: 0.1px solid #ddd;
-  /* Batas pada area tabel */
-  border-radius: 5px;
-  /* Untuk sudut tabel yang berkeliling */
-  padding: 10px;
-  /* Jarak dalam area tabel */
+table.dataTable tbody th,
+table.dataTable tbody td {
+  padding: 1px 1px;
 }
 
-#datatable th,
+#datatable tr td {
+  border: 0.1px solid #ddd;
+
+  height: unset;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+#datatable tr th {
+  border: 0.1px solid #ddd;
+  height: unset;
+  padding: 10px !important;
+  background: #1572E8 !important;
+  color: #fff;
+}
+
+/* table td,
+table th {
+  font-size: 14px;
+  border-top-width: 0px;
+  border-bottom: 1px solid;
+  border: 0.1px solid #ddd;
+  vertical-align: middle !important;
+  height: unset;
+} */
+
+/* #datatable {
+  border: 0.1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+} */
+
+/* #datatable th,
 #datatable td {
   border: 0.1px solid #ddd;
-  /* Batas pada sel tabel */
   padding: 8px;
-  /* Jarak dalam sel tabel */
-}
+} */
 
 body {
   font-size: 14px;
@@ -17326,8 +17352,7 @@ table.dataTable {
   clear: both;
   margin-top: 15px !important;
   margin-bottom: 15px !important;
-  max-width: none !important;
-  border-collapse: separate !important;
+  max-width: 100% !important; 
 }
 
 table.dataTable td,

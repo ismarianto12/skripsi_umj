@@ -121,8 +121,6 @@ class Menu_app
                     <ul class="nav nav-collapse">';
                     $menu .= self::set_menu(Url('master/laporan_presensi'), 'Laporan Presensi');
                     $menu .= self::set_menu(Url('laporan/siswa'), 'Laporan Siswa');
-                    $menu .= self::set_menu(Url('laporan/pegawai'), 'Laporan Pegawai');
-                    $menu .= self::set_menu(Url('laporan/matapelajaran')    , 'Laporan Mata Pelajaran');
                     $menu .= '
                   </ul>
                 </div>
