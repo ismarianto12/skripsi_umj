@@ -6,7 +6,6 @@
     td {
         font-size: 10px;
     }
-
 </style>
 
 
@@ -49,14 +48,36 @@
                 </div>
 
                 <div class="table-responsive">
+
+                    <form id="search_data" novalidate>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="datakelas" class="col-form-label">Pilih Kelas:</label>
+                                        <select class="form-control" id="datakelas" name="datakelas">
+                                            <option value="">- Semua data -</option>
+                                            @foreach ($kelas as $kelasdata)
+                                                <option value="{{ $kelasdata->kelas }}">
+                                                    {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Add more form elements or columns here if needed -->
+                            </div>
+                        </div>
+                    </form>
+                    <br />
                     <table id="datatable" class="display table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>Kode</th>
-                                <th>Nama</th>
                                 <th>Kelas</th>
-                                <th>Created By</th>
+                                <th>Nama</th>
+                                <th>KKM</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -64,9 +85,10 @@
                             <tr>
                                 <th></th>
                                 <th>Kode</th>
-                                <th>Nama</th>
-                                <th>Nama</th>
                                 <th>Kelas</th>
+                                <th>Nama</th>
+                                <th>KKM</th>
+
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </tfoot>
@@ -102,20 +124,42 @@
                 },
                 {
                     data: 'kode',
-                    name: 'kode'
+                    name: 'kode',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
+                },
+                {
+                    data: 'kelas',
+                    name: 'kelas',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
                 {
                     data: 'nama_mapel',
                     name: 'nama_mapel'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'kkm',
+                    name: 'kkm',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
                 },
-                {
-                    data: 'kelas_id',
-                    name: 'kelas_id'
-                },
+
                 {
                     data: 'action',
                     name: 'action'
@@ -169,9 +213,13 @@
                 });
             }
         }
-
-        // addd
+ 
         $(function() {
+            $('select[name="datakelas"]').on('change', function() {
+                Swal.showLoading();
+                $('#datatable').DataTable().ajax.reload();
+            });
+
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
                 addUrl = '{{ route('master.mapel.create') }}';
@@ -188,6 +236,5 @@
 
             })
         });
-
     </script>
 @endsection

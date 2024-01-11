@@ -23,7 +23,8 @@ class MapelController extends Controller
     public function index()
     {
         $title = 'Master Data Pelajaran';
-        return view($this->view . 'index', compact('title'));
+        $kelas = DB::table('kelas')->get();
+        return view($this->view . 'index', compact('title', 'kelas'));
     }
 
     /**
@@ -49,19 +50,35 @@ class MapelController extends Controller
 
     public function api()
     {
-        $data = DB::table('mapel')
-            ->select('mapel.id', 'mapel.unit_id', 'mapel.kelas_id', 'mapel.kode', 'users.name', 'mapel.nama_mapel', 'mapel.created_at', 'mapel.updated_at', 'mapel.user_id')
-            ->join('divisi', 'mapel.unit_id', '=', 'divisi.id', 'left')
-            ->join('kelas', 'mapel.kelas_id', '=', 'kelas.id', 'left')
-            ->join('users', 'mapel.user_id', '=', 'users.id', 'left')
-            ->get();
 
+        $kelas = $this->request->kelas_id;
+        $data = DB::table('mapel')
+            ->select(
+                'mapel.id',
+                'mapel.unit_id',
+                'mapel.kelas_id',
+                'mapel.kode',
+                'mapel.nama_mapel',
+                'mapel.created_at',
+                'mapel.updated_at',
+                'mapel.user_id',
+                'mapel.nama_mapel',
+                'mapel.kkm',
+                'kelas.kelas',
+                'kelas.tingkat'
+            )
+            ->join('kelas', 'mapel.kelas_id', '=', 'kelas.id', 'left')
+            ->join('users', 'mapel.user_id', '=', 'users.id', 'left');
+        if ($kelas) {
+            $data->where('kelas.id', '=', $kelas);
+        }
+        $data->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
             })
             ->editColumn('action', function ($p) {
-                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-list"></i>Detail </a> ';
 
             }, true)
 

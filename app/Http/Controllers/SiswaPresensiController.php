@@ -26,7 +26,7 @@ class SiswaPresensiController extends Controller
     public function index()
     {
         $kelas = DB::table('kelas')->get();
-        $title = 'Master Absensi Siswa';
+        $title = 'Laporan Absensi Siswa';
         return view($this->view . 'index', [
             'kelas' => $kelas,
             'title' => $title,
@@ -143,9 +143,10 @@ class SiswaPresensiController extends Controller
      */
     public function laporanPresensi()
     {
+        $kelas = DB::table('kelas')->get();
 
         $title = 'Laporan Presensi Siswa';
-        return view($this->view . 'laporan_persensi', compact('title'));
+        return view($this->view . 'laporan_persensi', ['title' => $title, 'kelas' => $kelas]);
 
     }
 
@@ -258,6 +259,16 @@ class SiswaPresensiController extends Controller
         $kelas = DB::table('kelas')->get();
 
         return view('absensiswa.scan', ['title' => '', 'kelas' => $kelas]);
+    }
+
+    function laporan_presensi()
+    {
+        $kelas = DB::table('kelas')->get();
+        return view($this->view . 'laporan_presensi', [
+            'title' => 'Laporan Presensi',
+            'kelas' => $kelas,
+        ]);
+
     }
 
 }

@@ -1,2 +1,20 @@
 sudo chown -R itdevmncsekuritas /Applications/XAMPP/xamppfiles/htdocs/skripsi_umj
 
+create table absensi(
+    id INT(14) NULL PRIMARY KEY AUTO INCREMENT NOT NULL,
+    siswa_id int(14) NOT NULL,
+    mape_id_id int(14) NOT NULL,
+    jadwal_id int(14) NOT NULL,
+    status varchar(14) NULL,
+    create_at datetime NULL,
+    updated_at datetime NULL,
+    user_id datetime NULL
+);
+CREATE table jadwal(
+    id int(14) NOT NULL PRIMARY KEY AUTO INCREMENT,
+    mape_id int(14) NOT NULL,
+    kelas_id int(14) NOT NULL,
+    create_at datetime NULL,
+    updated_at datetime NULL,
+    user_id datetime NULL
+)

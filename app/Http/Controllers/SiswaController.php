@@ -24,6 +24,16 @@ class SiswaController extends Controller
         $title = 'Master Data Siswa';
         return view($this->view . 'index', compact('title'));
     }
+
+    function laporan_siswa()
+    {
+        $title = 'Laporan Siswa';
+        $kelas = DB::table('kelas')->get();
+        return view($this->view . '.laporan_siswa', [
+            'title' => $title,
+            'kelas' => $kelas
+        ]);
+    }
     public function create()
     {
         if (!$this->request->ajax()) {

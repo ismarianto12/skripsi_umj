@@ -123,7 +123,7 @@
             order: [1, 'asc'],
             pageLength: 10,
             ajax: {
-                url: "{{ route('api.laporan_presensi') }}",
+                url: "{{ route('api.kartu_siswa') }}",
                 method: 'POST',
                 _token: "{{ csrf_token() }}",
                 data: function(data) {

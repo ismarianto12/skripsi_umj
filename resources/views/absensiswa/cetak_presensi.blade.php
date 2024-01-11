@@ -3,9 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kartu Ujian Siswa</title>
+    <title>Kartu Presensi Siswa</title>
+    <script src="{{ asset('assets') }}/js/jspdf.umd.min.js"></script>
 
     <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+
         /* Define A4 size */
         @page {
             size: A4;
@@ -14,6 +21,7 @@
 
         /* Set layout for printing */
         body {
+
             font-family: Arial, sans-serif;
             background-color: #666464;
             display: flex;
@@ -54,13 +62,18 @@
         }
 
         .header {
+            background: #007bff;
+            color: #fff;
+            margin-left: -20px;
+            margin-right: -20px;
+
             border-bottom: 1px solid #ddd;
             align-items: center;
             margin-bottom: 10px;
         }
 
         .header img {
-            width: 20%;
+            width: 15%;
             margin-right: 10px;
         }
 
@@ -96,10 +109,8 @@
 </head>
 
 <body>
-    <!-- Print Button -->
     <button class="print-button" onclick="generatePDF()">Print as PDF</button>
 
-    <!-- Isi Kartu Ujian -->
     <div id="cards-container">
         @foreach ($siswa as $data)
             <div class="card">
@@ -107,8 +118,7 @@
                     <img src="http://localhost/skripsi_umj/public/assets/img/logo_telkom.png" alt="Logo" />
                     <h3>SMP MUHAMMADIYAH 17 CIPUTAT</h3>
                 </div>
-                <table>
-
+                <table style="margin-top: -80px">
                     <tr>
                         <td>Nama :</td>
                         <td>{{ $data->nama }}</td>
@@ -117,17 +127,13 @@
                     </tr>
 
                 </table>
-                {{-- <p>Nama: {{ $data->nama }}</p>
-                <p>Kelas: {{ $data->kelas }}</p>  --}}
                 <div class="qr-code">
-                    {!! QrCode::size(100)->generate('|'.$data->id.'|'.$data->nama.'|'.$data->kelas.'|') !!}
+                    {!! QrCode::size(100)->generate('|' . $data->id . '|' . $data->nama . '|' . $data->kelas . '|') !!}
                 </div>
             </div>
         @endforeach
     </div>
-
-    <!-- JavaScript for Printing -->
-    <script src="{{ asset('assets') }}/js/aplikasi.js"></script>
+    {{-- |100|LUTFIA SAFANA|9| idsiswanya --}}
     <script>
         function generatePDF() {
             const doc = new jsPDF();

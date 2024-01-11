@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table id="datatable" class="display table table-striped table-striped table-hover">
+                    <table id="datatable" class="display table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th></th>
@@ -108,7 +108,8 @@
     </div>
 
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
-    <script> 
+    <script>
+        // table data
     var table = $('#datatable').DataTable({
         processing: true,
         serverSide: true,

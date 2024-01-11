@@ -70,7 +70,7 @@ class PegawaiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
         try {
             $request->validate([
@@ -226,5 +226,17 @@ class PegawaiController extends Controller
                 'msg' => $t,
             ]);
         }
+    }
+    function laporan_pegawai()
+    {
+        $bidang = [
+            1 => 'Tenaga Pendidik',
+            2 => 'Tengaga Kependidikan'
+        ];
+        return view($this->view . 'laporan', [
+            'title' => 'Laporan Pegawai',
+            'bidang' => $bidang,
+
+        ]);
     }
 }

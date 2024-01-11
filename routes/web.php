@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JenisGuruController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TmpGuruController;
 use App\Http\Controllers\SiswaPresensiController;
@@ -24,13 +26,13 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('guru', GuruController::class);
         Route::resource('siswa', SiswaController::class);
         Route::resource('pegawai', PegawaiController::class);
-        Route::resource('mapel', MapelController::class);
-
+        Route::resource('mapel', MapelController::class);  
+        Route::resource('jadwal', JadwalController::class); 
         Route::resource('rekap_presensi', SiswaPresensiController::class);
-        Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan'); 
+        Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan');
 
-        Route::post('mapeldata', [SiswaPresensiController::class,'mapeldata'])->name('mapedata');
-        Route::get('cetakpresensi', [SiswaPresensiController::class, 'cetakpresensi'])->name('cetakpresensi'); 
+        Route::post('mapeldata', [SiswaPresensiController::class, 'mapeldata'])->name('mapedata');
+        Route::get('cetakpresensi', [SiswaPresensiController::class, 'cetakpresensi'])->name('cetakpresensi');
         Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporanPresensi'])->name('laporan_presensi');
         Route::get('surat_notif/{jenis}', [Tmsurat_masterController::class, 'surat_notif'])->name('surat_notif');
         Route::get('report_surat', [GuruController::class, 'report_surat'])->name('report_surat');
@@ -50,14 +52,27 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::get('tmsurat_master', [Tmsurat_masterController::class, 'api'])->name('tmsurat_master');
         Route::get('tmpsurat', [TmpGuruController::class, 'api'])->name('tmpsurat');
         Route::get('log', [GuruController::class, 'log'])->name('log');
-        Route::post('laporan_presensi', [SiswaPresensiController::class, 'api'])->name('laporan_presensi');
+        Route::post('laporan_presensi', [PresensiController::class, 'api'])->name('laporan_presensi');
+        Route::post('kartu_siswa', [SiswaPresensiController::class, 'api'])->name('kartu_siswa');
+
         Route::post('mapel', [MapelController::class, 'api'])->name('mapel');
+        Route::post('jadwal', [JadwalController::class, 'api'])->name('jadwal');
+
         Route::post('siswa', [SiswaController::class, 'api'])->name('siswa');
         Route::post('guru', [GuruController::class, 'api'])->name('guru');
         Route::get('laporan_surat', [GuruController::class, 'laporan_surat'])->name('laporan_surat');
         Route::post('table_data', [HomeController::class, 'table_data'])->name('table_data');
+        Route::post('saveabsen', [PresensiController::class, 'saveabsen'])->name('saveabsen');
+        Route::post('simpanjadwal', [PresensiController::class, 'setJadwal'])->name('simpanjadwal');
+
     });
     Route::post('jenis_show/{id}', [GuruController::class, 'carijenis'])->name('jenis_show');
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporan_presensi'])->name('laporan_presensi');
+        Route::get('pegawai', [PegawaiController::class, 'laporan_pegawai'])->name('pegawai');
+        Route::get('siswa', [SiswaController::class, 'laporan_siswa'])->name('siswa');
+    });
+
     Route::prefix('dashboard_api')->name('dashboard_api.')->group(function () {
         Route::get('site_jabodetabek', [HomeController::class, 'site_jabodetabek'])->name('site_jabodetabek');
         Route::get('pr_western_jabo', [HomeController::class, 'pr_western_jabo'])->name('pr_western_jabo');

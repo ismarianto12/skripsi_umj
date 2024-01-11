@@ -70,107 +70,79 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="table-responsive">
-                    <table id="datatable" class="display table table-striped table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>NIK</th>
-                                <th>NIS</th>
-                                <th>Nama</th>
-                                <th>TTL</th>
-                                <th>KELAS</th>
-                                <th>JK</th>
-                                <th>Nama Ayah /Wali</th>
-                                <th style="width: 10%">Action</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>NIK</th>
-                                <th>NIS</th>
-                                <th>Nama</th>
-                                <th>TTL</th>
-                                <th>KELAS</th>
-                                <th>JK</th>
-                                <th>Nama Ayah /Wali</th>
-                                <th style="width: 10%">Action</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="datatable" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nama Mapel</th>
+                                    <th>Kelas </th>
+                                    <th>Pertemuan</th>
+                                    <th>Guru Pengampu</th>
+                                    <th style="width: 10%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
-    <script> 
-    var table = $('#datatable').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [1, 'asc'],
-        pageLength: 10,
-        ajax: {
-            url: "{{ route('api.laporan_presensi') }}",
-            method: 'POST',
-            _token: "{{ csrf_token() }}",
-        },
-        columns: [{
-                data: 'id',
-                name: 'id',
-                orderable: false,
-                searchable: false,
-                align: 'center',
-                className: 'text-center'
+    <script>
+        var table = $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [1, 'asc'],
+            pageLength: 10,
+            ajax: {
+                url: "{{ route('api.jadwal') }}",
+                method: 'POST',
+                _token: "{{ csrf_token() }}",
             },
-
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'jk',
-                name: 'jk',
-                render: function(data, type, row) {
-                    // Assuming 'data' is the value in the 'jk' column
-                    if (data === 'L') {
-                        return 'Laki-Laki';
-                    } else if (data === 'P') {
-                        return 'Perempuan';
-                    } else {
-                        return 'Unknown';
+            columns: [{
+                    data: 'id',
+                    name: 'id',
+                    orderable: false,
+                    searchable: false,
+                    align: 'center',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama_mapel',
+                    name: 'nama_mapel'
+                },
+                {
+                    data: 'kelas',
+                    name: 'kelas',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Unknown';
+                        }
                     }
+                },
+                {
+                    data: 'pertemuan',
+                    name: 'pertemuan'
+                },
+                {
+                    data: 'guru_pengampu',
+                    name: 'guru_pengampu',
+
+                },
+                {
+                    data: 'action',
+                    name: 'action'
                 }
-            },
-            {
-                data: 'nama_mapel',
-                name: 'nama_mapel'
-            },
-            {
-                data: 'pertemuan',
-                name: 'pertemuan'
-            },
-
-            {
-                data: 'status_hadir',
-                name: 'status_hadir'
-            },
-            {
-                data: 'guru_pengampu',
-                name: 'guru_pengampu',
-
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-        ]
-    });
+            ]
+        });
         @include('layouts.tablechecked');
 
         function del() {

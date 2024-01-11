@@ -88,6 +88,8 @@ class Menu_app
                     $menu .= self::set_menu(Url('master/siswa'), 'Siswa');
                     $menu .= self::set_menu(Url('master/pegawai'), 'Pegawai');
                     $menu .= self::set_menu(Url('master/mapel'), 'Mata Pelajaran');
+                    $menu .= self::set_menu(Url('master/jadwal'), 'Jadwal');
+
                     $menu .= '
                       </ul>
                     </div>
@@ -118,9 +120,9 @@ class Menu_app
                 <div class="collapse" id="report">
                     <ul class="nav nav-collapse">';
                     $menu .= self::set_menu(Url('master/laporan_presensi'), 'Laporan Presensi');
-                    $menu .= self::set_menu('laporan/siswa', 'Laporan Siswa');
-                    $menu .= self::set_menu('laporan/pegawai', 'Laporan Pegawai');
-                    $menu .= self::set_menu('laporan/matapelajaran', 'Laporan Mata Pelajaran');
+                    $menu .= self::set_menu(Url('laporan/siswa'), 'Laporan Siswa');
+                    $menu .= self::set_menu(Url('laporan/pegawai'), 'Laporan Pegawai');
+                    $menu .= self::set_menu(Url('laporan/matapelajaran')    , 'Laporan Mata Pelajaran');
                     $menu .= '
                   </ul>
                 </div>
