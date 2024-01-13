@@ -457,4 +457,13 @@ class Properti_app
         $userdata = DB::table('karyawan')->where('nik', $username)->where('status', '1')->first();
         return isset($userdata->$parameter) ? $userdata->$parameter : '';
     }
+    function statusHadir()
+    {
+        return [
+            'H' => 'Hadir',
+            'A' => 'Alpha',
+            'I' => 'Izin',
+        ];
+
+    }
 }

@@ -146,8 +146,53 @@ class SiswaPresensiController extends Controller
     {
         $kelas = DB::table('kelas')->get();
         $title = 'Laporan Presensi Siswa';
-        return view($this->view . 'laporan_persensi', ['title' => $title, 'kelas' => $kelas]);
+        return view($this->view . 'laporan_presensi', ['title' => $title, 'kelas' => $kelas]);
 
+    }
+
+    function edit($id)
+    {
+        $data = DB::table('presensi')
+            ->select(
+                'presensi.id as id_presensi',
+                'presensi.id_siswa',
+                'presensi.jadwal_id',
+                'presensi.jam',
+                'presensi.status as status_hadir',
+                'presensi.created_at',
+                'presensi.updated_at',
+                'presensi.user_id',
+                'presensi.pertemuan',
+                'presensi.kelas_id',
+                'presensi.mapel_id',
+                'presensi.guru_id',
+                'siswa.jk',
+                'siswa.nik',
+                'siswa.nama as siswa_nama'
+            )
+            ->where('presensi.id', $id)
+            ->join('siswa', 'siswa.id', '=', 'presensi.id_siswa', 'left')
+            ->first();
+        $title = 'Edit Laporan Presensi Siswa';
+        return view($this->view . 'laporan_presensi_edit', compact('data', 'title', 'id'));
+    }
+    function presensi_update($id)
+    {
+        try {
+            \DB::table('presensi')->where('id', $id)->update([
+                'status' => $this->request->status,
+                'updated_at' => Auth::user()->id,
+            ]);
+            return response()->json([
+                'messages' => 'data berhasil di simpan'
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage()
+            ]);
+
+        }
     }
 
     public function show($id)
@@ -161,33 +206,7 @@ class SiswaPresensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
 
-        if (!$this->request->ajax()) {
-            return response()->json([
-                'data' => 'data null',
-                'aspx' => 'response aspx fail ',
-            ]);
-        }
-        // $data = Guru::findOrfail($id);
-
-        return 'QRI';
-
-        // return view($this->view . 'form_edit', [
-        //     'kode_rap' => $data->kode_rap,
-        //     'nama_rap' => $data->nama_rap,
-        //     'id' => $data->id,
-        // ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update($id)
     {
         $data = $this->request->validate([

@@ -29,12 +29,17 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('mapel', MapelController::class);
         Route::resource('jadwal', JadwalController::class);
         Route::resource('rekap_presensi', SiswaPresensiController::class);
+
+        Route::post('presensi_update/{id}', [SiswaPresensiController::class, 'presensi_update'])->name('presensi_update');
         Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan');
         Route::get('scandetail/{id}', [SiswaPresensiController::class, 'scandetail'])->name('scandetail');
+
 
         Route::post('mapeldata', [SiswaPresensiController::class, 'mapeldata'])->name('mapedata');
         Route::get('cetakpresensi', [SiswaPresensiController::class, 'cetakpresensi'])->name('cetakpresensi');
         Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporanPresensi'])->name('laporan_presensi');
+        Route::get('presensi_edit/{id}', [SiswaPresensiController::class, 'edit'])->name('presensi_edit');
+
         Route::get('surat_notif/{jenis}', [Tmsurat_masterController::class, 'surat_notif'])->name('surat_notif');
         Route::get('report_surat', [GuruController::class, 'report_surat'])->name('report_surat');
         Route::get('download', [Tmsurat_masterController::class, 'download'])->name('download');

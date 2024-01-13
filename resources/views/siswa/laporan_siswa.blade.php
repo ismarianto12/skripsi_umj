@@ -35,8 +35,8 @@
                                 Data</button>
                             &nbsp; &nbsp;
 
-                            <button type="submit" class="btn btn-danger btn-sm" style="width: 40%;height:40px"><i
-                                    class="fa fa-search"></i>Clear
+                            <button type="submit" class="btn btn-danger btn-sm" style="width: 40%;height:40px"
+                                onclick="cleardata()"><i class="fa fa-search"></i>Clear
                                 Data</button>
 
                         </div>
@@ -110,6 +110,11 @@
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
 
     <script>
+        function cleardata() {
+            $('input[name="fromDate"]').val("");
+            $('input[name="toDate"]').val("");
+            $('#datatable').DataTable().ajax.reload();
+        }
         // table data
         var table = $('#datatable').DataTable({
             dom: 'Bfrtip',

@@ -48,71 +48,66 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="table-responsive">
-                    <div class="d-flex align-items-center">
-                        <form id="search_data" novalidate>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="kelas" class="col-form-label">Pilih Kelas:</label>
-                                        <select class="form-control" id="datakelas" name="datakelas">
-                                            <option value="">- Semua data -</option>
-                                            @foreach ($kelas as $kelasdata)
-                                                <option value="{{ $kelasdata->kelas }}">
-                                                    {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 render_ubah">
-                                    <div class="form-group">
-                                        <label for="render_mapel" class="col-form-label">Pilih Mata Pelajaran :</label>
-                                        <select class="form-control" id="render_mapel" name="render_mapel" required>
-                                            <option value="">- Semua data -</option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Please provide a name.
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="fromDate" class="col-form-label">From Date:</label>
-                                        <input type="date" class="form-control" id="fromDate" name="fromDate">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="toDate" class="col-form-label">To Date:</label>
-                                        <input type="date" class="form-control" id="toDate" name="toDate">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 row ml-2">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 100%">
-                                            <i class="fa fa-search"></i> Cari Data
-                                        </button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="reset" class="btn btn-danger btn-sm" style="width: 100%">
-                                            <i class="fa fa-reload"></i> Reset
-                                        </button>
-                                    </div>
+                <div class="d-flex align-items-center">
+                    <form id="search_data" novalidate>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="datakelas" class="col-form-label">Pilih Kelas:</label>
+                                    <select class="form-control" id="datakelas" name="datakelas">
+                                        <option value="">- Semua data -</option>
+                                        @foreach ($kelas as $kelasdata)
+                                            <option value="{{ $kelasdata->kelas }}">
+                                                {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                        </form>
 
-                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="pertemuan" class="col-form-label">Pertemuan</label>
+                                    <select class="form-control" id="pertemuan" name="pertemuan">
+                                        @php
+                                            for ($i = 1; $i <= 16; $i++) {
+                                                echo '<option value="' . $i . '">' . $i . '</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="toDate" class="col-form-label">Jadwal</label>
+                                    <input type="date" class="form-control" id="toDate" name="toDate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ml-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-sm" style="width: 100%">
+                                        <i class="fa fa-search"></i> Cari Data
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button type="reset" class="btn btn-danger btn-sm" style="width: 100%">
+                                        <i class="fa fa-reload"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="table-responsive">
+
                     <table id="datatable" class="display table table-striped table-hover">
                         <thead>
                             <tr>
@@ -203,8 +198,8 @@
                 },
 
                 {
-                    data: 'nama',
-                    name: 'nama'
+                    data: 'siswa_nama',
+                    name: 'siswa_nama'
                 },
                 {
                     data: 'jk',
@@ -216,7 +211,7 @@
                         } else if (data === 'P') {
                             return 'Perempuan';
                         } else {
-                            return 'Unknown';
+                            return 'Kosong';
                         }
                     }
                 },
@@ -236,7 +231,6 @@
                     data: 'pertemuan',
                     name: 'pertemuan'
                 },
-
                 {
                     data: 'status_hadir',
                     name: 'status_hadir',
@@ -344,20 +338,17 @@
 
         });
 
-        // addd
+        // add
         $(function() {
-            $('#add_data').on('click', function() {
-                $('#formmodal').modal('show');
-                addroute = '{{ route('master.siswa.create') }}';
-                $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addroute);
-            });
-
-            // edit
+            $('#add_data').on('click', function() {});
             $('#datatable').on('click', '#edit', function(e) {
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addroute = '{{ route('master.siswa.edit', ':id') }}'.replace(':id', id);
+                siswa_nama = $(this).data('nama');
+                console.log('get id' + id);
+
+                addroute = '{{ route('master.presensi_edit', ':id') }}'.replace(':id', id);
                 $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addroute);
 
             })

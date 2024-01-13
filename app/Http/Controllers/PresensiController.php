@@ -32,6 +32,7 @@ class PresensiController extends Controller
 
         $data = DB::table('presensi')
             ->select(
+                'presensi.id as id_presensi',
                 'presensi.id_siswa',
                 'presensi.jadwal_id',
                 'presensi.jam',
@@ -44,29 +45,29 @@ class PresensiController extends Controller
                 'presensi.mapel_id',
                 'presensi.guru_id',
                 'mapel.nama_mapel',
-                'jadwal.id',
+                'jadwal.id as id_jadwal',
                 'jadwal.pertemuan',
                 'karyawan.nama as guru_pengampu',
                 'siswa.jk',
                 'siswa.nik',
-                'siswa.nama'
+                'siswa.nama as siswa_nama'
             )
             ->join('karyawan', 'karyawan.id', '=', 'presensi.guru_id', 'left')
+            ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left')
             ->join('siswa', 'siswa.id', '=', 'presensi.id_siswa', 'left')
-            ->join('mapel', 'mapel.id', '=', 'presensi.mapel_id', 'left')
-            ->join('kelas', 'presensi.kelas_id', '=', 'kelas.id', 'left')
-            ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left');
+            ->join('mapel', 'mapel.id', '=', 'jadwal.mapel_id', 'left')
+            ->join('kelas', 'presensi.kelas_id', '=', 'kelas.id', 'left');
 
         if (\Auth::user()->level_akses == '2') {
             $data->where('jadwal.guru_id', '=', $guru_id);
         }
-        $sql = $data->get(); 
+        $sql = $data->get();
         return DataTables::of($sql)
             ->editColumn('id', function ($p) {
-                return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
+                return "<input type='checkbox' name='cbox[]' value='" . $p->id_presensi . "' />";
             })
             ->editColumn('action', function ($p) {
-                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-list"></i>Ubah Presensi </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id_presensi . '" data-siswa_nama="'.$p->siswa_nama.'"><i class="fa fa-list"></i>Ubah Presensi </a> ';
 
             }, true)
 
