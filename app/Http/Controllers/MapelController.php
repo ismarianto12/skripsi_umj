@@ -49,7 +49,9 @@ class MapelController extends Controller
         return view($this->view . 'select', compact('title'));
     }
 
-    public function api()
+    public function 
+    
+    api()
     {
 
         $kelas = $this->request->kelas_id;
