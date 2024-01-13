@@ -39,8 +39,8 @@
     <br /><br />
 
     <div class="page-inner">
-        <h4 class="page-title">Dashboard Panel</h4> 
-        <div class="row"> 
+        <h4 class="page-title">Dashboard Panel</h4>
+        <div class="row">
             <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body ">
@@ -52,8 +52,8 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Number</p>
-                                    <h4 class="card-title">150GB</h4>
+                                    <p class="card-category">Total Siswa</p>
+                                    <h4 class="card-title">{{ $tsisiwa }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +71,8 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Revenue</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Total Tenaga Pendidik</p>
+                                    <h4 class="card-title">{{ $ttendik }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -90,8 +90,8 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Errors</p>
-                                    <h4 class="card-title">23</h4>
+                                    <p class="card-category">Total Tenaga Kependidikan</p>
+                                    <h4 class="card-title">{{ $tkependidikan }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Followers</p>
-                                    <h4 class="card-title">+45K</h4>
+                                    <p class="card-category">Persentase Presensi</p>
+                                    <h4 class="card-title">{{ $perpresensi }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -120,8 +120,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 row">
-
+    <div class="col-md-12 row"> 
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -147,13 +146,13 @@
     <script>
         Highcharts.chart('barg', {
             title: {
-                text: 'Grafik Kemajuan Belajar Siswa', // Judul grafik
+                text: 'Grafik Presensi Siswa',
                 style: {
                     fontSize: '18px' // Ukuran teks judul
                 }
             },
             subtitle: {
-                text: 'Data Penjualan dalam Satuan Juta', // Subjudul grafik
+                text: 'Data Bedasarkan Tahun {{ date('Y') }}',
                 style: {
                     fontSize: '14px' // Ukuran teks subjudul
                 }
@@ -176,7 +175,7 @@
 
         Highcharts.chart('container', {
             title: {
-                text: 'Grafik Penjualan Tahunan', // Judul grafik
+                text: 'Grafik Psikomotorik Siswa', // Judul grafik
                 style: {
                     fontSize: '18px' // Ukuran teks judul
                 }

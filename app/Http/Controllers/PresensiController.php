@@ -6,7 +6,7 @@ use DataTables;
 
 use App\Models\Presensi;
 use Illuminate\Http\Request;
-
+use Properti_app;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jadwal;
 
@@ -28,6 +28,7 @@ class PresensiController extends Controller
         $mape_id = $this->request->mapel_id;
         $dari = $this->request->dari;
         $sampai = $this->request->sampai;
+        $guru_id = Properti_app::guruid();
 
         $data = DB::table('presensi')
             ->select(
@@ -39,25 +40,28 @@ class PresensiController extends Controller
                 'presensi.updated_at',
                 'presensi.user_id',
                 'presensi.pertemuan',
-                'presensi.guru_id',
                 'presensi.kelas_id',
                 'presensi.mapel_id',
                 'presensi.guru_id',
                 'mapel.nama_mapel',
                 'jadwal.id',
+                'jadwal.pertemuan',
                 'karyawan.nama as guru_pengampu',
                 'siswa.jk',
                 'siswa.nik',
                 'siswa.nama'
             )
             ->join('karyawan', 'karyawan.id', '=', 'presensi.guru_id', 'left')
-            ->join('siswa', 'siswa.id', '=', 'presensi.siswa_id', 'left')
+            ->join('siswa', 'siswa.id', '=', 'presensi.id_siswa', 'left')
             ->join('mapel', 'mapel.id', '=', 'presensi.mapel_id', 'left')
             ->join('kelas', 'presensi.kelas_id', '=', 'kelas.id', 'left')
-            ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left')
-            ->get();
+            ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left');
 
-        return DataTables::of($data)
+        if (\Auth::user()->level_akses == '2') {
+            $data->where('jadwal.guru_id', '=', $guru_id);
+        }
+        $sql = $data->get(); 
+        return DataTables::of($sql)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
             })
@@ -127,9 +131,7 @@ class PresensiController extends Controller
             $pertemuan = $this->request->pertemuan;
             $check = DB::table('presensi')->where(['pertemuan' => $pertemuan, 'id_siswa' => $this->request->id_siswa])->get();
             if ($check->count() > 0) {
-                return response()->json([
-                    "error" => 'gagal presensi sudah ada sebelumnya'
-                ], 400);
+                return '<b>Gagal presensi sudah ada sebelumnya</b>';
             } else {
                 $nowdata = date('Y-m-d');
                 $data = new Presensi;

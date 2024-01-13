@@ -26,10 +26,11 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('guru', GuruController::class);
         Route::resource('siswa', SiswaController::class);
         Route::resource('pegawai', PegawaiController::class);
-        Route::resource('mapel', MapelController::class);  
-        Route::resource('jadwal', JadwalController::class); 
+        Route::resource('mapel', MapelController::class);
+        Route::resource('jadwal', JadwalController::class);
         Route::resource('rekap_presensi', SiswaPresensiController::class);
         Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan');
+        Route::get('scandetail/{id}', [SiswaPresensiController::class, 'scandetail'])->name('scandetail');
 
         Route::post('mapeldata', [SiswaPresensiController::class, 'mapeldata'])->name('mapedata');
         Route::get('cetakpresensi', [SiswaPresensiController::class, 'cetakpresensi'])->name('cetakpresensi');
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'api']], function () {
 
         Route::post('mapel', [MapelController::class, 'api'])->name('mapel');
         Route::post('jadwal', [JadwalController::class, 'api'])->name('jadwal');
+        Route::post('jadwalscan', [JadwalController::class, 'jadwalscan'])->name('jadwalscan');
 
         Route::post('siswa', [SiswaController::class, 'api'])->name('siswa');
         Route::post('guru', [GuruController::class, 'api'])->name('guru');

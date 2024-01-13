@@ -52,6 +52,7 @@ class PegawaiController extends Controller
             $data->nama = $request->nama;
             $data->jk = $request->jk;
             $data->ttl = $request->ttl;
+            $data->tempat_lahir = $request->tempat_lahir;
             $data->email = $request->email;
             $data->password = $request->password;
             $data->alamat = $request->alamat;
@@ -138,6 +139,7 @@ class PegawaiController extends Controller
             $data->nama = $request->nama;
             $data->jk = $request->jk;
             $data->ttl = $request->ttl;
+            $data->tempat_lahir = $request->tempat_lahir;
             $data->email = $request->email;
             $data->password = $request->password;
             $data->alamat = $request->alamat;
@@ -182,7 +184,7 @@ class PegawaiController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' =>
-                'can\'t delete data ',
+                    'can\'t delete data ',
             ]);
         }
     }

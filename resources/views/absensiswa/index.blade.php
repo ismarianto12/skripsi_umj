@@ -277,7 +277,7 @@
                                 kelas_id: kelas_id
                             },
                             function(data) {
-                                option = '<option value="">Pilih Mapta Pelajaran.</option>';
+                                option = '<option value="">Pilih Mata Pelajaran.</option>';
                                 $.each(data, function(index, value) {
                                     option += "<option value='" + value.id + "'>" +
                                         value

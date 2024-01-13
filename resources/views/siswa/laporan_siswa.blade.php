@@ -15,39 +15,34 @@
     <div class="page-inner">
         <div class="card">
             <div class="card-header">
-                <div class="d-flex align-items-left">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="fromDate" class="form-label">From Date:</label>
-                                    <input type="date" class="form-control" id="fromDate" name="fromDate">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="toDate" class="form-label">To Date:</label>
-                                    <input type="date" class="form-control" id="toDate" name="toDate">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn-md"><i class="fa fa-search"></i>Cari
-                                    Data</button>
+                <form class="col-md-auto" id="search_data">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="fromDate" class="form-label">From Date:</label>
+                                <input type="date" class="form-control" id="fromDate" name="fromDate">
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="toDate" class="form-label">To Date:</label>
+                                <input type="date" class="form-control" id="toDate" name="toDate">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-10 row" style="margin-top: 20px">
+                            <button type="submit" class="btn btn-primary btn-sm" style="width: 40%;height:40px"><i
+                                    class="fa fa-search"></i>Cari
+                                Data</button>
+                            &nbsp; &nbsp;
 
-                <div class="d-flex align-items-right">
-                    <button class="btn btn-primary btn-round ml-auto btn-sm" id="add_data">
-                        <i class="fa fa-plus"></i>
-                        Add Row
-                    </button>
-                    <button class="btn btn-danger btn-round btn-sm" id="delete_data" onclick="javascript:confirm_del()">
-                        <i class="fa fa-minus"></i>
-                        Delete selected
-                    </button>
-                </div>
+                            <button type="submit" class="btn btn-danger btn-sm" style="width: 40%;height:40px"><i
+                                    class="fa fa-search"></i>Clear
+                                Data</button>
+
+                        </div>
+
+                    </div>
+                </form>
             </div>
 
             <div class="card-body">
@@ -108,70 +103,103 @@
     </div>
 
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+
     <script>
         // table data
-    var table = $('#datatable').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [1, 'asc'],
-        pageLength: 10,
-        ajax: {
-            url: "{{ route('api.laporan_presensi') }}",
-            method: 'POST',
-            _token: "{{ csrf_token() }}",
-        },
-        columns: [{
-                data: 'id',
-                name: 'id',
-                orderable: false,
-                searchable: false,
-                align: 'center',
-                className: 'text-center'
-            },
-
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'jk',
-                name: 'jk',
-                render: function(data, type, row) {
-                    // Assuming 'data' is the value in the 'jk' column
-                    if (data === 'L') {
-                        return 'Laki-Laki';
-                    } else if (data === 'P') {
-                        return 'Perempuan';
-                    } else {
-                        return 'Unknown';
-                    }
+        var table = $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    className: 'btn btn-info btn-xs'
+                },
+                {
+                    extend: 'excelHtml5',
+                    className: 'btn btn-success btn-xs'
+                },
+                {
+                    extend: 'csvHtml5',
+                    className: 'btn btn-warning btn-xs'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+                    className: 'btn btn-prirmay btn-xs'
+                }
+            ],
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [1, 'asc'],
+            pageLength: 10,
+            ajax: {
+                url: "{{ route('api.siswa') }}",
+                method: 'POST',
+                _token: "{{ csrf_token() }}",
+                data: function(data) {
+                    data.fromDate = $('#fromDate').val();
+                    data.toDate = $('#toDate').val();
                 }
             },
-            {
-                data: 'nama_mapel',
-                name: 'nama_mapel'
-            },
-            {
-                data: 'pertemuan',
-                name: 'pertemuan'
-            },
+            columns: [{
+                    data: 'id',
+                    name: 'id',
+                    orderable: false,
+                    searchable: false,
+                    align: 'center',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nik',
+                    name: 'nik'
+                },
+                {
+                    data: 'nis',
+                    name: 'nis'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'ttl',
+                    name: 'ttl'
+                },
+                {
+                    data: 'kelas',
+                    name: 'kelas'
+                },
 
-            {
-                data: 'status_hadir',
-                name: 'status_hadir'
-            },
-            {
-                data: 'guru_pengampu',
-                name: 'guru_pengampu',
 
-            },
-            {
-                data: 'action',
-                name: 'action'
-            }
-        ]
-    });
+                {
+                    data: 'jk',
+                    name: 'jk',
+                    render: function(data, type, row) {
+                        // Assuming 'data' is the value in the 'jk' column
+                        if (data === 'L') {
+                            return 'Laki-Laki';
+                        } else if (data === 'P') {
+                            return 'Perempuan';
+                        } else {
+                            return 'Unknown';
+                        }
+                    }
+                },
+                {
+                    data: 'nama_ayah',
+                    name: 'nama_ayah'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ]
+        });
         @include('layouts.tablechecked');
 
         function del() {
@@ -222,6 +250,11 @@
 
         // addd
         $(function() {
+
+            $('#search_data').on('submit', function(e) {
+                e.preventDefault();
+                $('#datatable').DataTable().ajax.reload();
+            });
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
                 addroute = '{{ route('master.siswa.create') }}';

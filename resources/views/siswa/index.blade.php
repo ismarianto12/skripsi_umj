@@ -142,7 +142,8 @@
                     data.kelas_id = fkelas_id;
                 },
             },
-            columns: [{
+            columns: [
+                {
                     data: 'id',
                     name: 'id',
                     orderable: false,
@@ -171,10 +172,7 @@
                     name: 'kelas'
                 },
 
-                {
-                    data: 'nama_ayah',
-                    name: 'nama_ayah'
-                },
+
                 {
                     data: 'jk',
                     name: 'jk',
@@ -188,6 +186,10 @@
                             return 'Unknown';
                         }
                     }
+                },
+                {
+                    data: 'nama_ayah',
+                    name: 'nama_ayah'
                 },
                 {
                     data: 'action',

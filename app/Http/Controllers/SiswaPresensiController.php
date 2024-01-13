@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\Jadwal;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -144,7 +145,6 @@ class SiswaPresensiController extends Controller
     public function laporanPresensi()
     {
         $kelas = DB::table('kelas')->get();
-
         $title = 'Laporan Presensi Siswa';
         return view($this->view . 'laporan_persensi', ['title' => $title, 'kelas' => $kelas]);
 
@@ -257,8 +257,17 @@ class SiswaPresensiController extends Controller
     function scan()
     {
         $kelas = DB::table('kelas')->get();
-
         return view('absensiswa.scan', ['title' => '', 'kelas' => $kelas]);
+    }
+
+
+
+    function scandetail($id)
+    {
+        $kelas = DB::table('kelas')->get();
+        $jadwal = Jadwal::getDatajadwal($id);
+        return view('absensiswa.scandetail', ['title' => '', 'kelas' => $kelas, 'jadwal' => $jadwal]);
+
     }
 
     function laporan_presensi()

@@ -83,6 +83,7 @@
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
     <script>
         // table data
+        $.fn.dataTable.ext.errMode = 'throw';
         var table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -115,13 +116,9 @@
                         } else if (data === 'P') {
                             return 'Perempuan';
                         } else {
-                            return 'Unknown';
+                            return '-';
                         }
                     }
-                },
-                {
-                    data: 'nama',
-                    name: 'nama'
                 },
                 {
                     data: 'namadivisi',
@@ -136,8 +133,19 @@
                 },
 
                 {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
                     data: 'jam_mengajar',
-                    name: 'jam_mengajar'
+                    name: 'jam_mengajar',
+                    render: function(data, type, row) {
+                        if (!data) {
+                            return '-';
+                        } else {
+                            return data + '/Jam';
+                        }
+                    }
                 },
                 {
                     data: 'action',

@@ -26,20 +26,40 @@ class HomeController extends Controller
         $this->route = 'home';
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+
     public function index()
     {
         $tahun = $this->request->contract;
         $title = 'Welcome Page';
-        $totalIncomeChart_cc = [];
-        $master_surat = [];
-        $percentage = [];
-        $piedata = [];
-        return view($this->view . '.home', compact('title', 'master_surat', 'totalIncomeChart_cc', 'piedata', 'percentage'));
+
+        $fsiswa = \DB::table('siswa')
+            ->select(\DB::raw('count(id) as totalsiswa'))
+            ->first();
+        $tsisiwa = $fsiswa->totalsiswa;
+
+        $ftendik = \DB::table('karyawan')
+            ->select(\DB::raw('count(id) as tkaryawan'))
+            ->where('status', 1)
+            ->first();
+        $ttendik = $ftendik->tkaryawan;
+
+        $fkependidikan = \DB::table('siswa')
+            ->select(\DB::raw('count(id) as tkpendidikan'))
+            ->where('status', 2)
+            ->first();
+        $tkependidikan = isset($fkependidikan->tkependidikan) ? isset($fkependidikan->tkependidikan) : 0;
+        $perpresensi = '10';
+
+        return view(
+            $this->view . '.home',
+            compact(
+                'title',
+                'perpresensi',
+                'tsisiwa',
+                'tkependidikan',
+                'ttendik',
+            )
+        );
     }
 
     public function pieData($par, $tahun)

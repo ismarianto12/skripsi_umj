@@ -36,78 +36,80 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div class="card-header">
-                        <div class="d-flex align-items-left">
-                            <div class="d-flex align-items-center">
-                                <form id="search_data" novalidate>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="kelas" class="col-form-label">Pilih Kelas:</label>
-                                                <select class="form-control" id="datakelas" name="datakelas">
-                                                    <option value="">- Semua data -</option>
-                                                    @foreach ($kelas as $kelasdata)
-                                                        <option value="{{ $kelasdata->kelas }}">
-                                                            {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="render_mapel" class="col-form-label">Pilih Mata Pelajaran
-                                                    :</label>
-                                                <select class="form-control" id="render_mapel" name="render_mapel" required>
-                                                    <option value="">- Semua data -</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    Please provide a name.
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 row align-items-left">
+                    @if (Auth::user()->level_id == '1')
+                        <div class="card-header">
+                            <div class="d-flex align-items-left">
+                                <div class="d-flex align-items-center">
+                                    <form id="search_data" novalidate>
+                                        <div class="row">
                                             <div class="col-md-6">
-
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary btn-sm"
-                                                        style="width: 100%">
-                                                        <i class="fa fa-search"></i> Cari Data
-                                                    </button>
+                                                    <label for="kelas" class="col-form-label">Pilih Kelas:</label>
+                                                    <select class="form-control" id="datakelas" name="datakelas">
+                                                        <option value="">- Semua data -</option>
+                                                        @foreach ($kelas as $kelasdata)
+                                                            <option value="{{ $kelasdata->kelas }}">
+                                                                {{ $kelasdata->kelas }} - [{{ $kelasdata->tingkat }}]
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
 
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <button type="reset" class="btn btn-danger btn-sm"
-                                                        style="width: 100%">
-                                                        <i class="fa fa-reload"></i> Reset
-                                                    </button>
+                                                    <label for="render_mapel" class="col-form-label">Pilih Mata Pelajaran
+                                                        :</label>
+                                                    <select class="form-control" id="render_mapel" name="render_mapel"
+                                                        required>
+                                                        <option value="">- Semua data -</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a name.
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 row align-items-left">
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary btn-sm"
+                                                            style="width: 100%">
+                                                            <i class="fa fa-search"></i> Cari Data
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <button type="reset" class="btn btn-danger btn-sm"
+                                                            style="width: 100%">
+                                                            <i class="fa fa-reload"></i> Reset
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
 
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-right">
+                                <button class="btn btn-primary btn-round ml-auto btn-sm" id="add_data">
+                                    <i class="fa fa-plus"></i>
+                                    Add Row
+                                </button>
+                                <button class="btn btn-danger btn-round btn-sm" id="delete_data"
+                                    onclick="javascript:confirm_del()">
+                                    <i class="fa fa-minus"></i>
+                                    Delete selected
+                                </button>
                             </div>
                         </div>
-
-                        <div class="d-flex align-items-right">
-                            <button class="btn btn-primary btn-round ml-auto btn-sm" id="add_data">
-                                <i class="fa fa-plus"></i>
-                                Add Row
-                            </button>
-                            <button class="btn btn-danger btn-round btn-sm" id="delete_data"
-                                onclick="javascript:confirm_del()">
-                                <i class="fa fa-minus"></i>
-                                Delete selected
-                            </button>
-                        </div>
-                    </div>
-
+                    @endif
                     <div class="table-responsive">
                         <table id="datatable" class="display table table-striped table-hover">
                             <thead>
@@ -131,6 +133,7 @@
 
     <script src="{{ asset('assets') }}/js/plugin/datatables/datatables.min.js"></script>
     <script>
+        $.fn.dataTable.ext.errMode = 'throw';
         var table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -155,13 +158,13 @@
                     name: 'nama_mapel'
                 },
                 {
-                    data: 'kelas',
-                    name: 'kelas',
+                    data: 'kelas_id',
+                    name: 'kelas_id',
                     render: function(data, type, row) {
                         if (data) {
                             return data;
                         } else {
-                            return 'Unknown';
+                            return 'Kosong';
                         }
                     }
                 },
@@ -190,7 +193,7 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ route('master.siswa.destroy', ':id') }}", {
+                $.post("{{ route('master.jadwal.destroy', ':id') }}", {
                     '_method': 'DELETE',
                     'id': c
                 }, function(data) {
@@ -240,7 +243,7 @@
                                 kelas_id: kelas_id
                             },
                             function(data) {
-                                option = '<option value="">Pilih Mapta Pelajaran.</option>';
+                                option = '<option value="">Pilih Mata Pelajaran.</option>';
                                 $.each(data, function(index, value) {
                                     option += "<option value='" + value.id + "'>" +
                                         value
@@ -256,7 +259,7 @@
 
             $('#add_data').on('click', function() {
                 $('#formmodal').modal('show');
-                addroute = '{{ route('master.siswa.create') }}';
+                addroute = '{{ route('master.jadwal.create') }}';
                 $('#form_content').html('<center><h3>Loading ...</h3></center>').load(addroute);
             });
 
@@ -265,7 +268,7 @@
                 e.preventDefault();
                 $('#formmodal').modal('show');
                 id = $(this).data('id');
-                addroute = '{{ route('master.siswa.edit', ':id') }}'.replace(':id', id);
+                addroute = '{{ route('master.jadwal.edit', ':id') }}'.replace(':id', id);
                 $('#form_content').html('<center><h3>Loading Edit Data ...</h3></center>').load(addroute);
 
             })

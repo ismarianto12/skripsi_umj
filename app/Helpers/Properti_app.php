@@ -14,6 +14,7 @@ use App\Models\Tmsurat_master;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Session;
+
 // use Illuminate\Support\Facades\Session;
 
 class Properti_app
@@ -21,11 +22,36 @@ class Properti_app
 
     public static function status_perpanjang()
     {
-        return  [
+        return [
             'Closed BAK' => 'Closed BAK',
             'Closed PKS' => 'Closed PKS',
             'Closed PAID' => 'Closed PAID',
             'Closed (Catatan)' => 'Closed (Catatan)'
+        ];
+    }
+    function jenjangPeg()
+    {
+        return [
+            1 => 'Tenaga Pendidik',
+            2 => 'Tenaga Kependidikan'
+        ];
+    }
+
+    public static function jenjangApp()
+    {
+        return [
+            'S3' => 'S3',
+            'S2' => 'S2',
+            'S1' => 'S1',
+            'DIII' => 'DIII'
+        ];
+    }
+
+    public static function JenisKel()
+    {
+        return [
+            'L' => 'Laki-Laki',
+            'P' => 'Perempuan'
         ];
     }
     public function jenisSurat()
@@ -75,7 +101,7 @@ class Properti_app
     public static function user_satker()
     {
         $user_id = Auth::user()->id;
-        $query   = DB::table('user')
+        $query = DB::table('user')
             ->select('user.id', 'user.username', 'tmuser_level.description', 'tmuser_level.mapping_sie', 'tmuser_level.id as level_id')
             ->join('tmuser_level', 'user.tmuser_level_id', '=', 'tmuser_level.id')
             ->where('user.id', $user_id);
@@ -90,10 +116,10 @@ class Properti_app
 
     public static function load_js(array $url)
     {
-        $data     = [];
+        $data = [];
         foreach ($url as $ls) {
-            $js[]     =  '<script type="text/javascript" src="' . $ls . '"></script>';
-            $data     = $js;
+            $js[] = '<script type="text/javascript" src="' . $ls . '"></script>';
+            $data = $js;
         }
         return $data;
     }
@@ -105,7 +131,7 @@ class Properti_app
         // dd($user_id);
         if ($ff != null) {
             $user_id = $ff->id;
-            $query   = DB::table('users')
+            $query = DB::table('users')
                 ->select('users.id', 'users.username', 'tmuser_level.description', 'tmuser_level.mapping_sie', 'tmuser_level.id as level_id')
                 ->join('tmuser_level', 'users.tmuser_level_id', '=', 'tmuser_level.id')
                 ->where('users.id', $user_id)
@@ -120,7 +146,7 @@ class Properti_app
     public static function tgl_indo($tgl)
     {
         $bulan = array(
-            1 =>   'Januari',
+            1 => 'Januari',
             'Februari',
             'Maret',
             'April',
@@ -134,7 +160,7 @@ class Properti_app
             'Desember'
         );
         $split = explode('-', $tgl);
-        return $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
+        return $split[2] . ' ' . $bulan[(int) $split[1]] . ' ' . $split[0];
     }
 
     public static function servername()
@@ -155,7 +181,7 @@ class Properti_app
     {
         $ff = Auth::user();
         if ($ff != null) {
-            $data   = User::find($ff->id);
+            $data = User::find($ff->id);
             // dd($data);
             if ($data != '') {
                 return $data[$params];
@@ -172,8 +198,8 @@ class Properti_app
     public static function comboproyek($id = '')
     {
         $level_id = Auth::user()->level_id;
-        $id_user  = Auth::user()->id;
-        $datas    = User::select(
+        $id_user = Auth::user()->id;
+        $datas = User::select(
             'users.id as ltjk',
             'users.name',
             'users.username',
@@ -189,8 +215,8 @@ class Properti_app
         // dd($level_id);
         if (self::propuser('tmlevel_id') != 1) {
             // dd('sss');
-            $html  = '<select id="tmproyek_id" name="tmproyek_id" class="js-example-basic-single form-control">';
-            foreach ($datas as  $data) {
+            $html = '<select id="tmproyek_id" name="tmproyek_id" class="js-example-basic-single form-control">';
+            foreach ($datas as $data) {
                 $selected = ($data->id == $id) ? 'selected' : '';
                 $html .= '<option value="' . $data['id'] . '" ' . $selected . '>' . $data['kode'] . '-' . $data['nama_proyek'] . '</option>';
             }
@@ -200,7 +226,7 @@ class Properti_app
             $dds = Tmproyek::get();
             // dd($dds);
             $html .= '<option value="">--Semua Proyek-- </option>';
-            foreach ($dds as  $dd) {
+            foreach ($dds as $dd) {
                 $selected = ($dd->id == $id) ? 'selected' : '';
 
                 $html .= '<option value="' . $dd['id'] . '" ' . $selected . '>' . $dd['kode'] . '-' . $dd['nama_proyek'] . '</option>';
@@ -213,12 +239,12 @@ class Properti_app
     public static function combobangunan($id = '')
     {
         $level_id = Auth::user()->level_id;
-        $datas    = Tmbangunan::select('kode', 'nama_bangunan', 'id');
+        $datas = Tmbangunan::select('kode', 'nama_bangunan', 'id');
 
         if ($level_id != 1) {
-            $html  = '<select name="tmbangunan_id" class="js-example-basic-single form-control">';
-            $pars  =  $datas->where('tmlevel_id', $level_id);
-            foreach ($pars->get() as  $data) {
+            $html = '<select name="tmbangunan_id" class="js-example-basic-single form-control">';
+            $pars = $datas->where('tmlevel_id', $level_id);
+            foreach ($pars->get() as $data) {
                 $selected = ($data->id == $id) ? 'selected' : '';
                 $html .= '<option value="' . $data['id'] . '" ' . $selected . '>' . $data['kode'] . '-' . $data['nama_proyek'] . '</option>';
             }
@@ -226,7 +252,7 @@ class Properti_app
         } else {
             $html = '<select name="tmbangunan_id" class="js-example-basic-single form-control">';
             $pars = $datas->get();
-            foreach ($pars as  $data) {
+            foreach ($pars as $data) {
                 $selected = ($data->id == $id) ? 'selected' : '';
                 $html .= '<option value="' . $data['id'] . '" ' . $selected . '>' . $data['kode'] . '-' . $data['nama_proyek'] . '</option>';
             }
@@ -252,7 +278,7 @@ class Properti_app
     // set change environment dinamically
     public static function parsing($url)
     {
-        $val =  "?" . base64_decode($url);
+        $val = "?" . base64_decode($url);
         $query_str = parse_url($val, PHP_URL_QUERY);
         parse_str($query_str, $query_params);
         return $query_params;
@@ -260,7 +286,7 @@ class Properti_app
     public static function no_surat()
     {
         $s = Tmsurat_master::select(\DB::raw('max(download) as idnya'))->first();
-        $rdata = isset($s->idnya) ? (int)$s->idnya : 1 + 1;
+        $rdata = isset($s->idnya) ? (int) $s->idnya : 1 + 1;
         return $rdata;
     }
 
@@ -359,9 +385,9 @@ class Properti_app
                 "penawaran_th_3" => 'Penawaran Telkomsel 3',
                 "penawaran_th_4" => 'Penawaran Telkomsel 4',
                 "pemilik_1" => "Penawaran Pemilik  1",
-                "pemilik_2"  => "Penawaran Pemilik 2",
-                "pemilik_3"  => "Penawaran Pemilik 3",
-                "pemilik_4"  => "Penawaran Pemilik 4",
+                "pemilik_2" => "Penawaran Pemilik 2",
+                "pemilik_3" => "Penawaran Pemilik 3",
+                "pemilik_4" => "Penawaran Pemilik 4",
                 "total_harga_sewa_baru" => "Total Harga Sewa baru",
                 "keterangan_harga_patokan" => "Keterangan Harga Patokan"
             ], //group by SMR
@@ -409,5 +435,26 @@ class Properti_app
     public static function calculate_percentage_for_display($number, $total)
     {
         return self::format_percentage(self::calculate_percentage($number, $total));
+    }
+
+    public static function getKelas()
+    {
+        return DB::table('kelas')->get();
+    }
+    public static function getUserLogin()
+    {
+
+        $levelid = Auth::user()->level_id;
+        if ($levelid === '3') {
+            return DB::table('kelas')->get();
+        } else {
+            return Auth::user()->username;
+        }
+    }
+    public static function guruid($parameter = 'id')
+    {
+        $username = Auth::user()->username;
+        $userdata = DB::table('karyawan')->where('nik', $username)->where('status', '1')->first();
+        return isset($userdata->$parameter) ? $userdata->$parameter : '';
     }
 }

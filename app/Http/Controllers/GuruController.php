@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class GuruController extends Controller
 {
@@ -48,7 +49,6 @@ class GuruController extends Controller
     public function api()
     {
         $data = DB::table('karyawan')
-            ->join('divisi', 'karyawan.id_divisi', '=', 'divisi.id', 'left')
             ->select(
                 'karyawan.id',
                 'karyawan.id_fingerprint',
@@ -80,6 +80,7 @@ class GuruController extends Controller
                 'karyawan.user_id',
                 'divisi.namadivisi'
             )
+            ->join('divisi', 'karyawan.id_divisi', '=', 'divisi.id', 'left')
             ->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
@@ -110,21 +111,16 @@ class GuruController extends Controller
                 'jk' => 'required|in:L,P',
                 // 'ttl' => 'required|date',
                 'email' => 'nullable|email|max:255',
-                // 'password' => 'nullable|string|max:255',
-                // 'alamat' => 'required|string|max:255',
-                // 'telp' => 'required|string|max:13',
-                // 'id_divisi' => 'required|integer',
-                // 'dept' => 'required|string|max:250',
-                // 'intensif' => 'required|integer',
+
                 'jam_mengajar' => 'required|integer',
                 'nominal_jam' => 'required|integer',
 
                 'koperasi' => 'required|integer',
-                'simpanan' => 'required|integer',
-                'tabungan' => 'required|integer',
-                'id_pend' => 'required|integer',
+                // 'simpanan' => 'required|integer',
+                // 'tabungan' => 'required|integer',
+                // 'id_pend' => 'required|integer',
                 'kode_reff' => 'nullable|string|max:255',
-                'jumlah_reff' => 'required|integer',
+                // 'jumlah_reff' => 'required|integer',
                 'role_id' => 'nullable|integer',
                 'status' => 'nullable|integer',
                 'date_created' => 'nullable|date',
@@ -153,6 +149,7 @@ class GuruController extends Controller
             'bpjs' => $request->input('bpjs') ? $request->input('bpjs') : 'kosong',
             'koperasi' => $request->input('koperasi'),
             'simpanan' => $request->input('simpanan'),
+            'tempat_lahir' => $request->tempat_lahir,
             'tabungan' => $request->input('tabungan'),
             'id_pend' => $request->input('id_pend'),
             'kode_reff' => $request->input('kode_reff'),
@@ -208,26 +205,47 @@ class GuruController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        $data = $this->request->validate([
-            'kode_rap' => 'required',
-            'nama_rap' => 'required',
-        ]);
         try {
-            $data = new DB();
-            $data->find($id)->update($this->request->all());
-
-            return response()->json([
-                'status' => 1,
-                'msg' => 'data jenis Rap berhasil ditambah',
+            $request->validate([
+                'nama' => 'nullable|string|max:255',
+                'jk' => 'required|in:L,P',
+                'status' => 'nullable|integer',
             ]);
-        } catch (\DB $t) {
-            return response()->json([
-                'status' => 2,
-                'msg' => $t,
-            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->validator->errors()], 422);
         }
+        DB::table('karyawan')->where('id', $id)->update([
+            'nama' => $request->input('nama'),
+            'jk' => $request->input('jk'),
+            'ttl' => $request->input('ttl') ? $request->input('ttl') : 'kosong',
+            'tempat_lahir' => $request->tempat_lahir,
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'alamat' => $request->input('alamat') ? $request->input('alamat') : 'kosong',
+            'telp' => $request->input('telp') ? $request->input('telp') : 'kosong',
+            'id_divisi' => $request->input('id_divisi') ? $request->input('id_divisi') : 'kosong',
+            'dept' => $request->input('dept') ? $request->input('dept') : 'kosong',
+            'intensif' => $request->input('intensif') ? $request->input('intensif') : 'kosong',
+            'jam_mengajar' => $request->input('jam_mengajar'),
+            'nominal_jam' => $request->input('nominal_jam'),
+            'bpjs' => $request->input('bpjs') ? $request->input('bpjs') : 'kosong',
+            'koperasi' => $request->input('koperasi'),
+            'simpanan' => $request->input('simpanan'),
+            'tabungan' => $request->input('tabungan'),
+            'id_pend' => $request->input('id_pend'),
+            'kode_reff' => $request->input('kode_reff'),
+            'jumlah_reff' => $request->input('jumlah_reff'),
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
+            'date_created' => $request->input('date_created'),
+            'updated_at' => $request->input('updated_at'),
+            'created_at' => $request->input('created_at'),
+            'user_id' => Auth::user()->id,
+        ]);
+        return response()->json(['message' => 'Record inserted successfully'], 200);
+
     }
 
     /**

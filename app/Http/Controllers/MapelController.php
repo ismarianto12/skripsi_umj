@@ -139,10 +139,11 @@ class MapelController extends Controller
             ]);
         }
         $data = Mapel::findOrfail($id);
+        $kelas = \DB::table('kelas')->get();
         return view($this->view . 'form_edit', [
-            'kode_rap' => $data->kode_rap,
-            'nama_rap' => $data->nama_rap,
-            'id' => $data->id,
+            'kelas' => $kelas,
+            'data' => $data,
+            'id' => $id
         ]);
     }
 

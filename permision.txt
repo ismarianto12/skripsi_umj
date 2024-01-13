@@ -18,3 +18,7 @@ CREATE table jadwal(
     updated_at datetime NULL,
     user_id datetime NULL
 )
+
+
+
+

@@ -92,7 +92,7 @@
             ajax: {
                 url: "{{ route('api.guru') }}",
                 method: 'POST',
-                _token: "{{ csrf_token() }}",
+                    _token: "{{ csrf_token() }}",
             },
             columns: [{
                     data: 'id',

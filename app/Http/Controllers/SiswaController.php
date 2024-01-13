@@ -6,6 +6,7 @@ use App\Models\Guru;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Siswa;
 
 class SiswaController extends Controller
 {
@@ -54,6 +55,9 @@ class SiswaController extends Controller
     public function api()
     {
         $kelas = $this->request->kelas_id;
+        $dari = $this->request->fromDate;
+        $sampai = $this->request->toDate;
+
         $data = DB::table('siswa')
             ->select(
                 'siswa.id',
@@ -101,6 +105,9 @@ class SiswaController extends Controller
         } else {
             $data->get();
         }
+        if ($dari && $sampai) {
+            $data->whereBetween('siswa.date_created', [$dari, $sampai]);
+        }
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
@@ -130,7 +137,7 @@ class SiswaController extends Controller
             } catch (ValidationException $e) {
                 return response()->json(['error' => $e->validator->errors()], 422);
             }
-            $data = new siswa;
+            $data = new Siswa;
             $data->point = ($this->request->point) ? $this->request->point : 0;
             $data->nik = $this->request->nik;
             $data->nis = $this->request->nis;
@@ -200,11 +207,12 @@ class SiswaController extends Controller
                 'aspx' => 'response aspx fail ',
             ]);
         }
-        $data = Guru::findOrfail($id);
+        $data = Siswa::findOrfail($id);
         return view($this->view . 'form_edit', [
             'kode_rap' => $data->kode_rap,
             'nama_rap' => $data->nama_rap,
             'id' => $data->id,
+            'data' => $data,
         ]);
     }
 
@@ -217,7 +225,7 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = siswa::find($id);
+            $data = Siswa::find($id);
             $data->point = ($this->request->point) ? $this->request->point : 0;
             $data->nik = $this->request->nik;
             $data->nis = $this->request->nis;
@@ -240,7 +248,7 @@ class SiswaController extends Controller
             $data->no_telp = $this->request->no_telp;
             $data->thn_msk = $this->request->thn_msk;
             $data->sekolah_asal = $this->request->sekolah_asal;
-            $data->kelas = $this->request->kelas ? $this->request->kelas : 0;
+            $data->kelas = $this->request->datakelas ? $this->request->datakelas : 0;
             $data->img_siswa = $this->request->img_siswa ? $this->request->img_siswa : '';
             $data->img_kk = $this->request->img_kk ? $this->request->img_kk : '';
             $data->img_ijazah = $this->request->img_ijazah ? $this->request->img_ijazah : '';

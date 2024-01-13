@@ -66,7 +66,7 @@
     @php
         // $foto = Properti_app::propuser('photo');
     @endphp
-    <div class="wrapper sidebar_minimize">
+    <div class="wrapper">
         <div class="main-header">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="white">
@@ -106,8 +106,11 @@
                         <li class="nav-item active">
                             <a href="#" class="nav-link logout">
                                 <b>
-                                    {{ Str::ucfirst(Auth::user()->username) }}
-
+                                    @if (Auth::user()->level_id == 1)
+                                        {{ Str::ucfirst(Auth::user()->username) }}
+                                    @else
+                                        {{ Properti_app::guruid('nama') }}
+                                    @endif
                                 </b>
                                 Log out
                                 <i class="fa fa-arrow-right"></i>
@@ -131,7 +134,11 @@
                                     <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive"
                                         style="width: 70%" />
                                     <center>
-                                        Akses: {{ Auth::user()->name }}
+                                        Akses: @if (Auth::user()->level_id == '1')
+                                            {{ Str::ucfirst(Auth::user()->username) }}
+                                        @else
+                                            Guru
+                                        @endif
                                     </center>
                                     <span class="user-level">{{ Auth::user()->level }}</span>
                                     <span class="caret"></span>
@@ -190,8 +197,7 @@
             top: 100px; /* Ubah nilai ini sesuai dengan kebutuhan posisi di bagian atas */
             bottom: 0;
         ">
-                <div id="floating-button" data-toggle="tooltip" data-placement="left"
-                    style="background: orange;pading:10px 0px 10px;border-radius:10px 10px 10px">
+                <div id="floating-button" data-toggle="tooltip" data-placement="left" class="ayamayam">
                     <a href="" title="Hard Reload">
                         <i id="legend" class="fas fa-sync-alt fa-2x fa-spin"
                             style="margin-top: 11px; margin-left: 11px;color:white" role="button"

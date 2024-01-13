@@ -111,8 +111,8 @@
                         <option value="Honorer">Honorer</option>
                         <option value="PNS">PNS</option>
                     </select></div>
-                <div class="form-group"><label>Pekerjaan Wali</label><select class="form-control " id="pek_wali"
-                        name="pek_wali">
+                <div class="form-group"><label>Pekerjaan Wali</label>
+                    <select class="form-control " id="pek_wali" name="pek_wali">
                         <option value="- Pekerjaan Wali -">- Pekerjaan Wali -</option>
                         <option value="Tidak ada wali">Tidak ada wali</option>
                         <option value="Wiraswasta">Wiraswasta</option>
@@ -122,7 +122,8 @@
                         <option value="Guru">Guru</option>
                         <option value="Honorer">Honorer</option>
                         <option value="PNS">PNS</option>
-                    </select></div>
+                    </select>
+                </div>
                 <div class="form-group"><label>Penghasilan Ortu / Wali</label><select class="form-control "
                         id="peng_ortu" name="peng_ortu">
                         <option value="- Penghasilan / Bulan -">- Penghasilan / Bulan -</option>
@@ -197,20 +198,7 @@
                         name="thn_msk">
                         <option value="- Pilih Periode -">- Pilih Periode -</option>
                         <option value="2">2022/2023</option>
-                    </select></div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group"><label>Pendidikan</label><select class="form-control "
-                                    id="pendidikan" name="pendidikan">
-                                    <option value="- Pilih pendidikan -">- Pilih pendidikan -</option>
-                                    <option value="1">SD</option>
-                                    <option value="9">TK</option>
-                                    <option value="10">SMP</option>
-                                    <option value="12">KB</option>
-                                </select></div>
-                        </div>
-                    </div>
+                    </select>
                 </div>
             </div>
         </div><br><br>

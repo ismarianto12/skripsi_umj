@@ -216,7 +216,7 @@
         </div><br><br>
         <div class="_stepbackgroundalkdmsaldkma exssubmitform pt-3 form-group row">
             <div class="col-md-12 text-center"><button type="submit" class="btn-block btn btn-success"
-                    style="width: 40%; margin-right: 15px;">Daftar</button><button type="reset"
+                    style="width: 40%; margin-right: 15px;">Simpan</button><button type="reset"
                     class="btn-block btn btn-danger" style="width: 40%;">Batal</button></div>
         </div>
 

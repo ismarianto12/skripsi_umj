@@ -1,29 +1,47 @@
 <div class="card">
     <div class="card-header">
-        <div class="card-title">Tambah Data tmjenisrap</div>
+        <div class="card-title">Edit Data Mata Pelajaran</div>
     </div>
     <div class="ket"></div>
-
     <form id="exampleValidation" method="POST" class="simpan">
+        <form id="exampleValidation" method="POST" class="simpan">
+            <div class="form-group row">
+                <label class="col-md-4 text-right">Kelas</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="kelas_id">
+                        @foreach ($kelas as $kelas)
+                            <option value="{{ $kelas->id }}">{{ $kelas->kelas }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-        <div class="mb-3">
-            <label for="unitId" class="form-label">Unit ID</label>
-            <input type="text" class="form-control" id="unitId" name="unitId">
-        </div>
-        <div class="mb-3">
-            <label for="kelasId" class="form-label">Kelas ID</label>
-            <input type="text" class="form-control" id="kelasId" name="kelasId">
-        </div>
-        <div class="mb-3">
-            <label for="kode" class="form-label">Kode</label>
-            <input type="text" class="form-control" id="kode" name="kode">
-        </div>
-        <div class="mb-3">
-            <label for="namaMapel" class="form-label">Nama Mapel</label>
-            <input type="text" class="form-control" id="namaMapel" name="namaMapel">
-        </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 text-right">Kode </label>
+                <div class="col-md-4">
+                    <input class="form-control" name="kode" value="{{ $data->kode }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 text-right">Nam Mapel</label>
+                <div class="col-md-4">
+                    <input class="form-control" name="nama_mapel" value="{{ $data->nama_mapel }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 text-right">KKM</label>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" name="kkm" value="{{ $data->kkm }}">
+                </div>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" type="submit">Simpan</button>
+                    <button class="btn btn-danger" type="reset">Batal</button>
+                </div>
+            </div>
+        </form>
     </form>
 </div>
 
@@ -32,9 +50,8 @@
     $(function() {
         $('.simpan').on('submit', function(e) {
             e.preventDefault();
-            // alert('asa');
             $.ajax({
-                url: "{{ route('master.tmjenisrap.update', $id) }}",
+                url: "{{ route('master.mapel.update', $id) }}",
                 method: "PUT",
                 data: $(this).serialize(),
                 chace: false,
@@ -82,5 +99,4 @@
             })
         });
     });
-
 </script>

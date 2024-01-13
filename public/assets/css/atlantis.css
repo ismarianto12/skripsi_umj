@@ -120,7 +120,14 @@ button.close {
 
 table.dataTable tbody th,
 table.dataTable tbody td {
-  padding: 1px 1px;
+  padding: 5px !important;
+}
+
+.form-control {
+  font-size: 14px;
+  border-color: #ebedf2;
+  padding: 0.3rem 1rem !important;
+  height: inherit !important;
 }
 
 #datatable tr td {
@@ -1425,6 +1432,11 @@ body {
   overflow: hidden;
   width: 100%;
   max-width: unset;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #ddd;
+  /* Ganti warna latar belakang sesuai keinginan */
 }
 
 .main-panel .page-header {
@@ -17352,7 +17364,7 @@ table.dataTable {
   clear: both;
   margin-top: 15px !important;
   margin-bottom: 15px !important;
-  max-width: 100% !important; 
+  max-width: 100% !important;
 }
 
 table.dataTable td,
@@ -22659,3 +22671,53 @@ body[data-background-color="dark"] .board {
 }
 
 /*# sourceMappingURL=atlantis.css.map */
+
+
+.ayamayam {
+  background: orange;
+  width: 100%;
+  padding: 10px;
+}
+
+
+.sidebar.sidebar-style-2 .nav .nav-item a:hover,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] {
+  background: #1572E8 !important;
+  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1), 4px 4px 15px -5px rgba(21, 114, 232, 0.4);
+  color: #fff;
+}
+
+
+.sidebar.sidebar-style-2 .nav .nav-item a:hover p,
+.sidebar.sidebar-style-2 .nav .nav-item a:hover i,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus p,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus i,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] p,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] i {
+  color: #ffffff !important;
+}
+
+.sidebar.sidebar-style-2 .nav .nav-item a:hover p,
+.sidebar.sidebar-style-2 .nav .nav-item a:hover i,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus p,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus i,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] p,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] i {
+  color: #000 !important;
+}
+
+.sidebar.sidebar-style-2 .nav .nav-item a:hover p,
+.sidebar.sidebar-style-2 .nav .nav-item a:hover i,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus p,
+.sidebar.sidebar-style-2 .nav .nav-item a:focus i,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] p,
+.sidebar.sidebar-style-2 .nav .nav-item a[data-toggle=collapse][aria-expanded=true] i {
+  color: #fff !important;
+}
+
+.main-header .navbar-header[data-background-color="white"] .navbar-nav .nav-item.active .nav-link,
+.main-header .navbar-header .navbar-header-transparent .navbar-nav .nav-item.active .nav-link {
+  background: #119a5d !important;
+  color: #fff !important;
+}

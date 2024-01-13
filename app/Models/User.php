@@ -21,7 +21,7 @@ class User extends Authenticatable
         'username',
         'name',
         'email',
-        'tmproyek_id',
+        // 'tmproyek_id', 
         'tmlevel_id',
         'password',
     ];
@@ -45,7 +45,7 @@ class User extends Authenticatable
     public function getProyekIdAttribute()
     {
         $user_id = Auth::user()->id;
-        $query   = User::select('users.id', 'users.tmproyek_id', 'users.username', 'tmlevel.level', 'tmlevel.id as level_id')
+        $query = User::select('users.id', 'users.username', 'tmlevel.level', 'tmlevel.id as level_id')
             ->join('tmlevel', 'users.tmlevel_id', '=', 'tmlevel.id')
             ->where('users.id', $user_id)
             ->first();
@@ -55,7 +55,7 @@ class User extends Authenticatable
     public function getLevelidAttribute()
     {
         $user_id = Auth::user()->id;
-        $query   = User::select('users.id', 'users.tmproyek_id', 'users.username', 'tmlevel_id')
+        $query = User::select('users.id', 'users.username', 'tmlevel_id')
             ->where('users.id', $user_id)->first();
         return $query->tmlevel_id;
     }
