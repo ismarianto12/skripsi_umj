@@ -175,12 +175,14 @@
                 let nama = dataArray[2];
                 let kelas = dataArray[1];
                 let id_siswa = dataArray[3];
+
+
                 if (nama === undefined) {
                     Swal.fire('Error',
                         'Siswa Tidak TerSimpan',
                         'error');
                 } else {
-                    Swal.fire('Hadir', `${nama} <br />Kelas : ${kelas}`, 'success');
+                    Swal.fire('Hadir', `${nama} <br />Kelas : ${localStorage.getItem('kelas')}`, 'success');
 
                     var varkelas_id = localStorage
                         .getItem(

@@ -62,60 +62,15 @@ class HomeController extends Controller
         );
     }
 
+
+
     public function pieData($par, $tahun)
     {
-        $data = [
-            'Closed BAK' => 'Closed BAK',
-            'Closed PKS' => 'Closed PKS',
-            'Closed PAID' => 'Closed PAID',
-            'Closed (Catatan)' => 'Closed (Catatan)',
-            'Negosiasi' => 'Negosiasi',
-        ];
 
-        $warna = [
-            'Closed BAK' => '#12391b',
-            'Closed PKS' => '#176128',
-            'Closed PAID' => '#378349',
-            'Closed (Catatan)' => '#8bec8d',
-            'Negosiasi' => '#ddd',
-        ];
-
-        $totaly = \DB::select("SELECT (( SELECT count( site_id ) FROM tmsurat_master WHERE status_perpanjangan != '' AND tmsurat_master.tmtahun_id = '$tahun' ) / (
-            SELECT
-                count( tmsurat_master.id ) AS total
-            FROM
-                tmsurat_master
-
-                INNER JOIN tr_surat_master ON tmsurat_master.site_id = tr_surat_master.site_id
-                WHERE
-                tmsurat_master.tmtahun_id = '$tahun'
-            ) * 100
-        ) AS TOTAL");
-        $totalqr = $totaly[0]->TOTAL;
-        if ($par == 'all') {
-            foreach ($data as $datas) {
-                $data = Tmsurat_master::where('status_perpanjangan', $datas)->where('tmtahun_id', $tahun)->count();
-                if ($datas == 'Negosiasi') {
-                    $negosiasi = Tmsurat_master::select(\DB::raw('count(id) as nego'))->where('tmtahun_id', $tahun)->first(); // \DB::select("");
-                    $fnegosiasi = (int) $negosiasi->nego - (int) $data;
-                    $rdata = (int) $fnegosiasi;
-                } else {
-                    $rdata = $data;
-                }
-                $row[] = [
-                    'name' => $datas . ': ' . $rdata . ' Site',
-                    'y' => $rdata,
-                    'color' => $warna[$datas],
-                ];
-            }
-            $rs = isset($row) ? $row : [];
-            return $rs;
-
-        } else {
-            $data = DB::table('ACHIEVEMENT_PERCENT')->get();
-            $res = substr($data[0]->TOTAL, 0, 5);
-            return $totalqr;
-        }
+    }
+    public function barData()
+    {
+        
     }
 
     public function dashboard()
