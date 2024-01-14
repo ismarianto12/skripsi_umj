@@ -113,7 +113,7 @@
                             <tr>
                                 <th></th>
                                 <th>Nama</th>
-                                <th>Jk</th>
+                                <th>Kelas</th>
                                 <th>Nama Mapel</th>
                                 <th>Pertemuan</th>
                                 <th>Status</th>
@@ -121,18 +121,6 @@
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>Nama</th>
-                                <th>Jk</th>
-                                <th>Nama Mapel</th>
-                                <th>Pertemuan</th>
-                                <th>Status</th>
-                                <th>Pengampu</th>
-                                <th style="width: 10%">Action</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                         </tbody>
                     </table>
@@ -202,18 +190,9 @@
                     name: 'siswa_nama'
                 },
                 {
-                    data: 'jk',
-                    name: 'jk',
-                    render: function(data, type, row) {
-                        // Assuming 'data' is the value in the 'jk' column
-                        if (data === 'L') {
-                            return 'Laki-Laki';
-                        } else if (data === 'P') {
-                            return 'Perempuan';
-                        } else {
-                            return 'Kosong';
-                        }
-                    }
+                    data: 'kelas_id',
+                    name: 'kelas_id',
+
                 },
                 {
                     data: 'nama_mapel',
@@ -236,7 +215,7 @@
                     name: 'status_hadir',
                     render: function(data, type, row) {
                         if (data === 'H') {
-                            return '<button class="btn btn-primary btn-sm"><i class="fa fa-check"></i>Hadir</button>';
+                            return '<button class="btn btn-info btn-sm"><i class="fa fa-check"></i>Hadir</button>';
                         } else {
                             return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>Tidak Hadir</button>';
 
@@ -326,6 +305,8 @@
         });
         $('#search_data').on('submit', function(event) {
             event.preventDefault();
+
+            // Show SweetAlert loading spinner
             Swal.fire({
                 title: 'Checking data...',
                 allowOutsideClick: false,
@@ -334,8 +315,29 @@
             });
             Swal.showLoading();
 
-            $('#datatable').DataTable().ajax.reload();
+            // Reload the DataTable and handle events
+            var dataTable = $('#datatable').DataTable();
 
+            // Add an event listener for the preDraw event
+            dataTable.on('preDraw', function() {
+                // Show SweetAlert loading spinner during DataTable reload
+                Swal.fire({
+                    title: 'Checking data...',
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                });
+                Swal.showLoading();
+            });
+
+            // Add an event listener for the draw event
+            dataTable.on('draw', function() {
+                // Close SweetAlert loading spinner after DataTable reload
+                Swal.close();
+            });
+
+            // Reload the DataTable
+            dataTable.ajax.reload();
         });
 
         // add

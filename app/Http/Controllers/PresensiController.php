@@ -41,7 +41,6 @@ class PresensiController extends Controller
                 'presensi.updated_at',
                 'presensi.user_id',
                 'presensi.pertemuan',
-                'presensi.kelas_id',
                 'presensi.mapel_id',
                 'presensi.guru_id',
                 'mapel.nama_mapel',
@@ -49,8 +48,9 @@ class PresensiController extends Controller
                 'jadwal.pertemuan',
                 'karyawan.nama as guru_pengampu',
                 'siswa.jk',
+                'siswa.kelas as kelas_id',
                 'siswa.nik',
-                'siswa.nama as siswa_nama'
+                'siswa.nama as siswa_nama',
             )
             ->join('karyawan', 'karyawan.id', '=', 'presensi.guru_id', 'left')
             ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left')
@@ -67,7 +67,7 @@ class PresensiController extends Controller
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id_presensi . "' />";
             })
             ->editColumn('action', function ($p) {
-                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id_presensi . '" data-siswa_nama="'.$p->siswa_nama.'"><i class="fa fa-list"></i>Ubah Presensi </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id_presensi . '" data-siswa_nama="' . $p->siswa_nama . '"><i class="fa fa-list"></i>Ubah Presensi </a> ';
 
             }, true)
 
