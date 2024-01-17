@@ -153,25 +153,29 @@
             $('.pertemnua_render').html('');
             $('.kelas_render').html('');
             $('#preview').html('<h4>Loading Aplikasi</h4>');
-            const constraints = {
-                video: {
-                    facingMode: 'environment'
-                }
-            };
-
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then((stream) => {
-                    scanner.video.srcObject = stream;
-                    scanner.start();
-                })
-                .catch((error) => {
-                    console.error('Error accessing camera:', error);
-                });
-
             let scanner = new Instascan.Scanner({
                 video: document.getElementById(
                     'preview')
             });
+
+            function startScanner(facingMode) {
+                const constraints = {
+                    video: {
+                        facingMode: facingMode
+                    }
+                };
+
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then((stream) => {
+                        scanner.video.srcObject = stream;
+                        scanner.start();
+                    })
+                    .catch((error) => {
+                        console.error('Error accessing camera:', error);
+                    });
+            }
+            // Call the function to start the scanner with the rear camera
+            startScanner('environment');
 
             Instascan.Camera.getCameras().then(function(
                 cameras) {

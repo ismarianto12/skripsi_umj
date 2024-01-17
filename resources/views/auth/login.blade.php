@@ -48,7 +48,7 @@
                 <br /> <br /><br />
                 <div style="text-align:center">
                     <br /> <br /><br />
-                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" />
+                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" style="width: 80%" />
 
                     <h4 className="text-center" style="text-align: center;">
                         SISTEM INFORMASI SMP MUHAMMADIYAH 17 CIPUTAT
