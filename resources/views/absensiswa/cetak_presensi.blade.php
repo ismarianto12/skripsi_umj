@@ -123,10 +123,12 @@
                     <tr>
                         <td>Nama :</td>
                         <td>{{ $data->nama }}</td>
+
+                    </tr>
+                    <tr>
                         <td>Kelas :</td>
                         <td>{{ $data->kelas }}</td>
                     </tr>
-
                 </table>
                 <div class="qr-code">
                     {!! QrCode::size(100)->generate('|' . $data->id . '|' . $data->nama . '|' . $data->kelas . '|') !!}
