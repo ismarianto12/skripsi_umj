@@ -153,6 +153,21 @@
             $('.pertemnua_render').html('');
             $('.kelas_render').html('');
             $('#preview').html('<h4>Loading Aplikasi</h4>');
+            const constraints = {
+                video: {
+                    facingMode: 'environment'
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then((stream) => {
+                    scanner.video.srcObject = stream;
+                    scanner.start();
+                })
+                .catch((error) => {
+                    console.error('Error accessing camera:', error);
+                });
+
             let scanner = new Instascan.Scanner({
                 video: document.getElementById(
                     'preview')

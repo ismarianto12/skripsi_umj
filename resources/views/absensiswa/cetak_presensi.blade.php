@@ -115,7 +115,8 @@
         @foreach ($siswa as $data)
             <div class="card">
                 <div class="header">
-                    <img src="http://localhost/skripsi_umj/public/assets/img/logo_telkom.png" alt="Logo" />
+                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" />
+
                     <h3>SMP MUHAMMADIYAH 17 CIPUTAT</h3>
                 </div>
                 <table style="margin-top: -80px">
