@@ -44,7 +44,7 @@
 
             <div class="col-sm-12 col-md-12">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
                             <h3>Panduan Pengguna Aplikasi System E-Presensi </h3>
 
@@ -69,8 +69,7 @@
                                         siswa</p>
                                 </li>
                             </ol>
-                            <h4>Konniciwa</h4>
-
+ 
                         </div>
                     </div>
                 </div>
