@@ -41,6 +41,42 @@
     <div class="page-inner">
         <h4 class="page-title">Dashboard Panel</h4>
         <div class="row">
+
+            <div class="col-sm-12 col-md-12">
+                <div class="card card-stats card-round">
+                    <div class="card-body ">
+                        <div class="row">
+                            <h3>Panduan Pengguna Aplikasi System E-Presensi </h3>
+
+
+
+
+                            <p>izin jualan teman 2 :</p>
+
+                            <p>Aplikasi presensi siswa menggunakan qr(Quick Response Code) , dan kartu presensi , use case
+                                aplikasi seperti berikut :</p>
+
+                            <ol>
+                                <li>
+                                    <p>Super admin atau tata usah setup jadwal assing ke guru kelas</p>
+                                </li>
+                                <li>
+                                    <p>guru kelas menerima jadwal ajar dan mencetak kartu presensi dari hasil assigment tata
+                                        usaha sebagai super admin</p>
+                                </li>
+                                <li>
+                                    <p>guru melakukan presensi berdasrkan jadwal dan mulai scanning kartu hasil print dari
+                                        siswa</p>
+                                </li>
+                            </ol>
+                            <h4>Konniciwa</h4>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body ">
@@ -120,7 +156,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 row"> 
+    <div class="col-md-12 row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">

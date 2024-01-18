@@ -136,7 +136,6 @@
             </div>
         @endforeach
     </div>
-    {{-- |100|LUTFIA SAFANA|9| idsiswanya --}}
     <script>
         function generatePDF() {
             const doc = new jsPDF();
