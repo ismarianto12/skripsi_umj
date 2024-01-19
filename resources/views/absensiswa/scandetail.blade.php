@@ -146,15 +146,7 @@
                         guru_id: '{{ $jadwal->guru_id }}',
                         status: '1',
                         user_id: '{{ Auth::user()->id }}'
-                    },
-                    beforeSend: function() {
-                        Swal
-                            .showLoading();
-                        Swal.fire(
-                            'Info',
-                            'Please wait ...',
-                            'info');
-                    },
+                    }, 
                     success: function(
                         response) {
                         // Swal.fire(
