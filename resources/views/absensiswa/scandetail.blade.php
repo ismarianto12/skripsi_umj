@@ -65,7 +65,8 @@
 
                         <div class="form-group row">
                             <button id="start-button" class="btn btn-primary btn-sm" style="width: 50%">Start</button>
-                            <button id="stop-button" class="batal_presensi btn btn-danger btn-sm"  style="width: 50%">Stop</button>
+                            <button id="stop-button" class="batal_presensi btn btn-danger btn-sm"
+                                style="width: 50%">Stop</button>
                         </div>
                     </div>
                 </div>
@@ -156,11 +157,11 @@
                     },
                     success: function(
                         response) {
-                        Swal.fire(
-                            'Hadir',
-                            `${nama} <br /> Kelas ${kelas}`,
-                            'success'
-                        );
+                        // Swal.fire(
+                        //     'Hadir',
+                        //     `${nama} <br /> Kelas ${kelas}`,
+                        //     'success'
+                        // );
                         $('.render_siswa')
                             .html(
                                 `<b>${nama}</b>`
@@ -183,8 +184,7 @@
                 });
             }
 
-
-            label.textContent = result.data;
+            label.textContent = '<div class="alert alert-info"> Hadir : ' + result.data + "</div>";
             camQrResultTimestamp.textContent = new Date().toString();
             label.style.color = 'teal';
             clearTimeout(label.highlightTimeout);
