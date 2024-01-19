@@ -54,12 +54,12 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="cam-qr-result"><b>Detected QR code: </b></label>
+                            <label for="cam-qr-result"><b>Siswa Yang Di Scan</b></label>
                             <span id="cam-qr-result">None</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="cam-qr-result-timestamp"><b>Last detected at: </b></label>
+                            <label for="cam-qr-result-timestamp"><b>Scan Terakhir </b></label>
                             <span id="cam-qr-result-timestamp"></span>
                         </div>
 
