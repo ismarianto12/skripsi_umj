@@ -52,7 +52,6 @@
     <link href="{{ asset('assets') }}\css\_kldmsalkmdkasldasldmasdklsakd.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{ asset('assets') }}/js/aplikasi.js"></script> 
-    <script src="https://nimiq.github.io/qr-scanner/qr-scanner.min.js"></script> 
 
 </head>
 
@@ -181,7 +180,7 @@
             </div>
         </div>
         <!-- End Sidebar -->
-        <div class="main-panel" id="pjax-container">
+        <div class="main-panel">
             <div class="container" style="background:#ddd">
 
                 <div class="clearfix"></div>
@@ -742,12 +741,12 @@
     <script src="{{ asset('assets') }}/js/plugin/pace/pace.js"></script>
 
     <script>
-        $(document).pjax('a', '#pjax-container', {
-            complete: function(xhr, textStatus) {
-                // Fungsi ini akan dijalankan setelah pjax selesai
-                $.pjax.reload('#pjax-container');
-            }
-        });
+        // $(document).pjax('a', '#pjax-container', {
+        //     complete: function(xhr, textStatus) {
+        //         // Fungsi ini akan dijalankan setelah pjax selesai
+        //         $.pjax.reload('#pjax-container');
+        //     }
+        // });
 
         function search_contract(tahun) {
             if (tahun === "") {
