@@ -146,7 +146,7 @@
                         guru_id: '{{ $jadwal->guru_id }}',
                         status: '1',
                         user_id: '{{ Auth::user()->id }}'
-                    }, 
+                    },
                     success: function(
                         response) {
                         // Swal.fire(
@@ -166,7 +166,7 @@
                     error: function(xhr,
                         status,
                         error) {
-                       
+
                         // Lakukan hal lain setelah terjadi error jika perlu
                     },
                 });
@@ -230,7 +230,7 @@
         // document.getElementById('inversion-mode-select').addEventListener('change', event => {
         //     scanner.setInversionMode(event.target.value);
         // });
-
+        scanner.start();
         camList.addEventListener('change', event => {
             scanner.setCamera(event.target.value).then(updateFlashAvailability);
         });
@@ -239,9 +239,9 @@
             scanner.toggleFlash().then(() => flashState.textContent = scanner.isFlashOn() ? 'on' : 'off');
         });
 
-        document.getElementById('start-button').addEventListener('click', () => {
-            scanner.start();
-        });
+        // document.getElementById('start-button').addEventListener('click', () => {
+
+        // });
 
         document.getElementById('stop-button').addEventListener('click', () => {
             scanner.stop();
