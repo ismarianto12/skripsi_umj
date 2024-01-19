@@ -744,8 +744,13 @@
         $(document).pjax('a', '#pjax-container', {
             complete: function(xhr, textStatus) {
                 // Fungsi ini akan dijalankan setelah pjax selesai
-                location.reload(true);
-                // $.pjax.reload('#pjax-container');
+                var currentURL = window.location.pathname;
+                var regex = /\/public\/master\/scandetail\/\d+$/;
+                if (regex.test(currentURL)) {
+                    // location.reload(true);
+                    window.location.reload()
+
+                }
             }
         });
 

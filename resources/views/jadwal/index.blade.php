@@ -120,7 +120,7 @@
                                     <th>Jam Mulai </th>
                                     <th>Jam Selesai </th>
                                     <th>Pertemuan</th>
-                                    <th>Tanggal</th> 
+                                    <th>Tanggal</th>
                                     <th>Hari</th>
                                     <th>Guru Pengampu</th>
                                     <th style="width: 10%">Action</th>
@@ -197,13 +197,14 @@
                     }
 
                 },
-                {
-                    data: 'tanggal',
-                    name: 'tanggal'
-                },
+
                 {
                     data: 'pertemuan',
                     name: 'pertemuan'
+                },
+                {
+                    data: 'tanggal',
+                    name: 'tanggal'
                 },
                 {
                     data: 'hari',
