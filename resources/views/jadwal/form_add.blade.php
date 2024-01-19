@@ -50,6 +50,13 @@
             </div>
 
             <div class="form-group row">
+                <label fror="jumlah_siswa" class="col-md-2 text-left"> Tanggal</label>
+                <div class="col-md-4">
+                    <input type="date" class="form-control" name="tanggal" />
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label fror="sesi" class="col-md-2 text-left"> Jam Mulai</label>
                 <div class="col-md-4">
                     <input type="time" class="form-control" name="jam_mulai" />

@@ -77,6 +77,7 @@ class JadwalController extends Controller
             $data->updated_at = $this->request->updated_at;
             $data->user_id = $this->request->user_id;
             $data->created_at = date('Y-m-d H:i:s');
+            $data->tanggal = $this->request->tanggal;
             $data->save();
             return response()->json(['messages' => 'data berhasil disimpan'], 200);
 
@@ -197,6 +198,7 @@ class JadwalController extends Controller
             $data->updated_at = $this->request->updated_at;
             $data->user_id = $this->request->user_id;
             $data->created_at = date('Y-m-d H:i:s');
+            $data->tanggal = $this->request->tanggal;
             $data->save();
             return response()->json(['messages' => 'data berhasil disimpan'], 200);
 
@@ -234,6 +236,7 @@ class JadwalController extends Controller
                 'jadwal.guru_id',
                 'jadwal.hari', 
                 'jadwal.crated_at',
+                'jadwal.tanggal', 
                 'jadwal.jam_mulai',
                 'jadwal.jam_selesai', 
                 'jadwal.updated_at',
