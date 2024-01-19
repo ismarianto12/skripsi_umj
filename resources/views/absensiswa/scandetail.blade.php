@@ -174,11 +174,7 @@
                     error: function(xhr,
                         status,
                         error) {
-                        // Swal.fire({
-                        //     title: 'Error',
-                        //     text: xhr.responseText,
-                        //     icon: 'error'
-                        // });
+                       
                         // Lakukan hal lain setelah terjadi error jika perlu
                     },
                 });
