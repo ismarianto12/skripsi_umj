@@ -51,9 +51,7 @@
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css">
     <link href="{{ asset('assets') }}\css\_kldmsalkmdkasldasldmasdklsakd.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('assets') }}/js/instascan.min.js"></script>
-    <script src="{{ asset('assets') }}/js/aplikasi.js"></script>
-
+    <script src="{{ asset('assets') }}/js/aplikasi.js"></script> 
 
 </head>
 
