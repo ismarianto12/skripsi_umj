@@ -198,7 +198,7 @@ class JadwalController extends Controller
             $data->updated_at = $this->request->updated_at;
             $data->user_id = $this->request->user_id;
             $data->created_at = date('Y-m-d H:i:s');
-            $data->tanggal = $this->request->tanggal;
+        $data->tanggal = $this->request->tanggal;
             $data->save();
             return response()->json(['messages' => 'data berhasil disimpan'], 200);
 
