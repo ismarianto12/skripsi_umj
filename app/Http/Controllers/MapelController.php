@@ -49,10 +49,10 @@ class MapelController extends Controller
         return view($this->view . 'select', compact('title'));
     }
 
-    public function 
-    
-    api()
-    {
+    public function
+
+        api(
+    ) {
 
         $kelas = $this->request->kelas_id;
         $data = DB::table('mapel')
@@ -93,14 +93,17 @@ class MapelController extends Controller
     public function store()
     {
         $this->request->validate([
-            'kode_rap' => 'unique:Pegawai,kode_rap|required',
-            'nama_rap' => 'unique:Pegawai,nama_rap|required',
+            'kode' => 'required',
+            'nama_mapel' => 'required',
+            'kkm' => 'required'
         ]);
         try {
             $data = new Pegawai();
+
             $data->kode_rap = $this->request->kode_rap;
             $data->nama_rap = $this->request->nama_rap;
             $data->user_id = Auth::user()->id;
+
             $data->save();
             return response()->json([
                 'status' => 1,
@@ -158,19 +161,19 @@ class MapelController extends Controller
      */
     public function update($id)
     {
-        $data = $this->request->validate([
-            'kode_rap' => 'required',
-            'nama_rap' => 'required',
+        $this->request->validate([
+            'kode' => 'required',
+            'nama_mapel' => 'required',
+            'kkm' => 'required'
         ]);
         try {
-            $data = new Pegawai();
+            $data = new Mapel();
             $data->find($id)->update($this->request->all());
-
             return response()->json([
                 'status' => 1,
                 'msg' => 'data jenis Rap berhasil ditambah',
             ]);
-        } catch (\Pegawai $t) {
+        } catch (\Mapel $t) {
             return response()->json([
                 'status' => 2,
                 'msg' => $t,
@@ -178,12 +181,6 @@ class MapelController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {

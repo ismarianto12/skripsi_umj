@@ -48,6 +48,29 @@
                     <small>Silahkan Kosong kan jika tidak perlu</small>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label fror="sesi" class="col-md-2 text-left"> Jam Mulai</label>
+                <div class="col-md-4">
+                    <input type="time" class="form-control" name="jam_mulai" />
+                    <small>Silahkan Kosong kan jika tidak perlu</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label fror="sesi" class="col-md-2 text-left"> Jam Selesai</label>
+                <div class="col-md-4">
+                    <input type="time" class="form-control" name="jam_selesai" />
+                    <small>Silahkan Kosong kan jika tidak perlu</small>
+                </div>
+            </div>
+
+            <select name="hari" class="form-control">
+                @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
+                    <option value="{{ $hari }}">{{ $hari }}</option>
+                @endforeach
+            </select>
+
             <div class="form-group row">
                 <label fror="jumlah_siswa" class="col-md-2 text-left"> Jumlah Siswa</label>
                 <div class="col-md-4">

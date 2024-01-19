@@ -13,8 +13,7 @@
                             <option value="{{ $kelas->id }}">{{ $kelas->kelas }}</option>
                         @endforeach
                     </select>
-                </div>
-
+                </div> 
             </div>
             <div class="form-group row">
                 <label class="col-md-4 text-right">Kode </label>
@@ -34,7 +33,8 @@
                     <input type="number" class="form-control" name="kkm" value="{{ $data->kkm }}">
                 </div>
             </div>
-
+            <hr />
+            <hr />
             <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-success" type="submit">Simpan</button>

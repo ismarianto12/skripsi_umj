@@ -117,6 +117,8 @@
                                     <th></th>
                                     <th>Nama Mapel</th>
                                     <th>Kelas </th>
+                                    <th>Jam Mulai </th>
+                                    <th>Jam Selesai </th>
                                     <th>Pertemuan</th>
                                     <th>Guru Pengampu</th>
                                     <th style="width: 10%">Action</th>
@@ -167,6 +169,42 @@
                             return 'Kosong';
                         }
                     }
+                },
+                {
+                    data: 'jam_mulai',
+                    name: 'jam_mulai',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
+
+                },
+                {
+                    data: 'hari',
+                    name: 'hari',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
+
+                },
+                {
+                    data: 'jam_selesai',
+                    name: 'jam_selesai',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return data;
+                        } else {
+                            return 'Kosong';
+                        }
+                    }
+
                 },
                 {
                     data: 'pertemuan',
