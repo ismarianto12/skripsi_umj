@@ -65,11 +65,19 @@
                 </div>
             </div>
 
-            <select name="hari" class="form-control">
-                @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
-                    <option value="{{ $hari }}">{{ $hari }}</option>
-                @endforeach
-            </select>
+            <div class="form-group row">
+                <label fror="sesi" class="col-md-2 text-left"> Hari</label>
+
+                <div class="col-md-4">
+
+                    <select name="hari" class="form-control">
+                        @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
+                            <option value="{{ $hari }}">{{ $hari }}</option>
+                        @endforeach
+                    </select>
+
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label fror="jumlah_siswa" class="col-md-2 text-left"> Jumlah Siswa</label>
