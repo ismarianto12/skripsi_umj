@@ -180,7 +180,7 @@
             </div>
         </div>
         <!-- End Sidebar -->
-        <div class="main-panel" id="pjax-container">
+        <div class="main-panel">
             <div class="container" style="background:#ddd">
 
                 <div class="clearfix"></div>
