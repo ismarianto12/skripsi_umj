@@ -101,8 +101,8 @@
         })
     </script>
 
-    <script>
-       
+    <script type="module">
+        import QrScanner from "https://nimiq.github.io/qr-scanner/qr-scanner.min.js";
 
         const video = document.getElementById('qr-video');
         const videoContainer = document.getElementById('video-container');
@@ -146,7 +146,7 @@
                         guru_id: '{{ $jadwal->guru_id }}',
                         status: '1',
                         user_id: '{{ Auth::user()->id }}'
-                    },
+                    }, 
                     success: function(
                         response) {
                         // Swal.fire(
@@ -166,7 +166,7 @@
                     error: function(xhr,
                         status,
                         error) {
-
+                       
                         // Lakukan hal lain setelah terjadi error jika perlu
                     },
                 });
