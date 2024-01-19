@@ -181,7 +181,7 @@ class JadwalController extends Controller
                     'jumlah_siswa' => 'required',
                 ]);
             } catch (ValidationException $e) {
-                return response()->json(['error' => $e->validator->errors()], 422);
+            return response()->json(['error' => $e->validator->errors()], 422);
             }
             $data = Jadwal::findOrFail($id);
             $data->mapel_id = $this->request->mapel_id;

@@ -242,8 +242,8 @@
             if (c.length == 0) {
                 $.alert("Silahkan memilih data yang akan dihapus.");
             } else {
-                $.post("{{ route('master.siswa.destroy', ':id') }}", {
-                    '_method': 'DELETE',
+                $.post("{{ route('laporan.delete_presensi') }}", {
+                    '_method': 'POST',
                     'id': c
                 }, function(data) {
                     $('#datatable').DataTable().ajax.reload();

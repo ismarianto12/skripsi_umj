@@ -131,26 +131,26 @@ class PresensiController extends Controller
         try {
             $pertemuan = $this->request->pertemuan;
             $check = DB::table('presensi')->where(['pertemuan' => $pertemuan, 'id_siswa' => $this->request->id_siswa])->get();
-            if ($check->count() > 0) {
-                return '<b>Gagal presensi sudah ada sebelumnya</b>';
-            } else {
-                $nowdata = date('Y-m-d');
-                $data = new Presensi;
-                $data->id_siswa = $this->request->id_siswa;
-                $data->jadwal_id = $this->request->jadwal_id;
-                $data->pertemuan = $pertemuan;
-                $data->jam = $jam_sekarang;
-                $data->status = $this->request->status;
-                $data->created_at = $nowdata;
-                $data->updated_at = $nowdata;
-                $data->guru_id = $this->request->guru_id;
-                $data->pertemuan = $this->request->pertemuan;
-                $data->user_id = $this->request->user_id;
-                $data->guru_id = $this->request->user_id;
+            // if ($check->count() > 0) {
+            //     return '<b>Gagal presensi sudah ada sebelumnya</b>';
+            // } else {
+            $nowdata = date('Y-m-d');
+            $data = new Presensi;
+            $data->id_siswa = $this->request->id_siswa;
+            $data->jadwal_id = $this->request->jadwal_id;
+            $data->pertemuan = $pertemuan;
+            $data->jam = $jam_sekarang;
+            $data->status = $this->request->status;
+            $data->created_at = $nowdata;
+            $data->updated_at = $nowdata;
+            $data->guru_id = $this->request->guru_id;
+            $data->pertemuan = $this->request->pertemuan;
+            $data->user_id = $this->request->user_id;
+            $data->guru_id = $this->request->user_id;
 
-                $data->save();
-                return response()->json(['msg' => 'data berhasil disimpan']);
-            }
+            $data->save();
+            return response()->json(['msg' => 'data berhasil disimpan']);
+            // }
         } catch (\Throwable $th) {
             return response()->json([
                 "error" => $th->getMessage()

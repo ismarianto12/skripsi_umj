@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth', 'api']], function () {
     Route::post('jenis_show/{id}', [GuruController::class, 'carijenis'])->name('jenis_show');
     Route::prefix('laporan')->name('laporan.')->group(function () {
         Route::get('laporan_presensi', [SiswaPresensiController::class, 'laporan_presensi'])->name('laporan_presensi');
+        Route::post('delete_presensi', [SiswaPresensiController::class, 'destroy'])->name('delete_presensi');
+
         Route::get('pegawai', [PegawaiController::class, 'laporan_pegawai'])->name('pegawai');
         Route::get('siswa', [SiswaController::class, 'laporan_siswa'])->name('siswa');
     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Jadwal;
+use App\Models\Presensi;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -235,20 +236,20 @@ class SiswaPresensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         try {
             if (is_array($this->request->id)) {
-                Guru::whereIn('id', $this->request->id)->delete();
+                Presensi::whereIn('id', $this->request->id)->delete();
             } else {
-                Guru::whereid($this->request->id)->delete();
+                Presensi::whereid($this->request->id)->delete();
             }
 
             return response()->json([
                 'status' => 1,
                 'msg' => 'Data berhasil di hapus',
             ]);
-        } catch (Guru $t) {
+        } catch (\Presensi $t) {
             return response()->json([
                 'status' => 2,
                 'msg' => $t,
