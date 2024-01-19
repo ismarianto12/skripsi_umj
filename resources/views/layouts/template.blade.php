@@ -51,7 +51,8 @@
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css">
     <link href="{{ asset('assets') }}\css\_kldmsalkmdkasldasldmasdklsakd.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('assets') }}/js/aplikasi.js"></script>
+    <script src="{{ asset('assets') }}/js/aplikasi.js"></script> 
+    <script src="https://nimiq.github.io/qr-scanner/qr-scanner.min.js"></script> 
 
 </head>
 
@@ -744,13 +745,7 @@
         $(document).pjax('a', '#pjax-container', {
             complete: function(xhr, textStatus) {
                 // Fungsi ini akan dijalankan setelah pjax selesai
-                var currentURL = window.location.pathname;
-                var regex = /\/public\/master\/scandetail\/\d+$/;
-                if (regex.test(currentURL)) {
-                    // location.reload(true);
-                    window.location.reload()
-
-                }
+                $.pjax.reload('#pjax-container');
             }
         });
 
