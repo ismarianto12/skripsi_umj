@@ -174,21 +174,25 @@
                     error: function(xhr,
                         status,
                         error) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: xhr.responseText,
-                            icon: 'error'
-                        });
+                        // Swal.fire({
+                        //     title: 'Error',
+                        //     text: xhr.responseText,
+                        //     icon: 'error'
+                        // });
                         // Lakukan hal lain setelah terjadi error jika perlu
                     },
                 });
             }
 
-            label.textContent = '<div class="alert alert-info"> Hadir : ' + result.data + "</div>";
+            label.innerHTML = '<div class="alert alert-info"> Hadir : ' + result.data + "</div>";
             camQrResultTimestamp.textContent = new Date().toString();
             label.style.color = 'teal';
             clearTimeout(label.highlightTimeout);
-            label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
+            label.highlightTimeout = setTimeout(() => {
+                label.innerHTML = ''; // Menghapus konten setelah beberapa waktu
+                label.style.color = 'inherit';
+            }, 100);
+
         }
 
 
