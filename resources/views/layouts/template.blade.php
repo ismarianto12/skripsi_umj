@@ -51,7 +51,7 @@
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css">
     <link href="{{ asset('assets') }}\css\_kldmsalkmdkasldasldmasdklsakd.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{ asset('assets') }}/js/aplikasi.js"></script> 
+    <script src="{{ asset('assets') }}/js/aplikasi.js"></script>
 
 </head>
 
@@ -167,8 +167,8 @@
                     </div>
                     <ul class="nav nav-primary">
                         <li class="nav-item active">
-                            <a data-toggle="collapse" href="{{ url('index.html?contract=' . date('Y')) }}"
-                                class="collapsed" aria-expanded="false">
+                            <a href="{{ url('index.html?contract=' . date('Y')) }}" class="collapsed"
+                                aria-expanded="false">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
