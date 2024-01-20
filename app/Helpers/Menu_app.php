@@ -122,6 +122,7 @@ class Menu_app
                     $menu .= '
                   </ul>
                 </div>
+                
             </li>';
                     break;
                 case 2:
@@ -130,6 +131,7 @@ class Menu_app
                     ';
                     $menu .= self::menu_single(Url('master/jadwal'), '', 'Jadwal');
                     $menu .= self::menu_single(Url('master/rekap_presensi'), '', 'Rekap Presensi');
+                    $menu .= self::set_menu(Url('master/laporan_presensi'), 'Laporan Presensi', );
                     $menu .= self::menu_single(Url('master/scan'), '', 'Presensi');
                     '</ul>
                     </li>

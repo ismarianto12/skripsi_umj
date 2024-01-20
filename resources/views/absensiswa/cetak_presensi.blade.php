@@ -92,15 +92,7 @@
 
         /* Adjust for print */
         @media print {
-            body {
-                padding: 0;
-            }
-
-            .card {
-                page-break-inside: avoid;
-            }
-
-            .print-button {
+             .print-button {
                 display: none;
                 /* Hide print button in print mode */
             }
