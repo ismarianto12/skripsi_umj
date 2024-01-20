@@ -463,6 +463,8 @@ class Properti_app
             'H' => 'Hadir',
             'A' => 'Alpha',
             'I' => 'Izin',
+            'S' => 'Sakit',
+            
         ];
 
     }

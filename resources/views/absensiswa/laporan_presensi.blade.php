@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div class="d-flex align-items-center">
                     <form id="search_data" novalidate>
                         <div class="row">
@@ -134,14 +134,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
     <script>
         // table data
 
         var table = $('#datatable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
+            buttons: [{
                     extend: 'copyHtml5',
                     className: 'btn btn-info btn-xs'
                 },
@@ -214,11 +213,18 @@
                     name: 'status_hadir',
                     render: function(data, type, row) {
                         if (data === 'H') {
-                            return '<button class="btn btn-info btn-sm"><i class="fa fa-check"></i>Hadir</button>';
-                        } else {
-                            return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>Tidak Hadir</button>';
+                            return '<button class="btn btn-info btn-sm"><i class="fa fa-check"></i>HADIR</button>';
+                        } else if (data === 'A') {
+                            return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>ALPA</button>';
 
-                        }
+                        } else if (data === 'I') {
+                            return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>IZIN</button>';
+
+                        } else if (data === 'S') {
+                            return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>SAKIT</button>';
+
+                        } 
+
                     }
                 },
                 {
