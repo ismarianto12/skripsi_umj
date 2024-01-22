@@ -89,12 +89,7 @@
                     confirmButtonText: "Ok"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $.pjax({
-                            container: '#pjax-container', // ID dari kontainer yang akan di-refresh
-                            url: '{{ Url('master/scan') }}', // URL yang akan dimuat secara dinamis
-                            push: false // Menonaktifkan perubahan URL di baris alamat
-                        });
-
+                        window.location.href = '{{ Url('master/scan') }}';
                     }
                 })
             })
