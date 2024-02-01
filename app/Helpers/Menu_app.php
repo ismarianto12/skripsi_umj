@@ -91,6 +91,8 @@ class Menu_app
                     $menu .= self::set_menu(Url('master/pegawai'), 'Pegawai');
                     $menu .= self::set_menu(Url('master/mapel'), 'Mata Pelajaran');
                     $menu .= self::set_menu(Url('master/jadwal'), 'Jadwal');
+                    $menu .= self::set_menu(Url('master/user'), 'User');
+
                     $menu .= '
                       </ul>
                     </div>

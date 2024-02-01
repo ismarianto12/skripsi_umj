@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::post('mapel', [MapelController::class, 'api'])->name('mapel');
         Route::post('jadwal', [JadwalController::class, 'api'])->name('jadwal');
         Route::post('jadwalscan', [JadwalController::class, 'jadwalscan'])->name('jadwalscan');
+        Route::post('user', [UserController::class, 'api'])->name('user');
 
         Route::post('siswa', [SiswaController::class, 'api'])->name('siswa');
         Route::post('guru', [GuruController::class, 'api'])->name('guru');

@@ -41,12 +41,11 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:50%">Foto</th>
+                                <th>Username</th>
                                 <th>Nama</th>
                                 <th>Proyek</th>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Level</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -81,28 +80,24 @@
                     className: 'text-center'
                 },
                 {
-                    data: 'foto_p',
-                    name: 'foto_p'
+                    data: 'username',
+                    name: 'username'
                 },
                 {
                     data: 'name',
                     name: 'name'
                 },
                 {
-                    data: 'namaproyek',
-                    name: 'namaproyek'
-                },
-                {
                     data: 'username',
                     name: 'username',
                 },
                 {
-                    data: 'email',
-                    name: 'email'
+                    data: 'level',
+                    name: 'level',
                 },
                 {
-                    data: 'tmlevel.level',
-                    name: 'tmlevel.level'
+                    data: 'email',
+                    name: 'email'
                 },
                 {
                     data: 'action',
@@ -176,6 +171,5 @@
 
             })
         });
-
     </script>
 @endsection

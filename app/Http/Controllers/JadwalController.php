@@ -23,7 +23,7 @@ class JadwalController extends Controller
     {
         $title = "Master Data Jadwal";
         $guru = DB::table("karyawan")->where('status', 1)->get();
-        $kelas = DB::table("kelas")->get(); 
+        $kelas = DB::table("kelas")->get();
         return view($this->view . "index", compact("title", "guru", 'kelas'));
     }
 
@@ -70,8 +70,8 @@ class JadwalController extends Controller
             $data->sesi = $this->request->sesi;
             $data->jumlah_siswa = $this->request->jumlah_siswa;
             $data->jam_mulai = $this->request->jam_mulai;
-            $data->jam_selesai = $this->request->jam_selesai; 
-            $data->hari = $this->request->hari; 
+            $data->jam_selesai = $this->request->jam_selesai;
+            $data->hari = $this->request->hari;
             $data->guru_id = $this->request->guru_id;
             $data->crated_at = $this->request->crated_at;
             $data->updated_at = $this->request->updated_at;
@@ -191,8 +191,8 @@ class JadwalController extends Controller
             $data->sesi = $this->request->sesi;
             $data->jumlah_siswa = $this->request->jumlah_siswa;
             $data->jam_mulai = $this->request->jam_mulai;
-            $data->jam_selesai = $this->request->jam_selesai;             
-            $data->hari = $this->request->hari;  
+            $data->jam_selesai = $this->request->jam_selesai;
+            $data->hari = $this->request->hari;
             $data->guru_id = $this->request->guru_id;
             $data->crated_at = $this->request->crated_at;
             $data->updated_at = $this->request->updated_at;
@@ -234,11 +234,11 @@ class JadwalController extends Controller
                 'jadwal.sesi',
                 'jadwal.jumlah_siswa',
                 'jadwal.guru_id',
-                'jadwal.hari', 
+                'jadwal.hari',
                 'jadwal.crated_at',
-                'jadwal.tanggal', 
+                'jadwal.tanggal',
                 'jadwal.jam_mulai',
-                'jadwal.jam_selesai', 
+                'jadwal.jam_selesai',
                 'jadwal.updated_at',
                 'jadwal.user_id',
                 'jadwal.created_at',
@@ -295,5 +295,5 @@ class JadwalController extends Controller
         }
     }
 
-    
+
 }

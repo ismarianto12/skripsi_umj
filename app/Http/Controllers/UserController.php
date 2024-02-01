@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function api()
     {
-        $data = User::join('tmuser_level', 'user.level_id', '=', 'tmuser_level.id')->get();
+        $data = User::join('tmlevel', 'users.tmlevel_id', '=', 'tmlevel.id')->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
@@ -69,13 +69,7 @@ class UserController extends Controller
             ->editColumn('nama', function ($p) {
                 return $p->name;
             }, true)
-            ->editColumn('foto_p', function ($p) {
-                // return ;
-                return '<img src="' . asset('file/photo_user/' . $p->photo) . '" alt="..."
-                                                        class="avatar-img rounded-circle"
-                                                        onerror="this.onerror=null;this.src=\'' . asset('assets/img/profile.jpg') . '\';"
-                                                        id="foto">';
-            }, true)
+
             ->addIndexColumn()
             ->rawColumns(['usercreate', 'foto_p', 'action', 'id'])
             ->toJson();
