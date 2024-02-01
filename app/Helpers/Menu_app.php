@@ -24,12 +24,12 @@ class Menu_app
     {
 
         $structure = '<li class="nav-item">
-        
+
 							<a href="' . $module_name . '">
-                            <i class="fas fa-list"></i> 
-                                ' . $font . '
+                            <i class="  ' . $font . '"></i>
+
                             <p>' . $title . '</p>
-                            
+
  							</a>
 						</li>';
         return $structure;
@@ -122,17 +122,17 @@ class Menu_app
                     $menu .= '
                   </ul>
                 </div>
-                
+
             </li>';
                     break;
                 case 2:
                     $menu .= '<li class="nav-item">
                             <ul class="nav">
                     ';
-                    $menu .= self::menu_single(Url('master/jadwal'), '', 'Jadwal');
-                    $menu .= self::menu_single(Url('master/rekap_presensi'), '', 'Rekap Presensi');
-                    $menu .= self::menu_single(Url('master/laporan_presensi'),'', 'Laporan Presensi');
-                    $menu .= self::menu_single(Url('master/scan'), '', 'Presensi');
+                    $menu .= self::menu_single(Url('master/jadwal'), 'flaticon-shopping-bag', 'Jadwal');
+                    $menu .= self::menu_single(Url('master/rekap_presensi'), 'flaticon-box-3', 'Rekap Presensi');
+                    $menu .= self::menu_single(Url('master/laporan_presensi'),'flaticon-remove-user', 'Laporan Presensi');
+                    $menu .= self::menu_single(Url('master/scan'), 'flaticon-windows', 'Presensi');
                     '</ul>
                     </li>
                     ';
