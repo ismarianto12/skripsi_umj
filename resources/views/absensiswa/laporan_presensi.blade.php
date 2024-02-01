@@ -116,6 +116,9 @@
                                 <th>Kelas</th>
                                 <th>Nama Mapel</th>
                                 <th>Pertemuan</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Selesai</th>
+                                <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Pengampu</th>
                                 <th style="width: 10%">Action</th>
@@ -142,21 +145,34 @@
             dom: 'Bfrtip',
             buttons: [{
                     extend: 'copyHtml5',
-                    className: 'btn btn-info btn-xs'
+                    className: 'btn btn-info btn-xs',
+                    exportOptions: {
+                        columns: [11, ':visible']
+                    }
                 },
                 {
                     extend: 'excelHtml5',
-                    className: 'btn btn-success btn-xs'
+                    className: 'btn btn-success btn-xs',
+                    exportOptions: {
+                        columns: [11, ':visible']
+                    }
                 },
                 {
                     extend: 'csvHtml5',
-                    className: 'btn btn-warning btn-xs'
+                    className: 'btn btn-warning btn-xs',
+                    exportOptions: {
+                        columns: [11, ':visible']
+                    }
+
                 },
                 {
                     extend: 'pdfHtml5',
                     orientation: 'landscape',
                     pageSize: 'LEGAL',
-                    className: 'btn btn-prirmay btn-xs'
+                    className: 'btn btn-prirmay btn-xs',
+                    exportOptions: {
+                        columns: [11, ':visible']
+                    }
                 }
             ],
             processing: true,
@@ -209,6 +225,18 @@
                     name: 'pertemuan'
                 },
                 {
+                    data: 'jam_mulai',
+                    name: 'jam_mulai'
+                },
+                {
+                    data: 'jam_selesai',
+                    name: 'jam_selesai'
+                },
+                {
+                    data: 'tanggal',
+                    name: 'tanggal'
+                },
+                {
                     data: 'status_hadir',
                     name: 'status_hadir',
                     render: function(data, type, row) {
@@ -223,7 +251,7 @@
                         } else if (data === 'S') {
                             return '<button class="btn btn-danger btn-sm"><i class="fa fa-uncheck"></i>SAKIT</button>';
 
-                        } 
+                        }
 
                     }
                 },

@@ -50,6 +50,10 @@ class PresensiController extends Controller
                 'siswa.kelas as kelas_id',
                 'siswa.nik',
                 'siswa.nama as siswa_nama',
+                'jadwal.jam_selesai',
+                'jadwal.jam_mulai',
+                'jadwal.tanggal',
+
             )
             ->join('karyawan', 'karyawan.id', '=', 'presensi.guru_id', 'left')
             ->join('jadwal', 'jadwal.id', '=', 'presensi.jadwal_id', 'left')
@@ -127,7 +131,7 @@ class PresensiController extends Controller
         $jam_sekarang = date('H:i:s');
         $jadwal_id = $request->jadwal_id;
 
-         try {
+        try {
             $pertemuan = $this->request->pertemuan;
             $check = DB::table('presensi')
                 ->where('pertemuan', $pertemuan)
