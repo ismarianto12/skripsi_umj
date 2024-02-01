@@ -3,9 +3,11 @@
     @include('layouts.breadcum')
     <div class="col-md-12">
         <div class="card">
-            <div id="video-container">
+            <div id="hasil_render"></div>
+            <div id="video-container" style="margin: 0 auto">
                 <video id="qr-video" style="width: 100%"></video>
             </div>
+
             {{-- <div class="col-md-12 row">
                 <div class="col-md-5">
                     <label>
@@ -63,11 +65,10 @@
                             <span id="cam-qr-result-timestamp"></span>
                         </div>
 
-                        <div class="form-group row">
-                            <button id="start-button" class="btn btn-primary btn-sm" style="width: 50%">Start</button>
+                        {{-- <div class="form-group row">
                             <button id="stop-button" class="batal_presensi btn btn-danger btn-sm"
                                 style="width: 50%">Stop</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -111,13 +112,32 @@
         const fileSelector = document.getElementById('file-selector');
         const fileQrResult = document.getElementById('file-qr-result');
 
+
+        const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
+            onDecodeError: error => {
+                camQrResult.textContent = error;
+                camQrResult.style.color = 'inherit';
+            },
+            highlightScanRegion: true,
+            highlightCodeOutline: true,
+        });
+
+
+
         function setResult(label, result) {
             console.log(result.data);
             let data = result.data;
             let dataArray = data.split('|');
             let nama = dataArray[2];
-            let kelas = dataArray[1];
-            let id_siswa = dataArray[3];
+            let id_siswa = dataArray[1];
+            let kelas = dataArray[3];
+
+            console.log(dataArray, 'detail get')
+            localStorage.setItem("getid_siswa", id_siswa);
+
+            // if(id_siswa ===)
+
+            // let data = result.data;
 
 
             if (nama === undefined) {
@@ -125,46 +145,53 @@
                     'QR bukan Kartu Siswa',
                     'error');
             } else {
-                Swal.fire('Hadir', `${nama} <br />`, 'success');
 
-                var varkelas_id = localStorage
-                    .getItem(
-                        'kelasdata');
+                $(`#hasil_render`).html(`
+                        <div style="text-align: center;margin-top: 26px;">
+                                ${nama}
+                                Hadir
+                             <h1>Success </h1>
+                             <br />
+                             </div>
+                            `)
+                $('.render_siswa')
+                    .html(
+                        `<b>${nama}</b>`
+                    );
+                $('.render_hadir')
+                    .html(
+                        `<b>Hadir</b>`
+                    );
+                const getid_siswa = localStorage.getItem("getid_siswa");
+                if (parseInt(getid_siswa) !== parseInt(id_siswa)) {
+                    var varkelas_id = localStorage
+                        .getItem(
+                            'kelasdata');
 
-                $.ajax({
-                    url: '{{ Url('/api/saveabsen') }}',
-                    type: 'POST',
-                    data: {
-                        id_siswa: id_siswa,
-                        pertemua: '{{ $jadwal->pertemuan }}',
-                        jadwal_id: '{{ $jadwal->jadwal_id }}',
-                        guru_id: '{{ $jadwal->guru_id }}',
-                        status: '1',
-                        user_id: '{{ Auth::user()->id }}'
-                    },
-                    success: function(
-                        response) {
-                        // Swal.fire(
-                        //     'Hadir',
-                        //     `${nama} <br /> Kelas ${kelas}`,
-                        //     'success'
-                        // );
-                        $('.render_siswa')
-                            .html(
-                                `<b>${nama}</b>`
-                            );
-                        $('.render_hadir')
-                            .html(
-                                `<b>Hadir</b>`
-                            );
-                    },
-                    error: function(xhr,
-                        status,
-                        error) {
+                    $.ajax({
+                        url: '{{ Url('/api/saveabsen') }}',
+                        type: 'POST',
+                        data: {
+                            id_siswa: id_siswa,
+                            pertemuan: '{{ $jadwal->pertemuan }}',
+                            jadwal_id: '{{ $jadwal->jadwal_id }}',
+                            guru_id: '{{ $jadwal->guru_id }}',
+                            status: '1',
+                            user_id: '{{ Auth::user()->id }}'
+                        },
+                        success: function(
+                            response) {
 
-                        // Lakukan hal lain setelah terjadi error jika perlu
-                    },
-                });
+
+                        },
+                        error: function(xhr,
+                            status,
+                            error) {
+
+                            // Lakukan hal lain setelah terjadi error jika perlu
+                        },
+                    });
+                }
             }
 
             label.innerHTML = '<div class="alert alert-info"> Hadir : ' + result.data + "</div>";
@@ -178,15 +205,6 @@
 
         }
 
-
-        const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
-            onDecodeError: error => {
-                camQrResult.textContent = error;
-                camQrResult.style.color = 'inherit';
-            },
-            highlightScanRegion: true,
-            highlightCodeOutline: true,
-        });
 
         // const updateFlashAvailability = () => {
         //     scanner.hasFlash().then(hasFlash => {
@@ -236,11 +254,12 @@
 
         // document.getElementById('start-button').addEventListener('click', () => {
 
+
         // });
 
-        document.getElementById('stop-button').addEventListener('click', () => {
-            scanner.stop();
-        });
+        // document.getElementById('stop-button').addEventListener('click', () => {
+        //     scanner.stop();
+        // });
 
         // ####### File Scanning #######
 

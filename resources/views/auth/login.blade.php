@@ -48,7 +48,7 @@
                 <br /> <br /><br />
                 <div style="text-align:center">
                     <br /> <br /><br />
-                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" style="width: 50%" />
+                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" style="width: 70%;margin: 0 auto;" />
 
                     <h4 className="text-center" style="text-align: center;">
                         SISTEM PRESENSI SMP MUHAMMADIYAH 17 CIPUTAT

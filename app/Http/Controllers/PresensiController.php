@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
-
-use App\Models\Presensi;
-use Illuminate\Http\Request;
-use Properti_app;
-use Illuminate\Support\Facades\DB;
 use App\Models\Jadwal;
+use App\Models\Presensi;
+use DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Properti_app;
 
 class PresensiController extends Controller
 {
-    function __construct(Request $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
@@ -21,7 +20,7 @@ class PresensiController extends Controller
     {
 
     }
-    function api()
+    public function api()
     {
 
         $kelas = $this->request->kelas_id;
@@ -94,7 +93,7 @@ class PresensiController extends Controller
             $check = DB::table('presensi')->where('pertemuan', $pertemuan)->get();
             if ($check->count() > 0) {
                 return response()->json([
-                    "error" => 'gagal pertemnuan sudah ada sebelumnya'
+                    "error" => 'gagal pertemnuan sudah ada sebelumnya',
                 ], 400);
             } else {
 
@@ -112,29 +111,32 @@ class PresensiController extends Controller
                 $data->save();
 
                 return response()->json([
-                    'msg' => 'data berhasil di simpan'
+                    'msg' => 'data berhasil di simpan',
                 ]);
             }
         } catch (\Throwable $th) {
             return response()->json([
-                'msg' => $th->getMessage()
+                'msg' => $th->getMessage(),
             ], 400);
         }
     }
-
 
     public function saveabsen(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
         $jam_sekarang = date('H:i:s');
         $jadwal_id = $request->jadwal_id;
-        try {
+
+         try {
             $pertemuan = $this->request->pertemuan;
-            $check = DB::table('presensi')->where(['pertemuan' => $pertemuan, 'id_siswa' => $this->request->id_siswa])->get();
+            $check = DB::table('presensi')
+                ->where('pertemuan', $pertemuan)
+                ->where('id_siswa', $this->request->id_siswa)
+                ->get();
             if ($check->count() > 0) {
                 return response()->json([
-                    "error" => '<b>Gagal presensi sudah ada sebelumnya</b>'
-                ], 500);
+                    "error" => '<b>Gagal presensi sudah ada sebelumnya</b>',
+                ], 200);
             } else {
                 $nowdata = date('Y-m-d');
                 $data = new Presensi;
@@ -155,7 +157,7 @@ class PresensiController extends Controller
             }
         } catch (\Throwable $th) {
             return response()->json([
-                "error" => $th->getMessage()
+                "error" => $th->getMessage(),
             ], 500);
         }
     }

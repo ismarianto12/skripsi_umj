@@ -91,7 +91,7 @@
 
                 <div class="container-fluid">
                     <div class="collapse" id="search-nav">
-                        <h4>Sistem Informasi Presensi</h4>
+                        <h4>Sistem Presensi</h4>
                     </div>
                     <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                         <li class="nav-item toggle-nav-search hidden-caret">
@@ -130,7 +130,7 @@
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span style="font-weight: bold;">
                                     <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive"
-                                        style="width: 70%" />
+                                        style="width: 70%;margin: 0 auto;" />
                                     <center>
                                         Akses: @if (Auth::user()->level_id == '1')
                                             {{ Str::ucfirst(Auth::user()->username) }}

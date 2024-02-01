@@ -128,13 +128,13 @@ class Menu_app
             </li>';
                     break;
                 case 2:
-                    $menu .= '<li class="nav-item">
+                    $menu .= '<li>
                             <ul class="nav">
                     ';
                     $menu .= self::menu_single(Url('master/jadwal'), 'flaticon-shopping-bag', 'Jadwal');
                     $menu .= self::menu_single(Url('master/rekap_presensi'), 'flaticon-box-3', 'Rekap Presensi');
-                    $menu .= self::menu_single(Url('master/laporan_presensi'),'flaticon-remove-user', 'Laporan Presensi');
                     $menu .= self::menu_single(Url('master/scan'), 'flaticon-windows', 'Presensi');
+                    $menu .= self::menu_single(Url('master/laporan_presensi'),'flaticon-remove-user', 'Laporan Presensi');
                     '</ul>
                     </li>
                     ';
