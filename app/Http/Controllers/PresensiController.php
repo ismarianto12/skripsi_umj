@@ -51,6 +51,7 @@ class PresensiController extends Controller
                 'siswa.nik',
                 'siswa.nama as siswa_nama',
                 'jadwal.jam_selesai',
+                'jadwal.hari',
                 'jadwal.jam_mulai',
                 'jadwal.tanggal',
 
