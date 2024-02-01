@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'api']], function () {
         Route::resource('mapel', MapelController::class);
         Route::resource('jadwal', JadwalController::class);
         Route::resource('rekap_presensi', SiswaPresensiController::class);
+        Route::resource('user', UserController::class);
 
         Route::post('presensi_update/{id}', [SiswaPresensiController::class, 'presensi_update'])->name('presensi_update');
         Route::get('scan', [SiswaPresensiController::class, 'scan'])->name('scan');
