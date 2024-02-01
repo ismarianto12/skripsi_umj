@@ -123,6 +123,7 @@
         });
 
 
+        let jumlah = 1;
 
         function setResult(label, result) {
             console.log(result.data);
@@ -134,11 +135,9 @@
 
             console.log(dataArray, 'detail get')
             localStorage.setItem("getid_siswa", id_siswa);
-
-            // if(id_siswa ===)
-
-            // let data = result.data;
-
+            if (parseInt(getid_siswa) === parseInt(id_siswa)) {
+                console.log(jumlah, 'jumlah_scandata_par');
+            }
 
             if (nama === undefined) {
                 Swal.fire('Error',
@@ -162,36 +161,38 @@
                     .html(
                         `<b>Hadir</b>`
                     );
-                const getid_siswa = localStorage.getItem("getid_siswa");
-                if (parseInt(getid_siswa) !== parseInt(id_siswa)) {
-                    var varkelas_id = localStorage
-                        .getItem(
-                            'kelasdata');
+                var getid_siswa = localStorage.getItem("getid_siswa");
+                console.log(parseInt(getid_siswa) !== parseInt(id_siswa), 'logic main app')
 
-                    $.ajax({
-                        url: '{{ Url('/api/saveabsen') }}',
-                        type: 'POST',
-                        data: {
-                            id_siswa: id_siswa,
-                            pertemuan: '{{ $jadwal->pertemuan }}',
-                            jadwal_id: '{{ $jadwal->jadwal_id }}',
-                            guru_id: '{{ $jadwal->guru_id }}',
-                            status: '1',
-                            user_id: '{{ Auth::user()->id }}'
-                        },
-                        success: function(
-                            response) {
+                // if (parseInt(getid_siswa) !== parseInt(id_siswa)) {
+                var varkelas_id = localStorage
+                    .getItem(
+                        'kelasdata');
+
+                $.ajax({
+                    url: '{{ Url('/api/saveabsen') }}',
+                    type: 'POST',
+                    data: {
+                        id_siswa: id_siswa,
+                        pertemuan: '{{ $jadwal->pertemuan }}',
+                        jadwal_id: '{{ $jadwal->jadwal_id }}',
+                        guru_id: '{{ $jadwal->guru_id }}',
+                        status: '1',
+                        user_id: '{{ Auth::user()->id }}'
+                    },
+                    success: function(
+                        response) {
 
 
-                        },
-                        error: function(xhr,
-                            status,
-                            error) {
+                    },
+                    error: function(xhr,
+                        status,
+                        error) {
 
-                            // Lakukan hal lain setelah terjadi error jika perlu
-                        },
-                    });
-                }
+                        // Lakukan hal lain setelah terjadi error jika perlu
+                    },
+                });
+                // }
             }
 
             label.innerHTML = '<div class="alert alert-info"> Hadir : ' + result.data + "</div>";
@@ -202,6 +203,8 @@
                 label.innerHTML = ''; // Menghapus konten setelah beberapa waktu
                 label.style.color = 'inherit';
             }, 100);
+
+            jumlah++;
 
         }
 
