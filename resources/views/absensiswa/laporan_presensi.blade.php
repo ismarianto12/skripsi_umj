@@ -118,6 +118,7 @@
                                 <th>Pertemuan</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Selesai</th>
+                                <th>Hari</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Pengampu</th>
@@ -231,6 +232,10 @@
                 {
                     data: 'jam_selesai',
                     name: 'jam_selesai'
+                },
+                {
+                    data: 'hari',
+                    name: 'hari'
                 },
                 {
                     data: 'tanggal',
