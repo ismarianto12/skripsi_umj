@@ -117,11 +117,11 @@
         @foreach ($siswa as $data)
             <div class="card">
                 <div class="header">
-                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" style="width: 30%;margin: 0 auto;"/>
+                    <img src="{{ asset('assets/img/logo_telkom.png') }}" class="img-responsive" style="width: 23%;margin: 0 auto;"/>
 
                     <h3>SMP MUHAMMADIYAH 17 CIPUTAT</h3>
                 </div>
-                <table style="margin-top: -80px">
+                <table style="margin-top: -10px">
                     <tr>
                         <td>Nama :</td>
                         <td>{{ $data->nama }}</td>
