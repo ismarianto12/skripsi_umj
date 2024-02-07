@@ -43,8 +43,7 @@
                                 <th></th>
                                 <th>Username</th>
                                 <th>Nama</th>
-                                <th>Proyek</th>
-                                <th>Username</th>
+                                 <th>Username</th>
                                 <th>Email</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
@@ -84,13 +83,10 @@
                     name: 'username'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'nama',
+                    name: 'nama'
                 },
-                {
-                    data: 'username',
-                    name: 'username',
-                },
+
                 {
                     data: 'level',
                     name: 'level',

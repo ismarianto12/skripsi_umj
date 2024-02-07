@@ -69,7 +69,7 @@ class UserController extends Controller
                 return  '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
             }, true)
             ->editColumn('nama', function ($p) {
-                return $p->name;
+                return ($p->nama == '') ? $p->name : $p->nama;
             }, true)
 
             ->addIndexColumn()
