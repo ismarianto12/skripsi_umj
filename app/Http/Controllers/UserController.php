@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tmlevel;
-use Illuminate\Http\Request;
 use App\Models\User;
 use DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -20,13 +20,12 @@ class UserController extends Controller
     protected $request;
     protected $route;
     protected $view;
-    function __construct(Request $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->view    = '.user.';
-        $this->route   = 'master.user.';
+        $this->view = '.user.';
+        $this->route = 'master.user.';
     }
-
 
     public function index()
     {
@@ -59,21 +58,25 @@ class UserController extends Controller
     public function api()
     {
         $data = User::join('tmlevel', 'users.tmlevel_id', '=', 'tmlevel.id')
-        ->join('karyawan','karyawan.nik','=','users.username','left')
-        ->get();
+            ->join('karyawan', 'karyawan.nik', '=', 'users.username', 'left')
+            ->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
             })
             ->editColumn('action', function ($p) {
-                return  '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
+                return '<a href="" class="btn btn-warning btn-xs" id="edit" data-id="' . $p->id . '"><i class="fa fa-edit"></i>Edit </a> ';
             }, true)
+
             ->editColumn('nama', function ($p) {
                 return ($p->nama == '') ? $p->name : $p->nama;
             }, true)
+            ->editColumn('username', function ($p) {
+                return ($p->username == '') ? $p->username : $p->username;
+            }, true)
 
             ->addIndexColumn()
-            ->rawColumns(['usercreate', 'foto_p', 'action', 'id'])
+            ->rawColumns(['username', 'nama', 'id'])
             ->toJson();
     }
     /**
@@ -89,7 +92,7 @@ class UserController extends Controller
             'password' => 'required',
             'email' => 'required|unique:users,email',
             'tmlevel_id' => 'required',
-            'foto' => 'mimes:png,jpg'
+            'foto' => 'mimes:png,jpg',
         ]);
         try {
             $data = new User;
@@ -101,7 +104,7 @@ class UserController extends Controller
             } else {
                 $setname = rand(122, 333) . '-' . $tgl . '.' . $ext->getClientOriginalExtension();
                 $ext->move('./file/photo_user/', $setname);
-                $data->photo  = $setname;
+                $data->photo = $setname;
             }
             $data->username = $this->request->username;
             $data->password = bcrypt($this->request->password);
@@ -113,12 +116,12 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'msg' => 'data user berhasil dtambah'
+                'msg' => 'data user berhasil dtambah',
             ]);
         } catch (User $t) {
             return response()->json([
                 'status' => 1,
-                'msg' =>  $t,
+                'msg' => $t,
             ]);
         }
     }
@@ -153,7 +156,6 @@ class UserController extends Controller
         ));
     }
 
-
     public function profilesave()
     {
         $this->request->validate([
@@ -186,12 +188,12 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'msg' => 'data user berhasil edit'
+                'msg' => 'data user berhasil edit',
             ]);
         } catch (User $t) {
             return response()->json([
                 'status' => 1,
-                'msg' =>  $t,
+                'msg' => $t,
             ]);
         }
     }
@@ -219,7 +221,7 @@ class UserController extends Controller
         if (!$this->request->ajax()) {
             return response()->json([
                 'data' => 'data null',
-                'aspx' => 'response aspx fail '
+                'aspx' => 'response aspx fail ',
             ]);
         }
         //
@@ -290,12 +292,12 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'msg' => 'data user berhasil edit'
+                'msg' => 'data user berhasil edit',
             ]);
         } catch (User $t) {
             return response()->json([
                 'status' => 1,
-                'msg' =>  $t,
+                'msg' => $t,
             ]);
         }
     }
@@ -310,7 +312,7 @@ class UserController extends Controller
     {
         try {
             if (is_array($this->request->id)) {
-                $datas =  user::whereIn('id', $this->request->id);
+                $datas = user::whereIn('id', $this->request->id);
                 foreach ($datas as $data) {
                     $tgl = Carbon::now()->format('y-m-d');
                     $ext = $this->request->file('foto');
@@ -329,12 +331,12 @@ class UserController extends Controller
             }
             return response()->json([
                 'status' => 1,
-                'msg' => 'Data berhasil di hapus'
+                'msg' => 'Data berhasil di hapus',
             ]);
         } catch (user $t) {
             return response()->json([
                 'status' => 2,
-                'msg' => $t
+                'msg' => $t,
             ]);
         }
     }
