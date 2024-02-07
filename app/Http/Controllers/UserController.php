@@ -72,7 +72,7 @@ class UserController extends Controller
                 return ($p->nama == '') ? $p->name : $p->nama;
             }, true)
             ->editColumn('username', function ($p) {
-                return ($p->username == '') ? $p->username : $p->username;
+                return ($p->username == '') ? $p->nik : $p->nik;
             }, true)
 
             ->addIndexColumn()
