@@ -76,7 +76,7 @@ class UserController extends Controller
             }, true)
 
             ->addIndexColumn()
-            ->rawColumns(['username', 'nama', 'id'])
+            ->rawColumns(['username', 'nama', 'id','action'])
             ->toJson();
     }
     /**
