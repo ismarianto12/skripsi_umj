@@ -58,7 +58,9 @@ class UserController extends Controller
 
     public function api()
     {
-        $data = User::join('tmlevel', 'users.tmlevel_id', '=', 'tmlevel.id')->get();
+        $data = User::join('tmlevel', 'users.tmlevel_id', '=', 'tmlevel.id')
+        ->join('karyawan','karyawan.nik','=','users.username','left')
+        ->get();
         return DataTables::of($data)
             ->editColumn('id', function ($p) {
                 return "<input type='checkbox' name='cbox[]' value='" . $p->id . "' />";
