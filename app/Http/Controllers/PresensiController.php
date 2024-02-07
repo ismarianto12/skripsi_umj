@@ -62,7 +62,7 @@ class PresensiController extends Controller
             ->join('mapel', 'mapel.id', '=', 'jadwal.mapel_id', 'left')
             ->join('kelas', 'presensi.kelas_id', '=', 'kelas.id', 'left');
 
-        if (\Auth::user()->level_akses == '2') {
+        if (\Auth::user()->tmlevel_id == '2') {
             $data->where('jadwal.guru_id', '=', $guru_id);
         }
         $sql = $data->get();
